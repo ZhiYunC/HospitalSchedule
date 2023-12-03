@@ -6,7 +6,7 @@ namespace Demo.Models{
     {
         // private readonly string ConnStr = "";
         public List<Doctor> GetDoctors() {
-            string connString = "server=localhost;port=3306;user id=zhiyun;password=abcd123456789;database=hospitalscheduling;charset=utf8;";
+            string connString = "server=localhost;port=3306;user id=zhiyun;password=***;database=hospitalscheduling;charset=utf8;";
             List<Doctor> doctors = new List<Doctor>();
             MySqlConnection sqlConnection = new MySqlConnection(connString);
             MySqlCommand sqlCommand = new MySqlCommand("SELECT * FROM doctors");
