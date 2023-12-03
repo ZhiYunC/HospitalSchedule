@@ -121,7 +121,7 @@
     </div>
 
     <script>
-        // 使用 fetch 加载共享的 HTML 内容
+        // 使用 fetch 顯示 Share 導航欄的檔案
         fetch('/Manager/Share')
             .then(response => response.text())
             .then(html => {
@@ -129,27 +129,39 @@
                 document.getElementById('sharedContentContainer').innerHTML = html;
             }
         );
-        //取的科別、病房、時間
+
+        //獲取每頁應顯示的科別、病房、時間
+
         // 獲取URL中的參數函數
         function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
+            if (!url) url = window.location.href; // 如果未提供url，使用當前瀏覽器地址
+            name = name.replace(/[\[\]]/g, "\\$&"); // 將特殊字符進行轉換，以便正確處理正則表達式
+            // 使用正則表達式解析URL，並將匹配結果存儲在results中
             var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
                 results = regex.exec(url);
-            if (!results) return null;
+            if (!results) return null; // 如果找不到指定的參數，或者該參數值為空，則返回null或空字串
             if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
+            return decodeURIComponent(results[2].replace(/\+/g, " "));// 對參數值進行解碼，將特殊字符轉換為正確的字符
         }
 
         // 顯示所選的科別、時間、病房
         document.addEventListener('DOMContentLoaded', function() {
-            const selectedDepartment = getParameterByName('department');
-            const selectedWard = getParameterByName('ward');
+            const selectedDepartment = getParameterByName('department'); // 獲取名稱為'department'的參數值
+            const selectedWard = getParameterByName('ward');  // 獲取名稱為'ward'的參數值
             
-            // 顯示在HTML中，可以根據需要進行調整
+            // 將所獲取的參數值顯示在HTML中
             document.getElementById('selectedDepartment').innerText = selectedDepartment;
             document.getElementById('selectedWard').innerText = selectedWard;
             
+            // 隱藏不屬於選定科別的醫生
+            const allDoctorElements = document.querySelectorAll('.doctor-list');
+            allDoctorElements.forEach(doctorElement => {
+                const department = doctorElement.getAttribute('data-department');
+                if (department !== selectedDepartment) {
+                    doctorElement.style.display = 'none';
+                }
+            });
+
         });
 
         // 功能：選擇班數(此部分不需要)

@@ -1,0 +1,13 @@
+push到github
+
+* 有修改可以用：
+git add .
+git commit -m "message"
+git push -u origin main
+
+* 第一次：
+# 這行指令只需要輸入第一次即可
+git remote add origin <your url>
+# 分支
+git branch -M main
+git push -u origin main
