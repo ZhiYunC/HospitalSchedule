@@ -111,7 +111,7 @@
                 {
                     @foreach (Doctor doctor in doctors)
                     {
-                        <div class="doctor-list">
+                        <div class="doctor-list" data-department="@doctor.Department">
                             <span>@doctor.Name</span>
                             <input type="number" id="doctor@doctor.ID" min="0" max="5" value="0">
                         </div>
@@ -152,7 +152,7 @@
             // 將所獲取的參數值顯示在HTML中
             document.getElementById('selectedDepartment').innerText = selectedDepartment;
             document.getElementById('selectedWard').innerText = selectedWard;
-            
+        
             // 隱藏不屬於選定科別的醫生
             const allDoctorElements = document.querySelectorAll('.doctor-list');
             allDoctorElements.forEach(doctorElement => {
