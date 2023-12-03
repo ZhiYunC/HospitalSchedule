@@ -39,7 +39,9 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
-        return View();
+        // 执行页面跳转
+        return RedirectToAction("calender", "Manager"); // 跳转到 Home 控制器的 Welcome 动作方法
+        // return View();
     }
     public IActionResult Privacy()
     {
