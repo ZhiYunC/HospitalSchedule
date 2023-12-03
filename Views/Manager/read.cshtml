@@ -1,0 +1,40 @@
+@using Demo.Models;
+@{
+    List<Doctor> doctors = ViewBag.doctors;
+}
+
+@if (doctors != null)
+{
+    foreach (Doctor doctor in doctors)
+    {
+        <div>
+            <span>@doctor.ID</span>
+            <span>@doctor.Name</span>
+        </div>
+    }
+}
+else
+{
+    <p>No doctors available.</p>
+}
+
+@*<form action="/php/read_data.php" method="POST">
+    <table>
+        <tr>
+            <td class="font_size" colspan="2">會員查詢</td>
+        </tr>
+        <tr>
+            <td class="font_size">請輸入帳號</td>
+            <td><input class="input" type="text" name="account"></td>
+        </tr>
+        <tr class="tr_center">
+            <td colspan="2"><input class="input_submit" type="submit" name="submit" value="確認"></td>
+        </tr>
+    </table>
+    <div>
+    @foreach (var item in ViewData["Data"] as List<string>)
+    {
+        <p>@item</p>
+    }
+</div>
+</form> *@

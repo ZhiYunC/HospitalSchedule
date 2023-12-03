@@ -1,0 +1,180 @@
+@{ Layout = null; } @*取消導航欄*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        .button-style {
+            background-color: transparent;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            padding: 15px;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .button-style:hover {
+            color: #FFD1A4;
+        }
+
+        .person {
+            font-size: 12px;
+            margin-top: 2px;
+            color: #555;
+        }
+        /*選擇病房、科別、時間的按鈕*/
+        .select-buttons {
+            margin-top: 20px;
+        }
+
+        .select-buttons button {
+            background-color:white;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 2px solid #B8A8A8;
+        }
+
+        .select-buttons button.selected {
+            background-color:#B8A8A8;
+            color: black;
+        }
+        /* "開始排班" 按鈕樣式 */
+        .start-scheduling {
+            text-align: center;
+        }
+
+        .start-scheduling button {
+            background-color:#A45151 ;
+            color: white;
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-top: 70px;
+        }
+
+        .start-scheduling button:hover {
+            background-color: #BF7D7D;
+        }
+        /**/
+        .top{
+            text-align: center;
+            margin-top:50px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="sharedContentContainer"></div>
+
+
+    
+    <div class="top">
+        <h2 id="currentMonth">請選擇科別</h2>
+        <div class="select-buttons">
+            <!-- 科別按鈕 -->
+            <h3>內科部</h3>
+            <button data-type="department" data-value="內科" onclick="selectOption('department', '內科')">內科</button>
+            <button data-type="department" data-value="胃腸肝膽科" onclick="selectOption('department', '胃腸肝膽科')">胃腸肝膽科</button>
+            <button data-type="department" data-value="新陳代謝科" onclick="selectOption('department', '新陳代謝科')">新陳代謝科</button>
+            <button data-type="department" data-value="胸腔內科" onclick="selectOption('department', '胸腔內科')">胸腔內科</button>
+            <button data-type="department" data-value="胃臟內科" onclick="selectOption('department', '胃臟內科')">胃臟內科</button>
+            <button data-type="department" data-value="一般內科" onclick="selectOption('department', '一般內科')">一般內科</button>
+            <button data-type="department" data-value="血液腫瘤科" onclick="selectOption('department', '血液腫瘤科')">血液腫瘤科</button>
+            <button data-type="department" data-value="風濕免疫科" onclick="selectOption('department', '風濕免疫科')">風濕免疫科</button>
+            <button data-type="department" data-value="感染科" onclick="selectOption('department', '感染科')">感染科</button>
+        </div>
+        <div class="select-buttons">
+            <!-- 科別按鈕 -->
+            <h3>外科部</h3>
+            <button data-type="department" data-value="外科" onclick="selectOption('department', '外科')">外科</button>
+            <button data-type="department" data-value="神經外科" onclick="selectOption('department', '神經外科')">神經外科</button>
+            <button data-type="department" data-value="大腸直腸外科" onclick="selectOption('department', '大腸直腸外科')">大腸直腸外科</button>
+            <button data-type="department" data-value="乳房外科" onclick="selectOption('department', '乳房外科')">乳房外科</button>
+            <button data-type="department" data-value="一般外科" onclick="selectOption('department', '一般外科')">一般外科</button>
+            <button data-type="department" data-value="心臟血管外科" onclick="selectOption('department', '心臟血管外科')">心臟血管外科</button>
+            <button data-type="department" data-value="整形外科" onclick="selectOption('department', '整形外科')">整形外科</button>
+            <button data-type="department" data-value="胸腔外科" onclick="selectOption('department', '胸腔外科')">胸腔外科</button>
+            <button data-type="department" data-value="小兒外科" onclick="selectOption('department', '小兒外科')">小兒外科</button>
+            <button data-type="department" data-value="外傷科" onclick="selectOption('department', '外傷科')">外傷科</button>
+        </div>
+
+        <h2>請選擇病房</h2>
+        <div class="select-buttons">
+            <!-- 病房按鈕 -->
+            <button data-type="ward" data-value="普通病房/一般病房" onclick="selectOption('ward', '普通病房/一般病房')">普通病房/一般病房</button>
+            <button data-type="ward" data-value="加護病房" onclick="selectOption('ward', '加護病房')">加護病房</button>
+        </div>
+
+        <div class="start-scheduling">
+            <button id="startSchedulingBtn">開始排班</button>
+        </div>
+    </div>
+
+    <!-- 省略其他內容 -->
+
+    <script>
+        // 使用 fetch 加载共享的 HTML 内容
+        fetch('/Manager/Share')
+            .then(response => response.text())
+            .then(html => {
+                // 将加载的 HTML 插入到共享容器中
+                document.getElementById('sharedContentContainer').innerHTML = html;
+            }
+        );
+        //new
+        function selectOption(type, value) {
+            // 清除同類型按鈕的選中狀態
+            const buttons = document.querySelectorAll(`.select-buttons button[data-type="${type}"]`);
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+            });
+
+            // 設定選中的按鈕
+            const selectedButton = document.querySelector(`.select-buttons button[data-type="${type}"][data-value="${value}"]`);
+            selectedButton.classList.add('selected');
+
+            // 你可以在這裡執行其他相關的操作
+            console.log(`選擇 ${type}: ${value}`);
+        }
+
+        // 當按下開始排班按鈕時的事件處理函數
+        document.getElementById('startSchedulingBtn').addEventListener('click', function() {
+            // 獲取所選的科別、時間、病房
+            const selectedDepartment = document.querySelector('.select-buttons button[data-type="department"].selected').getAttribute('data-value');
+            const selectedWard = document.querySelector('.select-buttons button[data-type="ward"].selected').getAttribute('data-value');
+            
+
+            // 創建下一頁的 URL，並將所選值作為參數傳遞
+            const nextPageURL = `/Manager/Schedule_setting?department=${selectedDepartment}&ward=${selectedWard}`;
+
+            // 跳轉到下一頁
+            window.location.href = nextPageURL;
+        });
+    </script>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,179 @@
+@{ Layout = null; } @*取消導航欄*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:white ;
+        }
+
+        .person {
+            font-size: 12px;
+            margin-top: 2px;
+            color: #555;
+        }
+        
+
+        /*科別文字樣式*/
+        .selected-info {
+            background-color: #c0b0b0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 10px; /* 添加圓角 */
+            padding: 15px;
+            width: 1000px;
+            margin: auto;
+            margin-top: 50px;
+        }
+
+        .selected-info h3 {
+            margin: 0; /* 清除標題的預設邊距 */
+            margin-left: 30px; /* 可以根據需要調整標題之間的間距 */
+            font-size: 20px;
+        }
+
+        .selected-info p {
+            font-size: 20px;
+            margin: 0;
+            
+        }
+        /*醫師班數選擇列表*/
+        .doctor-list{
+            background-color: rgba(242, 242, 242, 0.82);
+            margin: 0 auto;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            padding: 15px;
+            width: 1000px;
+        }
+
+        #doctorList {
+            font-size: 20px;
+            list-style: none; /* 移除列表項的點 */
+            padding: 10px; /* 清除列表的內邊距 */
+            margin-bottom: 10px;
+        }
+
+        #doctorList li {
+            
+            padding: 10px;
+            border-bottom: 1px solid #ccc; /* 添加水平線，可以自行調整顏色 */
+        }
+
+        #doctorList span {
+            display: inline-block;
+            width: 150px; /* 設定醫生名字欄位的寬度 */
+        }
+
+        #doctorList input {
+            font-size: 16px;
+            width: 50px; /* 設定班數選擇按鈕的寬度 */
+        }
+    </style>
+</head>
+<body>
+    <div id="sharedContentContainer"></div>
+
+    <!-- 顯示所選值的元素 -->
+    <div class="selected-info">
+        <h3>科別：</h3>
+        <p id="selectedDepartment"></p>
+        <h3>病房：</h3>
+        <p id="selectedWard"></p>
+        
+        
+    </div>
+    <div class="doctor-list">
+            <ul id="doctorList">
+                <!-- 醫生名字和班數選擇按鈕將在這裡動態添加 -->
+            </ul>
+    </div>
+
+    <script>
+        // 使用 fetch 加载共享的 HTML 内容
+        fetch('/Manager/Share')
+            .then(response => response.text())
+            .then(html => {
+                // 将加载的 HTML 插入到共享容器中
+                document.getElementById('sharedContentContainer').innerHTML = html;
+            }
+        );
+        //取的科別、病房、時間
+        // 獲取URL中的參數函數
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        // 顯示所選的科別、時間、病房
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectedDepartment = getParameterByName('department');
+            const selectedWard = getParameterByName('ward');
+            
+
+            // 顯示在HTML中，可以根據需要進行調整
+            document.getElementById('selectedDepartment').innerText = selectedDepartment;
+            document.getElementById('selectedWard').innerText = selectedWard;
+            
+        });
+
+         @* // 新增醫生列表和班數選擇按鈕
+        document.addEventListener('DOMContentLoaded', function() {
+            // 醫生的範例資料（你可以用實際資料替換它）
+            const doctors = [
+                { name: '史密斯醫生', id: 'doctor1' },
+                { name: '約翰遜醫生', id: 'doctor2' },
+                // 根據需要添加更多醫生
+            ];
+
+            const doctorListElement = document.getElementById('doctorList');
+
+            doctors.forEach(doctor => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span>${doctor.name}</span>
+                    <input type="number" id="${doctor.id}" min="0" max="30" value="0">
+                `;
+                doctorListElement.appendChild(listItem);
+            });
+        }); *@
+
+        //從資料庫讀取資料
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取医生列表
+            fetch('doctor_list.php')
+                .then(response => response.json())
+                .then(doctorList => {
+                    const doctorListElement = document.getElementById('doctorList');
+
+                    doctorList.forEach(doctor => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `
+                            <span>${doctor.doctor_name}</span>
+                            <input type="number" id="${doctor.doctor_id}" min="0" max="30" value="0">
+                        `;
+                        doctorListElement.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching doctor list:', error));
+        });
+    </script>
+
+</body>
+</html>

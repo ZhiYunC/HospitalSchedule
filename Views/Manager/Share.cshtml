@@ -1,0 +1,215 @@
+@{ Layout = null; } @*取消導航欄*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{pageTitle}}</title>
+    <!-- 其他共享的头部信息 -->
+    <style>
+        @* body {
+            font-family: Arial, sans-serif;
+            margin-top: 0;
+            padding: 0;
+            background-color:white ;
+        } *@
+        @* .fixed{
+            position: fixed;
+            z-index: 1000;
+        } *@
+
+        header {
+            display: flex;
+            @* justify-content: space-between; *@
+            align-items: center;
+            color: rgb(0, 0, 0);
+            padding-left: 15px;
+            padding-right: 30px;
+            @* height: 70px; /* 調整高度 */ *@
+            @* background-color: rgba(242, 242, 242, 0.82); *@
+            @* background-color:#D6EFFF/*亮藍*/; *@
+            @* background-color:#D9DFE7;/*淺藍*/ *@
+            @* background-color:#4a5759;/*深綠*/ *@
+            @* background-color:#847577; /*深咖*/*@
+            @* background-color: #CCE4F0; *@
+            background-color: white;
+            vertical-align: bottom;
+            
+        } 
+        .title{
+            font-size: 17px;
+            margin-left:5px ;
+            color:#5A5859 ;
+            font-weight: bold;
+            margin-top: 20px;
+            font-family: JhengHei;
+        }
+
+        .remind{
+            font-size: 20px;
+            background-color: #e6cfcf;
+            border-radius: 5px ; /* 添加圓角 */
+            padding: 5px;
+        }
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #e6e4e4;
+            box-shadow: 0 4px 8px rgba(5, 5, 5, 0.3);
+            margin: 0;
+            
+        }
+        /*導航欄樣式*/
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            @* margin-right: 80px; *@
+            margin-left: 650px;
+            @* margin-top: 15px; *@
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        nav a {
+            @* color:white; *@
+            color: #6e6e6e;
+            text-decoration: none;
+            padding: 10px;
+            margin-top: 10px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        /*底線效果*/
+         nav a:after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: #B8A8A8;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            /*transition: width 0.3s;*/
+            border-bottom: 2px solid transparent; /* 初始時設定底線為透明 */
+            /*border-radius: 5px 5px 0 0;  添加圓角 */
+        } 
+        nav a:hover {
+            color: #B8A8A8;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+ 
+        /*有下拉選單的按鈕樣式*/
+        .settings-button {
+            background-color: transparent;
+            border: none;
+            @* color:white; *@
+            color: #6e6e6e;
+            cursor: pointer;
+            padding: 10px;
+            margin-top: 10px;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+            font-size: 18px;
+            font-weight: bold;
+            justify-content: flex-start;
+        }
+        .settings-button:hover {
+            color: #B8A8A8;
+        }
+        /*下拉選單*/
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 125px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            text-align: center;
+            transform: translateX(-10%);
+        }
+
+        .dropdown-content p {
+            color: #858484;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #B8A8A8;
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown img{
+            width: 30px;
+            height: 30px;
+            
+        }
+        img{
+            height: 50px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed">
+    <header>
+            <img src="~/image/fjcu_logo.png">
+            <div class="title">醫護人員排班系統</div>
+            <nav>
+                <a href="/Manager/Schedule" >排班</a>
+                <div class="dropdown">
+                    <button class="settings-button">查看班表</button>
+                    <div class="dropdown-content">
+                        <a href="/Manager/Index">暫定班表</a>
+                        <a href="/Manager/calender">確定班表</a>
+                    </div>
+                </div>
+                <a href="/Manager/doctor_date" >醫生偏好日期</a>
+                <div class="dropdown">
+                    <button class="settings-button">
+                        <img src="~/image/setting.png" alt="more">
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-content-people">
+                            <p>陳芷芸</p>
+                            <p>職類：管理者</p>
+                        </div>
+                        <a href="/Manager/read">登出</a>
+                        @* <a href="/Home/Index">登出</a> *@
+                    </div>
+                </div>
+            </nav>
+        
+    </header>
+
+    <hr>
+</div>
+    <!-- 其他共享的内容 -->
+
+    <!-- 共享的页脚信息 -->
+</body>
+</html>

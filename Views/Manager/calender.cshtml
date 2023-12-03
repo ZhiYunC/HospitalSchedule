@@ -1,0 +1,299 @@
+@{ Layout = null; } @*取消導航欄*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Calendar</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+        /*月曆*/
+        .content {
+            text-align: center;
+            margin-top: 30px; /* 調整月曆與上方的間距 */
+        }
+        table {
+            width: 70%;
+            margin:0 auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed; /* 新增固定表格佈局，讓寬度均分 */
+            border-radius: 5px 5px 0 0; /* 添加圓角 */
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #434343;
+            padding: 8px;
+            text-align: left; /* 將文本對齊方式改為左對齊 */
+        }
+
+        th {
+            background-color: #E0D3CC;
+            color: rgb(7, 7, 7);
+            padding: 12px; /* 調整表頭高度 */
+            text-align: center;
+        }
+
+        /* 調整單元格內的文本位置 */
+        td {
+            border: 1px solid #434343;/*月曆邊框顏色*/
+            padding: 0; /* 清除單元格內的內距 */
+            height: 120px; /* 調整單元格高度 */
+            position: relative;
+        }
+
+        td span {
+            position: absolute;
+            top: 10px; /* 距離頂部的距離 */
+            left: 10px; /* 距離左側的距離 */
+        }
+
+        /*選擇月份按鈕*/
+        .button-style {
+            background-color: transparent;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            padding: 15px;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+            font-size:20px;
+        }
+        .button-style:hover {
+            color: #B8A8A8;
+        }
+
+         .dropdown-month {
+            width: 200px;
+            text-align: center;
+        }
+
+        .month-option {
+            display: inline-block;
+            width: 33.33%;
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .month-option:hover {
+            background-color: #FFD1A4;
+            color: white;
+        }
+
+        .dropdown-month-year {
+            width: 200px;
+            text-align: center;
+        }
+
+        .month-year-option {
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .month-year-option:hover {
+            background-color: #B8A8A8;
+            color: white;
+        }
+        .person {
+            font-size: 12px;
+            margin-top: 2px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sharedContentContainer"></div>
+
+
+    <div class="content">
+        <h2 id="currentMonth">當月月曆</h2>
+        <div class="dropdown">
+            <div class="button-style dropdown-month" id="currentMonthText">選擇月份/年份</div>
+            <div class="dropdown-content" id="monthYearDropdown">
+                <!-- 生成月份和年份選項的部分在 JavaScript 中處理 -->
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>日</th>
+                    <th>一</th>
+                    <th>二</th>
+                    <th>三</th>
+                    <th>四</th>
+                    <th>五</th>
+                    <th>六</th>
+                </tr>
+            </thead>
+            <tbody id="calendar-body">
+                <!-- 這裡會由 JavaScript 動態生成月曆的日期 -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        
+        // 使用 fetch 加载共享的 HTML 内容
+        fetch('/Manager/Share')
+            .then(response => response.text())
+            .then(html => {
+                // 将加载的 HTML 插入到共享容器中
+                document.getElementById('sharedContentContainer').innerHTML = html;
+            }
+        );
+
+
+        // 生成月份和年份選項
+        const monthYearDropdown = document.getElementById('monthYearDropdown');
+        const currentMonthText = document.getElementById('currentMonthText');
+
+        for (let year = 2022; year <= 2023; year++) {
+            for (let month = 1; month <= 12; month++) {
+                const option = document.createElement('div');
+                option.classList.add('month-year-option');
+                option.textContent = `${year} 年 ${month} 月`;
+                option.addEventListener('click', function () {
+                    selectMonthYear(year, month);
+                });
+                monthYearDropdown.appendChild(option);
+            }
+        }
+
+        // 選擇月份/年份的按鈕點擊事件
+        currentMonthText.addEventListener('click', function () {
+            monthYearDropdown.style.display = monthYearDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // 當點擊月份/年份選項時更新當前月份和年份並隱藏下拉選單
+        function selectMonthYear(year, month) {
+            currentYear = year;
+            currentMonth = month - 1; // 月份是從 0 開始的，所以減 1
+            generateCalendar(currentYear, currentMonth);
+            monthYearDropdown.style.display = 'none';
+        }   
+
+
+        // 存儲人員的陣列
+        const schedule = [];
+        // 初始載入頁面時生成當月月曆
+        const currentDate = new Date();
+        let currentYear = currentDate.getFullYear();
+        let currentMonth = currentDate.getMonth();
+        generateCalendar(currentYear, currentMonth);
+
+        // 新增人員按鈕的點擊事件
+        const addPersonBtn = document.getElementById('addPersonBtn');
+        addPersonBtn.addEventListener('click', addPerson);
+
+        // 新增人員的函數
+        function addPersonToDay(cell) {
+            const day = parseInt(cell.textContent);
+            const person = prompt(`請輸入 ${currentYear} 年 ${currentMonth + 1} 月 ${day} 日的人員名稱:`);
+            if (person) {
+                schedule.push({ date: day, month: currentMonth, year: currentYear, person: person });
+                generateCalendar(currentYear, currentMonth);
+                console.log("Updated schedule:", schedule);
+            }
+        }
+        // 使用 JavaScript 來動態生成月曆的日期
+        function generateCalendar(year, month) {
+            // 取得月曆的第一天
+            const firstDay = new Date(year, month, 1);
+
+            // 取得當月的天數
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // 取得第一天是星期幾
+            const firstDayOfWeek = firstDay.getDay();
+
+            // 找到日曆的容器
+            const calendarBody = document.getElementById('calendar-body');
+
+            // 清空日曆的容器
+            calendarBody.innerHTML = '';
+
+            // 生成月曆的日期
+            let date = 1;
+            // 在生成每個單元格時為其添加唯一的 ID
+            const cell = document.createElement('td');
+            cell.id = `day-${date}`;
+
+            for (let i = 0; i < 6; i++) {
+                // 創建一行
+                const row = document.createElement('tr');
+                let rowHasContent = false; 
+
+                for (let j = 0; j < 7; j++) {
+                    // 創建一個單元格
+                    const cell = document.createElement('td');
+
+                    if (i === 0 && j < firstDayOfWeek) {
+                        // 填充空白的單元格
+                        cell.textContent = '';
+                    } else {
+                        // 填充日期
+                        if (date <= daysInMonth) {
+                            const existingContent = cell.innerHTML;
+                            cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day">${date}</span>`;
+                            date++;
+                            rowHasContent = true;
+
+                            // 添加点击事件
+                            cell.addEventListener('click', function () {
+                                addPersonToDay(this);
+                            });
+                        } else {
+                            // 超過當月的天數，填充空白的單元格
+                            cell.textContent = '';
+                        }
+                    }
+
+                    // 將單元格添加到行中
+                    row.appendChild(cell);
+                }
+
+                // 將行添加到日曆的容器
+                calendarBody.appendChild(row);
+            }
+
+            // 更新當前月份顯示
+            document.getElementById('currentMonth').textContent = `${year} 年 ${month + 1} 月`;
+
+            // 顯示已排班的人員
+            for (const item of schedule) {
+                if (item.year === year && item.month === month) {
+                    const dayCell = document.getElementById(`day-${item.date}`);
+                    if (dayCell) {
+                        const personDiv = document.createElement('div');
+                        personDiv.classList.add('person');
+                        personDiv.textContent = item.person;
+                        dayCell.appendChild(personDiv);
+                    }
+                }
+            }  
+        }
+
+            
+
+    </script>
+    
+</body>
+</html>
+
+
+
