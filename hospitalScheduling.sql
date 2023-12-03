@@ -9,13 +9,18 @@ SELECT * FROM doctors;
 
 -- 更新
 UPDATE doctors
-SET name="陳芷芸",department="一般外科"
+SET num=2
 WHERE id=1;
 
 UPDATE doctors
-SET name="林書榆",department="一般內科"
+SET num=3
 WHERE id=2;
 
 UPDATE doctors
-SET name="萬家妤",department="一般內科"
+SET num=2
 WHERE id=3;
+
+-- 增加欄位
+ALTER TABLE doctors ADD num char(1);
+-- 改型態
+ALTER TABLE doctors MODIFY num int(1);

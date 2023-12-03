@@ -1,4 +1,9 @@
 @{ Layout = null; } @*取消導航欄*@
+@using Demo.Models;
+@{
+    List<Doctor> doctors = ViewBag.doctors;
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -193,29 +198,30 @@
         <div class="flex">
             <!-- 醫生表格 -->
             <table class="doctor-table">
-                <thead>
-                    <tr>
-                        <th>醫生名字</th>
-                        <th>班數</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- 這裡可以添加具體的醫生和班數信息 -->
-                    <tr>
-                        <td>林書榆</td>
-                        <td>2</td>
-                    </tr>
-                    <tr>
-                        <td>萬家妤</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>陳芷芸</td>
-                        <td>2</td>
-                    </tr>
-                    <!-- 可以繼續添加其他醫生的信息 -->
-                </tbody>
+                
+                    <thead>
+                        <tr>
+                            <th>醫生名字</th>
+                            <th>班數</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <!-- 這裡可以添加具體的醫生和班數信息 -->
+                        @if (doctors != null)
+                        {
+                            @foreach (Doctor doctor in doctors)
+                            {
+                                <tr>
+                                    <td>@doctor.Name</td>
+                                    <td>@doctor.Num</td>
+                                </tr>
+                              }
+                            }
+                        <!-- 可以繼續添加其他醫生的信息 -->
+                    </tbody>
             </table>
+            
             <!-- 月曆表格 -->
 
             <table>

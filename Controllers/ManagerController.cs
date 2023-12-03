@@ -10,6 +10,11 @@ namespace Demo.Controllers
         // GET: /Login/Index
         public IActionResult Index()
         {
+            // 在這裡從數據庫獲取數據，並將數據傳遞給視圖
+            // ViewData["Data"] = GetDataFromDatabase();
+            DBmanager dbmanager = new DBmanager();
+            List<Doctor> doctors = dbmanager.GetDoctors();
+            ViewBag.doctors = doctors;
             return View();
         }
         public IActionResult Schedule()

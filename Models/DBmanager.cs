@@ -20,6 +20,7 @@ namespace Demo.Models{
                         ID = reader.GetInt32(reader.GetOrdinal("id")),
                         Name  = reader.GetString(reader.GetOrdinal("name")),
                         Department  = reader.GetString(reader.GetOrdinal("department")),
+                        Num  = reader.GetString(reader.GetOrdinal("num")),
                     };
                     doctors.Add(doctor);
                 }
