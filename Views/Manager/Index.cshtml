@@ -214,7 +214,7 @@
                             {
                                 <tr>
                                     <td>@doctor.Name</td>
-                                    <td>@doctor.Num</td>
+                                    <td>@doctor.Shift</td>
                                 </tr>
                               }
                             }
@@ -277,8 +277,11 @@
         }
 
         // 生成月份和年份選項
-        for (let year = 2022; year <= 2024; year++) {
-            for (let month = 1; month <= 12; month++) {
+        const nowdate=new Date();
+        let nowyear = nowdate.getFullYear();
+        let nowmonth = nowdate.getMonth();
+        for (let year = nowyear; year <= (nowyear+1); year++) {
+            for (let month = nowmonth; month <= 12; month++) {
                 const option = document.createElement('div');
                 option.classList.add('month-year-option');
                 option.textContent = `${year} 年 ${month} 月`;

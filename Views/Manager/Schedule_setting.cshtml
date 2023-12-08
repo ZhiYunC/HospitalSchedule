@@ -4,7 +4,6 @@
     List<Doctor> doctors = ViewBag.doctors;
 }
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +28,8 @@
 
         /*科別文字樣式*/
         .selected-info {
-            background-color: #c0b0b0;
+            @* background-color: #c0b0b0; *@
+            background-color: #CCE4F0;
             display: flex;
             flex-direction: row;
             justify-content: center;
@@ -53,14 +53,19 @@
             margin: 0;
             
         }
-        .list{
+
+        .list-background{
             background-color: rgba(242, 242, 242, 0.82);
             border-radius: 10px; /* 添加圓角 */
             width: 1000px;
             margin: 0 auto;/*將此灰色方塊置中*/
             padding: 15px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
+        .list button{
+            margin-left: 35%;
+        }
+
         /*醫師班數選擇列表*/
         .doctor-list{
             align-items: center;
@@ -68,27 +73,52 @@
             text-align: center;
             padding: 15px;
         }
-
         #doctorList {
             font-size: 20px;
             list-style: none; /* 移除列表項的點 */
-            padding: 10px; /* 清除列表的內邊距 */
+            padding: 0 10px; /* 清除列表的內邊距 */
             margin-bottom: 10px;
         }
-
-        #doctorList li {
-            padding: 10px;
-            border-bottom: 1px solid #ccc; /* 添加水平線，可以自行調整顏色 */
-        }
-
+    
         #doctorList span {
             display: inline-block;
             width: 150px; /* 設定醫生名字欄位的寬度 */
         }
-
         #doctorList input {
             font-size: 16px;
             width: 50px; /* 設定班數選擇按鈕的寬度 */
+        }
+        table {
+            border-collapse: collapse;  
+        }
+        th {
+            padding: 10px 120px;
+            text-align: left; /* 將文本對齊方式改為左對齊 */
+            border-bottom: 1px solid #1c1c1c; /* 底線樣式，可以根據需要調整顏色和寬度 */
+        }
+        td {
+            padding: 20px 120px;
+            text-align: left; /* 將文本對齊方式改為左對齊 */
+            border-bottom: 1px solid #898989; /* 底線樣式，可以根據需要調整顏色和寬度 */
+        }
+        /* "儲存排班" 按鈕樣式 */
+        .start-scheduling {
+            text-align: center;
+        }
+        .start-scheduling button {
+            background-color:#65b297 ;
+            background-color: #5B9B80;
+            color: rgb(255, 255, 255);
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+
+        .start-scheduling button:hover {
+            background-color: #8BBBA6;
         }
     </style>
 </head>
@@ -104,22 +134,47 @@
         
         
     </div>
-    <div class="list">
+    <div class="list-background">
+        <form method="post" action="/Manager/CreateShift">
             <ul id="doctorList">
                 <!-- 醫生名字和班數選擇按鈕將在這裡動態添加 -->
-                @if (doctors != null)
-                {
-                    @foreach (Doctor doctor in doctors)
-                    {
-                        <div class="doctor-list" data-department="@doctor.Department">
-                            <span>@doctor.Name</span>
-                            <input type="number" id="doctor@doctor.ID" min="0" max="5" value="0">
-                        </div>
-                    }
-                }
+                <div class="center">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>醫師</th>
+                                <th>班數</th>
+                                <th>日期設定</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @if (doctors != null)
+                        {
+                            @foreach (Doctor doctor in doctors) // 假設 Model 是從後端傳來的醫生列表
+                            {
+                                <tr>
+                                    <td>@doctor.Name</td> <!-- 這裡顯示每位醫生的名字 -->
+                                    <td><input type="number"id="doctor@doctor.ID" name="Shift" min="0" max="5" value="@doctor.Shift"></td>
+                                    <td>
+                                        <input type="date">
+                                        <button type="button" class="btn btn-secondary btn-add-date">+</button>
+                                    </td>
+                                    <hr>
+                                </tr>
+                                <!-- 其他醫師排班行 -->
+                            }  
+                        }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="start-scheduling">
+                    <button id="SaveSchedule"class="button" type="submit">儲存班數及日期</button>
+                </div>
             </ul>
+        </form>  
     </div>
-
+    <script src="~/js/schedule_setting.js" asp-append-version="true"></script>
+    
     <script>
         // 使用 fetch 顯示 Share 導航欄的檔案
         fetch('/Manager/Share')
@@ -132,7 +187,7 @@
 
         //獲取每頁應顯示的科別、病房、時間
 
-        // 獲取URL中的參數函數
+        @* // 獲取URL中的參數函數
         function getParameterByName(name, url) {
             if (!url) url = window.location.href; // 如果未提供url，使用當前瀏覽器地址
             name = name.replace(/[\[\]]/g, "\\$&"); // 將特殊字符進行轉換，以便正確處理正則表達式
@@ -142,9 +197,9 @@
             if (!results) return null; // 如果找不到指定的參數，或者該參數值為空，則返回null或空字串
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));// 對參數值進行解碼，將特殊字符轉換為正確的字符
-        }
+        } *@
 
-        // 顯示所選的科別、時間、病房
+        @* // 顯示所選的科別、時間、病房
         document.addEventListener('DOMContentLoaded', function() {
             const selectedDepartment = getParameterByName('department'); // 獲取名稱為'department'的參數值
             const selectedWard = getParameterByName('ward');  // 獲取名稱為'ward'的參數值
@@ -161,8 +216,7 @@
                     doctorElement.style.display = 'none';
                 }
             });
-
-        });
+        }); *@
 
         // 功能：選擇班數(此部分不需要)
         @* document.addEventListener('DOMContentLoaded', function() {
@@ -183,6 +237,6 @@
         }); *@// 功能：選擇班數(此部分不需要)
         
     </script>
-
+    
 </body>
 </html>

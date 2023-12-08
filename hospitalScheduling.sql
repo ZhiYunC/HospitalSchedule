@@ -6,6 +6,9 @@ INSERT INTO doctors VALUES (3,"Amy");
 -- 查詢
 SELECT * FROM doctors;
 
+SELECT  FROM doctors;
+SELECT schedule_id,schedule_date,doctor_name FROM `schedule` INNER JOIN `doctors` ON (doctors.doctor_id=schedule.schedule_doctor_id)
+
 
 -- 更新
 UPDATE doctors

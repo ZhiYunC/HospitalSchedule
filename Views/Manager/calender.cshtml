@@ -1,3 +1,4 @@
+@using System.Text.Json;
 @{ Layout = null; } @*取消導航欄*@
 <!DOCTYPE html>
 <html lang="en">
@@ -35,10 +36,13 @@
         }
 
         th {
-            background-color: #E0D3CC;
+            background-color: #B8A8A8;
             color: rgb(7, 7, 7);
             padding: 12px; /* 調整表頭高度 */
             text-align: center;
+        }
+        .week{
+            background-color: #B8A8A8;
         }
 
         /* 調整單元格內的文本位置 */
@@ -118,8 +122,6 @@
 <body>
 
     <div id="sharedContentContainer"></div>
-
-
     <div class="content">
         <h2 id="currentMonth">當月月曆</h2>
         <div class="dropdown">
@@ -131,13 +133,13 @@
         <table>
             <thead>
                 <tr>
-                    <th>日</th>
+                    <th class="week">日</th>
                     <th>一</th>
                     <th>二</th>
                     <th>三</th>
                     <th>四</th>
                     <th>五</th>
-                    <th>六</th>
+                    <th class="week">六</th>
                 </tr>
             </thead>
             <tbody id="calendar-body">
@@ -161,8 +163,9 @@
         // 生成月份和年份選項
         const monthYearDropdown = document.getElementById('monthYearDropdown');
         const currentMonthText = document.getElementById('currentMonthText');
-
-        for (let year = 2022; year <= 2023; year++) {
+        const nowdate=new Date();
+        let nowyear = nowdate.getFullYear();
+        for (let year = (nowyear-1); year <= nowyear; year++) {
             for (let month = 1; month <= 12; month++) {
                 const option = document.createElement('div');
                 option.classList.add('month-year-option');
@@ -187,29 +190,11 @@
             monthYearDropdown.style.display = 'none';
         }   
 
-
-        // 存儲人員的陣列
-        const schedule = [];
         // 初始載入頁面時生成當月月曆
         const currentDate = new Date();
         let currentYear = currentDate.getFullYear();
         let currentMonth = currentDate.getMonth();
         generateCalendar(currentYear, currentMonth);
-
-        // 新增人員按鈕的點擊事件
-        const addPersonBtn = document.getElementById('addPersonBtn');
-        addPersonBtn.addEventListener('click', addPerson);
-
-        // 新增人員的函數
-        function addPersonToDay(cell) {
-            const day = parseInt(cell.textContent);
-            const person = prompt(`請輸入 ${currentYear} 年 ${currentMonth + 1} 月 ${day} 日的人員名稱:`);
-            if (person) {
-                schedule.push({ date: day, month: currentMonth, year: currentYear, person: person });
-                generateCalendar(currentYear, currentMonth);
-                console.log("Updated schedule:", schedule);
-            }
-        }
         // 使用 JavaScript 來動態生成月曆的日期
         function generateCalendar(year, month) {
             // 取得月曆的第一天
@@ -252,21 +237,14 @@
                             cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day">${date}</span>`;
                             date++;
                             rowHasContent = true;
-
-                            // 添加点击事件
-                            cell.addEventListener('click', function () {
-                                addPersonToDay(this);
-                            });
                         } else {
                             // 超過當月的天數，填充空白的單元格
                             cell.textContent = '';
                         }
                     }
-
                     // 將單元格添加到行中
                     row.appendChild(cell);
                 }
-
                 // 將行添加到日曆的容器
                 calendarBody.appendChild(row);
             }
@@ -275,23 +253,27 @@
             document.getElementById('currentMonth').textContent = `${year} 年 ${month + 1} 月`;
 
             // 顯示已排班的人員
-            for (const item of schedule) {
-                if (item.year === year && item.month === month) {
-                    const dayCell = document.getElementById(`day-${item.date}`);
+            const schedules = @Html.Raw(JsonSerializer.Serialize(ViewBag.schedules));
+            console.log(schedules);
+            for (const item of schedules) {
+                const scheduleDate = new Date(item.schedule_date);
+                const scheduleYear = scheduleDate.getFullYear();
+                const scheduleMonth = scheduleDate.getMonth();
+                const scheduleDay = scheduleDate.getDate();
+
+                if (scheduleYear === year && scheduleMonth === month) {
+                    const dayCell = document.getElementById(`day-${scheduleDay}`);
                     if (dayCell) {
                         const personDiv = document.createElement('div');
                         personDiv.classList.add('person');
-                        personDiv.textContent = item.person;
+                        personDiv.textContent = item.schedule_doctor_name;
                         dayCell.appendChild(personDiv);
                     }
                 }
             }  
         }
 
-            
-
-    </script>
-    
+    </script>   
 </body>
 </html>
 

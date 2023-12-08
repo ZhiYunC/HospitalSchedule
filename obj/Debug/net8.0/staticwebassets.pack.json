@@ -21,6 +21,14 @@
       "PackagePath": "staticwebassets\\image\\setting.png"
     },
     {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\schedule.js",
+      "PackagePath": "staticwebassets\\js\\schedule.js"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\schedule_setting",
+      "PackagePath": "staticwebassets\\js"
+    },
+    {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

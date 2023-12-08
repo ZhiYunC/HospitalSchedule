@@ -21,7 +21,7 @@
             cursor: pointer;
             padding: 15px;
             text-decoration: none;
-            position: relative;
+            @* position: relative; *@
             transition: color 0.3s;
         }
 
@@ -34,36 +34,80 @@
             margin-top: 2px;
             color: #555;
         }
-        /*選擇病房、科別、時間的按鈕*/
-        .select-buttons {
+        /*科別按鈕*/
+        .department-buttons {
             margin-top: 20px;
         }
+        .department-buttons button {
+            background-color:rgba(103, 102, 102, 0.82);
+            border: none;
+            @* color: #333; *@
+            color: white;
+            cursor: pointer;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(5, 5, 5, 0.2);
+        }
+        .department-buttons button.selected {
+            background-color:#4A79D1;
+            color: white;
+        }
+        
 
-        .select-buttons button {
+        /*小科別按鈕*/
+        .sub-department-buttons {
+            margin-top: 20px;
+            width: 1000px;
+            @* margin-left: 15%;   *@
+        }
+        .sub-department-buttons button {
             background-color:white;
             border: none;
-            color: #333;
+            color: rgb(0, 0, 0);
+            cursor: pointer; /*鼠標指針將變為手型，提示用戶*/
+            padding: 10px;
+            text-decoration: none;/*去掉超連結的下劃線*/
+            margin: 5px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #4A79D1;
+        }
+        .sub-department-buttons button.selected {
+            background-color:#4A79D1;
+        }
+
+
+        /*病房按鈕*/
+        .ward-buttons {
+            margin-top: 20px;
+        }
+        .ward-buttons button{
+            background-color:rgba(103, 102, 102, 0.82);
+            border: none;
+            @* color: #333; *@
+            color: white;
             cursor: pointer;
             padding: 10px;
             text-decoration: none;
             margin: 0 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 2px solid #B8A8A8;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(5, 5, 5, 0.2);
+        }
+        .ward-buttons button.selected {
+            background-color:#4A79D1;
+            color: rgb(255, 255, 255);
         }
 
-        .select-buttons button.selected {
-            background-color:#B8A8A8;
-            color: black;
-        }
+
         /* "開始排班" 按鈕樣式 */
         .start-scheduling {
             text-align: center;
         }
-
         .start-scheduling button {
-            background-color:#A45151 ;
-            color: white;
+            background-color:#5B9782 ;
+            background-color: #5B9B80;
+            color: rgb(255, 255, 255);
             padding: 15px 20px;
             font-size: 16px;
             cursor: pointer;
@@ -73,7 +117,7 @@
         }
 
         .start-scheduling button:hover {
-            background-color: #BF7D7D;
+            background-color: #8BBBA6;
         }
         /**/
         .top{
@@ -86,51 +130,43 @@
 <body>
 
     <div id="sharedContentContainer"></div>
-
-
-    
     <div class="top">
         <h2 id="currentMonth">請選擇科別</h2>
-        <div class="select-buttons">
-            <!-- 科別按鈕 -->
-            <h3>內科部</h3>
-            <button data-type="department" data-value="內科" onclick="selectOption('department', '內科')">內科</button>
-            <button data-type="department" data-value="胃腸肝膽科" onclick="selectOption('department', '胃腸肝膽科')">胃腸肝膽科</button>
-            <button data-type="department" data-value="新陳代謝科" onclick="selectOption('department', '新陳代謝科')">新陳代謝科</button>
-            <button data-type="department" data-value="胸腔內科" onclick="selectOption('department', '胸腔內科')">胸腔內科</button>
-            <button data-type="department" data-value="胃臟內科" onclick="selectOption('department', '胃臟內科')">胃臟內科</button>
-            <button data-type="department" data-value="一般內科" onclick="selectOption('department', '一般內科')">一般內科</button>
-            <button data-type="department" data-value="血液腫瘤科" onclick="selectOption('department', '血液腫瘤科')">血液腫瘤科</button>
-            <button data-type="department" data-value="風濕免疫科" onclick="selectOption('department', '風濕免疫科')">風濕免疫科</button>
-            <button data-type="department" data-value="感染科" onclick="selectOption('department', '感染科')">感染科</button>
-        </div>
-        <div class="select-buttons">
-            <!-- 科別按鈕 -->
-            <h3>外科部</h3>
-            <button data-type="department" data-value="外科" onclick="selectOption('department', '外科')">外科</button>
-            <button data-type="department" data-value="神經外科" onclick="selectOption('department', '神經外科')">神經外科</button>
-            <button data-type="department" data-value="大腸直腸外科" onclick="selectOption('department', '大腸直腸外科')">大腸直腸外科</button>
-            <button data-type="department" data-value="乳房外科" onclick="selectOption('department', '乳房外科')">乳房外科</button>
-            <button data-type="department" data-value="一般外科" onclick="selectOption('department', '一般外科')">一般外科</button>
-            <button data-type="department" data-value="心臟血管外科" onclick="selectOption('department', '心臟血管外科')">心臟血管外科</button>
-            <button data-type="department" data-value="整形外科" onclick="selectOption('department', '整形外科')">整形外科</button>
-            <button data-type="department" data-value="胸腔外科" onclick="selectOption('department', '胸腔外科')">胸腔外科</button>
-            <button data-type="department" data-value="小兒外科" onclick="selectOption('department', '小兒外科')">小兒外科</button>
-            <button data-type="department" data-value="外傷科" onclick="selectOption('department', '外傷科')">外傷科</button>
-        </div>
+        @* 書榆 *@
+        <!-- 表單 -->
+        <div class="d-flex flex-column align-items-center">
+            <!-- 科別 -->
+            <!-- 科別按鈕組 -->
+            <div class="department-buttons" role="group" aria-label="Department Buttons">
+                <button type="button" data-department="internal">內科部</button>
+                <button type="button" data-department="surgery">外科部</button>
+                <button type="button" data-department="cardiovascular">心臟血管醫學部</button>
+                <button type="button" data-department="pediatrics">兒童醫學部</button>
+                <button type="button" data-department="obstetrics">婦產部</button>
+                <button type="button" data-department="specialties">其他專科</button>
+                <button type="button" data-department="feature">特色中心</button>
+                <button type="button" data-department="covid">新冠肺炎專區</button>
+            </div>
 
+            <!-- 細分科別按鈕將顯示在這個容器內 -->
+            <div class="center">   
+                <div id="sub-departments" class="sub-department-buttons"></div>
+            </div>
+        </div>
+        @* 書榆 *@
         <h2>請選擇病房</h2>
-        <div class="select-buttons">
+        <div id="ward-btn" >
             <!-- 病房按鈕 -->
-            <button data-type="ward" data-value="普通病房/一般病房" onclick="selectOption('ward', '普通病房/一般病房')">普通病房/一般病房</button>
-            <button data-type="ward" data-value="加護病房" onclick="selectOption('ward', '加護病房')">加護病房</button>
+            <div class="ward-buttons">
+                <button type="ward" >普通病房/一般病房</button>
+                <button type="ward"  >加護病房</button>
+            </div>
         </div>
-
         <div class="start-scheduling">
             <button id="startSchedulingBtn">開始排班</button>
         </div>
     </div>
-
+    <script src="~/js/schedule.js" asp-append-version="true"></script>
     <!-- 省略其他內容 -->
 
     <script>
@@ -142,26 +178,10 @@
                 document.getElementById('sharedContentContainer').innerHTML = html;
             }
         );
-        //new
-        function selectOption(type, value) {
-            // 清除同類型按鈕的選中狀態
-            const buttons = document.querySelectorAll(`.select-buttons button[data-type="${type}"]`);
-            buttons.forEach(button => {
-                button.classList.remove('selected');
-            });
-
-            // 設定選中的按鈕
-            const selectedButton = document.querySelector(`.select-buttons button[data-type="${type}"][data-value="${value}"]`);
-            selectedButton.classList.add('selected');
-
-            // 你可以在這裡執行其他相關的操作
-            console.log(`選擇 ${type}: ${value}`);
-        }
-
-        // 當按下開始排班按鈕時的事件處理函數
-        document.getElementById('startSchedulingBtn').addEventListener('click', function() {
+        
+        @* document.getElementById('startSchedulingBtn').addEventListener('click', function() {
             // 獲取所選的科別、時間、病房
-            const selectedDepartment = document.querySelector('.select-buttons button[data-type="department"].selected').getAttribute('data-value');
+            const selectedDepartment = document.querySelector('.department-buttons button[type="button"].selected').getAttribute('data-value');
             const selectedWard = document.querySelector('.select-buttons button[data-type="ward"].selected').getAttribute('data-value');
             
 
@@ -170,7 +190,7 @@
 
             // 跳轉到下一頁
             window.location.href = nextPageURL;
-        });
+        }); *@
     </script>
 
 </body>

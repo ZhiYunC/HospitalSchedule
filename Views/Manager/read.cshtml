@@ -1,22 +1,22 @@
 @using Demo.Models;
 @{
-    List<Doctor> doctors = ViewBag.doctors;
+    List<Schedule> schedules = ViewBag.schedules;
 }
 
-@if (doctors != null)
+@if (schedules != null)
 {
-    foreach (Doctor doctor in doctors)
+    foreach (Schedule schedule in schedules)
     {
         <div>
-            <span>@doctor.ID</span>
-            <span>@doctor.Name</span>
-            <span>@doctor.Department</span>
+            <span>@schedule.Schedule_id</span>
+            <span>@schedule.Schedule_date</span>
+            <span>@schedule.Schedule_doctor_name</span>
         </div>
     }
 }
 else
 {
-    <p>No doctors available.</p>
+    <p>沒有資料！</p>
 }
 
 @*<form action="/php/read_data.php" method="POST">
