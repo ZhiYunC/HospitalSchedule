@@ -21,12 +21,16 @@
       "PackagePath": "staticwebassets\\image\\setting.png"
     },
     {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\calender.js",
+      "PackagePath": "staticwebassets\\js\\calender.js"
+    },
+    {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\schedule.js",
       "PackagePath": "staticwebassets\\js\\schedule.js"
     },
     {
-      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\schedule_setting",
-      "PackagePath": "staticwebassets\\js"
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\schedule_setting.js",
+      "PackagePath": "staticwebassets\\js\\schedule_setting.js"
     },
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\site.js",

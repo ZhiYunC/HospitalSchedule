@@ -173,7 +173,7 @@
     <div id="sharedContentContainer"></div>
 
     <div class="content">
-        <h2 id="currentMonth">當月月曆</h2>
+        <h2 id="currentMonth">暫定班表</h2>
         <div class="dropdown">
             <div class="button-style dropdown-month" id="currentMonthText">選擇月份/年份</div>
             <div class="dropdown-content" id="monthYearDropdown">
@@ -216,8 +216,8 @@
                                     <td>@doctor.Name</td>
                                     <td>@doctor.Shift</td>
                                 </tr>
-                              }
                             }
+                        }
                         <!-- 可以繼續添加其他醫生的信息 -->
                     </tbody>
             </table>
@@ -281,7 +281,7 @@
         let nowyear = nowdate.getFullYear();
         let nowmonth = nowdate.getMonth();
         for (let year = nowyear; year <= (nowyear+1); year++) {
-            for (let month = nowmonth; month <= 12; month++) {
+            for (let month = 1; month <= 12; month++) {
                 const option = document.createElement('div');
                 option.classList.add('month-year-option');
                 option.textContent = `${year} 年 ${month} 月`;
@@ -378,7 +378,7 @@
             }
 
             // 更新當前月份顯示
-            document.getElementById('currentMonth').textContent = `${year} 年 ${month + 1} 月`;
+            document.getElementById('currentMonthText').textContent = `${year} 年 ${month + 1} 月`;
 
             // 顯示已排班的人員
             for (const item of schedule) {

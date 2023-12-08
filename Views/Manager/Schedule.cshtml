@@ -179,18 +179,6 @@
             }
         );
         
-        @* document.getElementById('startSchedulingBtn').addEventListener('click', function() {
-            // 獲取所選的科別、時間、病房
-            const selectedDepartment = document.querySelector('.department-buttons button[type="button"].selected').getAttribute('data-value');
-            const selectedWard = document.querySelector('.select-buttons button[data-type="ward"].selected').getAttribute('data-value');
-            
-
-            // 創建下一頁的 URL，並將所選值作為參數傳遞
-            const nextPageURL = `/Manager/Schedule_setting?department=${selectedDepartment}&ward=${selectedWard}`;
-
-            // 跳轉到下一頁
-            window.location.href = nextPageURL;
-        }); *@
     </script>
 
 </body>
