@@ -1,0 +1,88 @@
+@{ Layout = null; } @*取消導航欄*@
+@using Demo.Models;
+@{
+    List<Doctor> doctors = ViewBag.doctors;
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>醫生聯絡電話</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                margin-top: 120px;
+                padding: 0;
+                background-color: white;
+            }
+            table {
+                border-collapse: collapse;  
+                margin-top: 10px;
+            }
+            th {
+                font-size: 22px;
+                background-color:  #CCE4F0;
+                padding: 10px 100px;
+                white-space: nowrap; /* 防止文字換行 */
+                text-align: center; /* 將文本對齊方式改為左對齊 */
+                border-bottom: 1px solid #1c1c1c; /* 底線樣式，可以根據需要調整顏色和寬度 */
+            }
+            td {
+                background-color: rgba(242, 242, 242, 0.82);
+                padding: 20px 100px;
+                font-size: 20px;
+                text-align: center; /* 將文本對齊方式改為左對齊 */
+                border-bottom: 1px solid #898989; /* 底線樣式，可以根據需要調整顏色和寬度 */
+            }    
+        </style>
+        
+    </head>
+    <body>
+        <div id="sharedContentContainer"></div>
+        <h2 style="font-size: 28px;text-align: center;margin-top:40px;">各科別醫生連絡電話</h2>
+        <ul id="doctorList">
+            <!-- 醫生名字和班數選擇按鈕將在這裡動態添加 -->
+            <div class="center">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>醫師</th>
+                            <th>科別</th>
+                            <th>電話</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @if (doctors != null)
+                    {   
+                        @foreach (Doctor doctor in doctors) // 假設 Model 是從後端傳來的醫生列表
+                        {
+                            <tr>
+                                <td class="nowrap">@doctor.Name</td> <!-- 這裡顯示每位醫生的名字 -->
+                                <td class="nowrap">@doctor.Department</td>
+                                <td class="nowrap">@doctor.Doctor_Phone</td>
+                                <hr>
+                            </tr>
+                            <!-- 其他醫師排班行 -->
+                        }  
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </ul>
+        <script>
+                // 使用 fetch 顯示 Share 導航欄的檔案
+                fetch('/Manager/Share')
+                    .then(response => response.text())
+                    .then(html => {
+                        // 将加载的 HTML 插入到共享容器中
+                        document.getElementById('sharedContentContainer').innerHTML = html;
+                    }
+                ); 
+        </script>
+    </body>
+</html>

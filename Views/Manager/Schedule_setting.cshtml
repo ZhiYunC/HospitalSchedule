@@ -9,12 +9,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule</title>
+    <title>設置醫生班數及不想上班日</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
+            margin-top: 130px;
             padding: 0;
             background-color:white ;
         }
@@ -29,7 +30,7 @@
         /*科別文字樣式*/
         .selected-info {
             @* background-color: #c0b0b0; *@
-            background-color: #CCE4F0;
+            background-color: rgb(152, 203, 199);
             display: flex;
             flex-direction: row;
             justify-content: center;
@@ -113,7 +114,7 @@
         }
         .start-scheduling button {
             background-color:#65b297 ;
-            background-color: #5B9B80;
+            background-color: #A45151;
             color: rgb(255, 255, 255);
             padding: 15px 20px;
             font-size: 16px;
@@ -124,64 +125,71 @@
         }
 
         .start-scheduling button:hover {
-            background-color: #8BBBA6;
+            background-color: #BF7D7D;
         }
         
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
-    <div id="sharedContentContainer"></div>
-
-    <!-- 顯示所選值的元素 -->
-    <div class="selected-info">
-        <h3>科別：</h3>
-        <p id="selectedDepartment"></p>
-        <h3>病房：</h3>
-        <p id="selectedWard"></p>
-        
-        
-    </div>
-    <div class="list-background">
-        <form method="post" action="/Manager/CreateShift">
-            <ul id="doctorList">
-                <!-- 醫生名字和班數選擇按鈕將在這裡動態添加 -->
-                <div class="center">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>醫師</th>
-                                <th>班數</th>
-                                <th>日期設定</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @if (doctors != null)
-                        {
-                            @foreach (Doctor doctor in doctors) // 假設 Model 是從後端傳來的醫生列表
-                            {
-                                <tr>
-                                    <td class="nowrap">@doctor.Name</td> <!-- 這裡顯示每位醫生的名字 -->
-                                    <td><input type="number"id="doctor@doctor.ID" name="Shift" min="0" max="5" value="@doctor.Shift"></td>
-                                    <td>
-                                        <input type="date" class="date-button">
-                                        <button type="button" class="btn btn-secondary btn-add-date">+</button>
-                                    </td>
-                                    <hr>
-                                </tr>
-                                <!-- 其他醫師排班行 -->
-                            }  
-                        }
-                        </tbody>
-                    </table>
-                </div>
-                <div class="start-scheduling">
-                    <button id="SaveSchedule"class="button" type="submit">儲存班數及日期</button>
-                </div>
-            </ul>
-        </form>  
-    </div>
-    <script src="~/js/schedule_setting.js" asp-append-version="true"></script>
     
+    <div id="sharedContentContainer"></div>
+    <form method="post" action="/Manager/Schedule_setting">
+        <!-- 顯示所選值的元素 -->
+        <div class="selected-info">
+            <h3>科別：</h3>
+            <p id="selectedDepartment"></p>
+            <h3>病房：</h3>
+            <p id="selectedWard" name="ward" value="一般病房"></p>
+            
+            
+        </div>
+        <div class="list-background">
+            
+                <ul id="doctorList">
+                    <!-- 醫生名字和班數選擇按鈕將在這裡動態添加 -->
+                    <div class="center">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>醫師</th>
+                                    <th>班數</th>
+                                    <th>日期設定</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @if (doctors != null)
+                            {   
+                                var i = 0; 
+                                @foreach (Doctor doctor in doctors) // 假設 Model 是從後端傳來的醫生列表
+                                {
+                                    <tr>
+                                        <td class="nowrap">@doctor.Name</td> <!-- 這裡顯示每位醫生的名字 -->
+                                        <td>
+                                            <input type="hidden"id="doctorId" name="worktimeData[@i].Setting_Doctor_ID" value="@doctor.ID" readonly>
+                                            <input type="number"id="InputShift" name="worktimeData[@i].Shift" min="1" value="0">
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-less-date">-</button>
+                                            <input type="date" class="date-button">
+                                            <button type="button" class="btn btn-secondary btn-add-date">+</button>
+                                        </td>
+                                        <hr>
+                                    </tr>
+                                    i++;
+                                    <!-- 其他醫師排班行 -->
+                                }  
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="start-scheduling">
+                        <button id="SaveSchedule"class="button" type="submit">儲存班數及日期</button>
+                    </div>
+                </ul>
+        </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
         // 使用 fetch 顯示 Share 導航欄的檔案
         fetch('/Manager/Share')
@@ -191,7 +199,21 @@
                 document.getElementById('sharedContentContainer').innerHTML = html;
             }
         ); 
+
+        document.getElementById('SaveSchedule').addEventListener('click', function () {
+            // 假設這是儲存操作成功的標誌，你可以根據實際情況修改
+            var saveSuccess = true;
+
+            if (saveSuccess) {
+                // 顯示儲存成功的通知
+                alert("儲存成功");
+            } else {
+                // 如果儲存操作失敗，可以顯示相應的錯誤通知
+                alert("儲存失敗");
+            }
+        });
     </script>
+    <script src="~/js/schedule_setting.js" asp-append-version="true"></script>
     
 </body>
 </html>

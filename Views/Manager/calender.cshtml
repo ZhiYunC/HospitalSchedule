@@ -1,16 +1,40 @@
 @using System.Text.Json;
 @{ Layout = null; } @*取消導航欄*@
+@using Demo.Models;
+@{
+    @* List<Schedule> schedules = ViewBag.schedules; *@
+    List<string> doctorNamesList = ViewBag.doctorNamesLists;
+
+    @* foreach (var schedule in schedules)
+    {
+      // 将医生名字添加到列表中
+        doctorNamesList.Add(schedule.Schedule_doctor_name);
+    } *@
+    
+    @* List<Schedule> schedules = ViewBag.schedules;
+
+    // 將schedules中的日期和醫生名字映射到C#的字典中
+    Dictionary<DateTime, string> doctorNamesByDate = new Dictionary<DateTime, string>();
+    foreach (var schedule in schedules)
+    {
+        doctorNamesByDate[schedule.Schedule_date] = schedule.Schedule_doctor_name;
+    } *@
+    
+}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly Calendar</title>
+    <title>歷史班表</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
+            margin-top: 100px;
             padding: 0;
             background-color: white;
         }
@@ -20,7 +44,7 @@
             margin-top: 30px; /* 調整月曆與上方的間距 */
         }
         table {
-            width: 70%;
+            width: 75%;
             margin:0 auto;
             border-collapse: collapse;
             margin-top: 20px;
@@ -36,51 +60,152 @@
         }
 
         th {
-            background-color: #B8A8A8;
+            
+            background-color:#CFDED3;
+            @* background-color:rgb(152, 203, 199); *@
             @* border-radius: 5px 5px 0 0; /* 添加圓角 */ *@
             color: rgb(7, 7, 7);
             padding: 12px; /* 調整表頭高度 */
-            margin: 0 5px;
+            margin: 8px;
             text-align: center;
-            border:none
+            border:none;
+            font-size: 20px;
+            border-bottom: 2px solid #1c1c1c; /* 底線樣式，可以根據需要調整顏色和寬度 */
         }
         .week{
-            background-color: #B8A8A8;
+            background-color: #CFDED3;
         }
 
         /* 調整單元格內的文本位置 */
         td {
-            border: 1px solid #B8A8A8;/*月曆邊框顏色*/
+            border: 1px solid #666666;/*月曆邊框顏色*/
             padding: 0; /* 清除單元格內的內距 */
             height: 120px; /* 調整單元格高度 */
             position: relative;
+            font-size: 20px;
         }
 
         td span {
             position: absolute;
             top: 10px; /* 距離頂部的距離 */
             left: 10px; /* 距離左側的距離 */
+            font-size: 20px;
         }
 
+
+        /*選擇按鈕1*/
+        .department-button {
+            background-color: transparent;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+            font-size:20px;
+            text-align: center;
+            width: auto;
+            
+        }
+        
+        
+
+        @*  *@
+        .person {
+            font-size: 12px;
+            margin-top: 2px;
+            color: #555;
+        }
+         .flex{
+            display: flex;
+            justify-content: left;
+            
+            @* align-items: flex-start;/* 調整垂直方向對齊，可以根據需要更改 */ *@
+            text-align: center; 
+            
+        } 
+        
+        .font{
+            font-size:28px  
+        }
+        /*new*/
         /*選擇月份按鈕*/
         .button-style {
             background-color: transparent;
             border: none;
             color: #333;
             cursor: pointer;
-            padding: 15px;
+            padding: 10px;
             text-decoration: none;
             position: relative;
             transition: color 0.3s;
             font-size:20px;
+            text-align: center;
         }
-        .button-style:hover {
+        @* .button-style:hover {
             color: #B8A8A8;
-        }
+        } *@
 
          .dropdown-month {
             width: 200px;
             text-align: center;
+             margin-left: auto;
+            margin-right: auto;
+            
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 10px;        
+        }
+        .month-year-option {
+            display: inline-block;
+            width: 50%;
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+
+            display: inline-block;
+            width: 25%; /* 一列四個按鈕，每個佔據 25% 寬度 */
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* 在這裡添加一個樣式來改變選項的顏色 */
+        .month-year-option:hover {
+            background-color: #B8A8A8;
+            color: white;
+        }
+
+        /* 新增一個選擇器選取下拉選單中的選項 */
+        #monthYearDropdown option:hover {
+            background-color: #B8A8A8;
+            color: white;
+        }
+       /*選擇月份按鈕*/
+        .button-style {
+            background-color: transparent;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+            font-size:20px;
+            margin-top: -10px;
+        }
+
+        .dropdown-month {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 5px;
+            width:450px;
+            
         }
 
         .month-option {
@@ -90,6 +215,7 @@
             padding: 10px;
             text-align: center;
             cursor: pointer;
+           
         }
 
         .month-option:hover {
@@ -104,7 +230,7 @@
 
         .month-year-option {
             display: inline-block;
-            width: 50%;
+            width: 25%; /* 一列四個按鈕，每個佔據 25% 寬度 */
             box-sizing: border-box;
             padding: 10px;
             text-align: center;
@@ -112,13 +238,29 @@
         }
 
         .month-year-option:hover {
-            background-color: #B8A8A8;
+            background-color: #767676;
             color: white;
         }
-        .person {
-            font-size: 12px;
-            margin-top: 2px;
-            color: #555;
+        .green-background{
+            margin-top:20px;
+            margin-left: 5px;
+            padding: 5px 10px;
+            border-radius: 10px; /* 增加圓角 */
+            background-color: #ffddd2;
+        }
+        .blue-background{
+            margin-top:20px;
+            margin-left: 5px;
+            padding: 5px 10px;
+            border-radius: 10px; /* 增加圓角 */
+            background-color: #d5c5e7;
+        }
+        .purple-background{
+            margin-top:20px;
+            margin-left: 5px;
+            padding: 5px 10px;
+            border-radius: 10px; /* 增加圓角 */
+            background-color: #F7E1A1;
         }
     </style>
 </head>
@@ -126,7 +268,8 @@
 
     <div id="sharedContentContainer"></div>
     <div class="content">
-        <h2 id="currentMonth">歷史班表</h2>
+        <h2 id="currentMonth" class="font">歷史班表</h2>
+        @* <h2 id="currentMonth">@doctorNamesList[1]</h2> *@
         <div class="dropdown">
             <div class="button-style dropdown-month" id="currentMonthText">選擇月份/年份</div>
             <div class="dropdown-content" id="monthYearDropdown">
@@ -134,19 +277,18 @@
             </div>
         </div>
         <div class="dropdown-department">
-            <select id="departmentSelect" class="button-style">選擇科別
-                <option>內科</option>
-                <option value="">胃腸肝膽科</option>
-                <option >新陳代謝科</option>
-                <option >胸腔內科</option>
-                <option >胃臟內科</option>
-                <option >一般內科</option>
-                <option >血液腫瘤科</option>
-                <option >風濕免疫科</option>
-                <option >感染科</option>
-                <option >外科</option>
+            <select id="departmentSelect" class="department-button" value="選擇科別">選擇部門
+                <option>內科部</option>
+                <option value="">外科部</option>
+                <option >心臟血管醫學部</option>
+                <option >兒童醫學部</option>
+                <option >婦產部</option>
+                <option >其他專科</option>
+                <option >特色中心</option>
+                <option >新冠肺炎專區</option>
             </select>
         </div>
+       
         <table>
             <thead>
                 <tr>
@@ -176,29 +318,7 @@
                 document.getElementById('sharedContentContainer').innerHTML = html;
             }
         );
-
-
-        // 顯示已排班的人員
-        const schedules = @Html.Raw(JsonSerializer.Serialize(ViewBag.schedules));
-        console.log(schedules);
-        for (const item of schedules) {
-            const scheduleDate = new Date(item.schedule_date);
-            const scheduleYear = scheduleDate.getFullYear();
-            const scheduleMonth = scheduleDate.getMonth();
-            const scheduleDay = scheduleDate.getDate();
-
-            if (scheduleYear === year && scheduleMonth === month) {
-                const dayCell = document.getElementById(`day-${scheduleDay}`);
-                if (dayCell) {
-                    const personDiv = document.createElement('div');
-                    personDiv.classList.add('person');
-                    personDiv.textContent = item.schedule_doctor_name;
-                    dayCell.appendChild(personDiv);
-                }
-            }
-        }  
-
-    </script>   
+    </script>      
 </body>
 </html>
 

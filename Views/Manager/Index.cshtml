@@ -9,12 +9,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly Calendar</title>
+    <title>暫定班表</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
+            margin-top: 100px;
             padding: 0;
             background-color: white;
         }
@@ -52,7 +53,8 @@
         }
 
         th {
-            background-color: #E0D3CC;
+            @* background-color: #CFDED3; *@
+            background-color:rgb(152, 203, 199);
             color: rgb(7, 7, 7);
             padding: 12px; /* 調整表頭高度 */
             text-align: center;
@@ -61,11 +63,11 @@
 
         /* 調整單元格內的文本位置 */
         td {
-            border: 1px solid #434343;/*月曆邊框顏色*/
+            border: 1px solid #666666;/*月曆邊框顏色*/
             padding: 0; /* 清除單元格內的內距 */
             height: 120px; /* 調整單元格高度 */
             position: relative;
-            font-size: 18px;
+            font-size: 20px;
         }
 
         td span {
@@ -92,7 +94,7 @@
         }
         .doctor-table th {
             /*首欄*/
-            background-color: #E0D3CC;
+            background-color: rgb(152, 203, 199);
             color: rgb(7, 7, 7);
             padding: 12px;
             text-align: center;
@@ -112,60 +114,42 @@
             transition: color 0.3s;
             font-size: 20px;
             text-align: center;
+            min-width: 100px;
         }
-        .button-style:hover {
+        @* .button-style:hover {
             color: #B8A8A8;
-        }
+        } *@
 
-        .dropdown-month {
-            width: 150px;
-            text-align: center;
-            position: relative; /* 新增這一行 */
-            z-index: 2; /* 新增這一行 */    
+        .dropdown{
+            display: flex;
         }
+        
 
-        .month-option {
-            display: inline-block;
-            width: 33.33%;
-            box-sizing: border-box;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .month-option:hover {
-            background-color: #B8A8A8;
-            color: white;
-        }
-
-        .dropdown-month-year {
-            width: 200px;
-            text-align: center;
-            position: relative; /* 新增這一行 */
-        }
-
-        .month-year-option {
-            display: inline-block;
-            width: 100%;
-            height: 50%;
-            box-sizing: border-box;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            position: relative; /* 新增這一行 */
-            z-index: 1; /* 新增這一行 */
-        }
-
-        .month-year-option:hover {
-            background-color: #B8A8A8;
-            color: white;
-        }
+       
         .person {
             font-size: 12px;
             margin-top: 2px;
             color: #555;
         }
-    
+
+        .green-background{
+            margin-top:20px;
+            margin-left: 5px;
+            padding: 5px 10px;
+            background-color: #ffddd2;
+        }
+        .blue-background{
+            margin-top:20px;
+            margin-left: 5px;
+            padding: 5px 10px;
+            background-color: #d5c5e7;
+        }
+        .purple-background{
+            margin-top:20px;
+            margin-left: 5px;
+            padding: 5px 10px;
+            background-color: #F7E1A1;
+        }
     </style>
 </head>
 <body>
@@ -173,28 +157,27 @@
     <div id="sharedContentContainer"></div>
 
     <div class="content">
-        <h2 id="currentMonth">暫定班表</h2>
-        <div class="dropdown">
+        <h2 id="currentMonth" style="font-size: 28px;">暫定班表</h2>
+        <div class="flex">
             <div class="button-style dropdown-month" id="currentMonthText">選擇月份/年份</div>
             <div class="dropdown-content" id="monthYearDropdown">
                 <!-- 生成月份和年份選項的部分在 JavaScript 中處理 -->
             </div>
+            <!-- 在醫生表格上方添加下拉選單 -->
+            <div class="dropdown-department">
+                <select id="departmentSelect" class="button-style" value="選擇科別">選擇部門
+                    <option>內科部</option>
+                    <option value="">外科部</option>
+                    <option >心臟血管醫學部</option>
+                    <option >兒童醫學部</option>
+                    <option >婦產部</option>
+                    <option >其他專科</option>
+                    <option >特色中心</option>
+                    <option >新冠肺炎專區</option>
+                </select>
+            </div>
         </div>
-        <!-- 在醫生表格上方添加下拉選單 -->
-        <div class="dropdown-department">
-            <select id="departmentSelect" class="button-style">選擇科別
-                <option>內科</option>
-                <option value="">胃腸肝膽科</option>
-                <option >新陳代謝科</option>
-                <option >胸腔內科</option>
-                <option >胃臟內科</option>
-                <option >一般內科</option>
-                <option >血液腫瘤科</option>
-                <option >風濕免疫科</option>
-                <option >感染科</option>
-                <option >外科</option>
-            </select>
-        </div>
+        
         <div class="flex">
             <!-- 醫生表格 -->
             <table class="doctor-table">
@@ -209,13 +192,18 @@
                     <tbody>
                         <!-- 這裡可以添加具體的醫生和班數信息 -->
                         @if (doctors != null)
-                        {
+                        {   
+                            string[] colorClasses = { "green-background", "blue-background", "purple-background" };     
+                            var i = 0;
                             @foreach (Doctor doctor in doctors)
-                            {
+                            {   
+                                
                                 <tr>
-                                    <td>@doctor.Name</td>
+                                    <td class="@colorClasses[i]">@doctor.Name</td>
                                     <td>@doctor.Shift</td>
+
                                 </tr>
+                                i++;
                             }
                         }
                         <!-- 可以繼續添加其他醫生的信息 -->
@@ -242,9 +230,9 @@
             </table>
         </div>
     </div>
-
+    <script src="~/js/manager.js" asp-append-version="true"></script>
     <script>
-
+    
         //使用共享的導航欄
         // 使用 fetch 加载共享的 HTML 内容
         fetch('/Manager/Share')
@@ -254,196 +242,9 @@
                 document.getElementById('sharedContentContainer').innerHTML = html;
             }
         );
-        //new
-        document.addEventListener('DOMContentLoaded', function () {
-        const monthYearDropdown = document.getElementById('monthYearDropdown');
-        const currentMonthText = document.getElementById('currentMonthText');
-
-        // 選擇月份/年份的按鈕點擊事件
-        currentMonthText.addEventListener('click', function () {
-            if (monthYearDropdown.style.display === 'block') {
-                monthYearDropdown.style.display = 'none';
-            } else {
-                monthYearDropdown.style.display = 'block';
-            }
-        });
-
-        // 當點擊月份/年份選項時更新當前月份和年份並隱藏下拉選單
-        function selectMonthYear(year, month) {
-            currentYear = year;
-            currentMonth = month - 1; // 月份是從 0 開始的，所以減 1
-            generateCalendar(currentYear, currentMonth);
-            monthYearDropdown.style.display = 'none';
-        }
-
-        // 生成月份和年份選項
-        const nowdate=new Date();
-        let nowyear = nowdate.getFullYear();
-        let nowmonth = nowdate.getMonth();
-        for (let year = nowyear; year <= (nowyear+1); year++) {
-            for (let month = 1; month <= 12; month++) {
-                const option = document.createElement('div');
-                option.classList.add('month-year-option');
-                option.textContent = `${year} 年 ${month} 月`;
-                option.addEventListener('click', function () {
-                    selectMonthYear(year, month);
-                });
-                monthYearDropdown.appendChild(option);
-            }
-        }
-        });
-        
-        //月曆加入人員
-        // 存儲人員的陣列
-        const schedule = [];
-        // 初始載入頁面時生成當月月曆
-        const currentDate = new Date();
-        let currentYear = currentDate.getFullYear();
-        let currentMonth = currentDate.getMonth();
-        generateCalendar(currentYear, currentMonth);
-
-        // 新增人員按鈕的點擊事件
-        const addPersonBtn = document.getElementById('addPersonBtn');
-        addPersonBtn.addEventListener('click', addPerson);
-
-        // 新增人員的函數
-        function addPersonToDay(cell) {
-            const day = parseInt(cell.textContent);
-            const person = prompt(`請輸入 ${currentYear} 年 ${currentMonth + 1} 月 ${day} 日的人員名稱:`);
-            if (person) {
-                schedule.push({ date: day, month: currentMonth, year: currentYear, person: person });
-                generateCalendar(currentYear, currentMonth);
-                console.log("Updated schedule:", schedule);
-            }
-        }
-        // 使用 JavaScript 來動態生成月曆的日期
-        function generateCalendar(year, month) {
-            // 取得月曆的第一天
-            const firstDay = new Date(year, month, 1);
-
-            // 取得當月的天數
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-            // 取得第一天是星期幾
-            const firstDayOfWeek = firstDay.getDay();
-
-            // 找到日曆的容器
-            const calendarBody = document.getElementById('calendar-body');
-
-            // 清空日曆的容器
-            calendarBody.innerHTML = '';
-
-            // 生成月曆的日期
-            let date = 1;
-            // 在生成每個單元格時為其添加唯一的 ID
-            const cell = document.createElement('td');
-            cell.id = `day-${date}`;
-
-            for (let i = 0; i < 6; i++) {
-                // 創建一行
-                const row = document.createElement('tr');
-                let rowHasContent = false; 
-
-                for (let j = 0; j < 7; j++) {
-                    // 創建一個單元格
-                    const cell = document.createElement('td');
-
-                    if (i === 0 && j < firstDayOfWeek) {
-                        // 填充空白的單元格
-                        cell.textContent = '';
-                    } else {
-                        // 填充日期
-                        if (date <= daysInMonth) {
-                            const existingContent = cell.innerHTML;
-                            cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day">${date}</span>`;
-                            date++;
-                            rowHasContent = true;
-
-                            // 添加点击事件
-                            cell.addEventListener('click', function () {
-                                addPersonToDay(this);
-                            });
-                        } else {
-                            // 超過當月的天數，填充空白的單元格
-                            cell.textContent = '';
-                        }
-                    }
-
-                    // 將單元格添加到行中
-                    row.appendChild(cell);
-                }
-
-                // 將行添加到日曆的容器
-                calendarBody.appendChild(row);
-            }
-
-            // 更新當前月份顯示
-            document.getElementById('currentMonthText').textContent = `${year} 年 ${month + 1} 月`;
-
-            // 顯示已排班的人員
-            for (const item of schedule) {
-                if (item.year === year && item.month === month) {
-                    const dayCell = document.getElementById(`day-${item.date}`);
-                    if (dayCell) {
-                        const personDiv = document.createElement('div');
-                        personDiv.classList.add('person');
-                        personDiv.textContent = item.person;
-                        dayCell.appendChild(personDiv);
-                    }
-                }
-            }  
-        }
-
-        
+    
     </script>
-    <script>
-        // 生成醫生和班數的表格內容
-        function generateDoctorSchedule() {
-            const doctorScheduleBody = document.getElementById('doctorScheduleBody');
-            doctorScheduleBody.innerHTML = '';
 
-            // 假設這是您的醫生和班數數據
-            const doctorData = [
-                { name: '醫生1', shifts: 5 },
-                { name: '醫生2', shifts: 6 },
-                // 其他醫生的數據...
-            ];
-
-            for (const doctor of doctorData) {
-                const row = document.createElement('tr');
-                const nameCell = document.createElement('td');
-                const shiftsCell = document.createElement('td');
-
-                nameCell.textContent = doctor.name;
-                shiftsCell.textContent = doctor.shifts;
-
-                row.appendChild(nameCell);
-                row.appendChild(shiftsCell);
-
-                doctorScheduleBody.appendChild(row);
-            }
-        }
-
-        // 初始載入頁面時生成醫生和班數的表格
-        generateDoctorSchedule();
-    </script>    
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // ...
-
-            // 下拉選單的change事件處理
-            const departmentSelect = document.getElementById('departmentSelect');
-            departmentSelect.addEventListener('change', function () {
-                // 獲取選中的科別值
-                const selectedDepartment = departmentSelect.value;
-
-                // 在這裡進行相應的處理，例如更新醫生表格的數據
-                console.log('Selected department:', selectedDepartment);
-            });
-
-            // ...
-        });
-    </script>
 </body>
 </html>
 

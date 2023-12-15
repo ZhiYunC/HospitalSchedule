@@ -1,38 +1,13 @@
-// 生成月份和年份選項
-
-const monthYearDropdown = document.getElementById('monthYearDropdown');
-const currentMonthText = document.getElementById('currentMonthText');
-const nowdate=new Date(); //
-let nowyear = nowdate.getFullYear();
-for (let year = (nowyear-1); year <= nowyear; year++) {
-    for (let month = 1; month <= 12; month++) {
-        const option = document.createElement('div');
-        option.classList.add('month-year-option');
-        option.textContent = `${year} 年 ${month} 月`;
-        option.addEventListener('click', function () {
-            selectMonthYear(year, month);
-        });
-        monthYearDropdown.appendChild(option);
-    }
-}
-
-// 選擇月份/年份的按鈕點擊事件
-currentMonthText.addEventListener('click', function () {
-    monthYearDropdown.style.display = monthYearDropdown.style.display === 'block' ? 'none' : 'block';
-});
-
-// 當點擊月份/年份選項時更新當前月份和年份並隱藏下拉選單
-function selectMonthYear(year, month) {
-    currentYear = year;
-    currentMonth = month - 1; // 月份是從 0 開始的，所以減 1
-    generateCalendar(currentYear, currentMonth);
-    monthYearDropdown.style.display = 'none';
-}   
-
 // 初始載入頁面時生成當月月曆
 const currentDate = new Date();
 var currentYear = currentDate.getFullYear();
 var currentMonth =currentDate.getMonth();
+if(currentMonth=12){
+    currentYear =currentYear + 1;
+    currentMonth=0;
+}else{
+    currentMonth=currentMonth;
+}
 // let currentMonth = currentDate.getMonth();
 generateCalendar(currentYear, currentMonth);
 // 使用 JavaScript 來動態生成月曆的日期
@@ -60,36 +35,33 @@ function generateCalendar(year, month) {
     var DoctorNames = ["陳芷芸","林書榆","萬家妤",
     "陳芷芸","林書榆","萬家妤","陳芷芸","林書榆","萬家妤","陳芷芸","林書榆","萬家妤",
     "陳芷芸","林書榆","萬家妤","陳芷芸","林書榆","萬家妤","陳芷芸","林書榆","萬家妤",
-    "陳芷芸","林書榆","萬家妤","陳芷芸","林書榆","萬家妤","陳芷芸","林書榆","萬家妤","陳芷芸"];
-
+    "陳芷芸","林書榆","萬家妤","陳芷芸","林書榆","萬家妤","陳芷芸","林書榆","萬家妤","陳芷芸","林書榆"];
+    
     // 計算所需的行數
     const numRows = Math.ceil((daysInMonth + firstDayOfWeek) / 7);
+    
     for (let i = 0; i < numRows; i++) {
         // 創建一行
         const row = document.createElement('tr');
         let rowHasContent = false; 
-
+        
         for (let j = 0; j < 7; j++) {
             // 創建一個單元格
             const cell = document.createElement('td');
             const dutyClass = getDutyClass(DoctorNames[date - 1]);
             if (i === 0 && j < firstDayOfWeek) {
                 // 填充空白的單元格
-                // cell.textContent = '';
+                cell.textContent = '';
             } else {
                 // 填充日期
                 if (date <= daysInMonth) {
                     const existingContent = cell.innerHTML;
-                    // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day">${date}</span>`;
-                    // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day">${date}<br>${DoctorNames[date-1]}</span>`;
-                    // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day ${dutyClass}">${date}<br>${DoctorNames[date-1]}</span>`;
                     cell.innerHTML = existingContent + `<td><span id="day-${date}" class="calendar-day }">${date}<br><div class="${dutyClass}">${DoctorNames[date-1]}</span></td>`;
-                    // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day" >${DoctorName[date]}</span>`;
                     date++;
                     rowHasContent = true;
                 } else {
                     // 超過當月的天數，填充空白的單元格
-                    // cell.textContent = '';
+                    cell.textContent = '';
                 }
             }
             // 將單元格添加到行中

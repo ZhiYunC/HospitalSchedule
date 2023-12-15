@@ -13,8 +13,28 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\Phone3.png",
+      "PackagePath": "staticwebassets\\image\\Phone3.png"
+    },
+    {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\fjcu_logo.png",
       "PackagePath": "staticwebassets\\image\\fjcu_logo.png"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\icon_phone.png",
+      "PackagePath": "staticwebassets\\image\\icon_phone.png"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\phone.png",
+      "PackagePath": "staticwebassets\\image\\phone.png"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\phone1.jpg",
+      "PackagePath": "staticwebassets\\image\\phone1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\phone2.png",
+      "PackagePath": "staticwebassets\\image\\phone2.png"
     },
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\setting.png",
@@ -23,6 +43,10 @@
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\calender.js",
       "PackagePath": "staticwebassets\\js\\calender.js"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\manager.js",
+      "PackagePath": "staticwebassets\\js\\manager.js"
     },
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\schedule.js",

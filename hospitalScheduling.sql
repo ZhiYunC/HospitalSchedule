@@ -7,7 +7,11 @@ INSERT INTO doctors VALUES (3,"Amy");
 SELECT * FROM doctors;
 
 SELECT  FROM doctors;
-SELECT schedule_id,schedule_date,doctor_name FROM `schedule` INNER JOIN `doctors` ON (doctors.doctor_id=schedule.schedule_doctor_id)
+
+SELECT schedule_id,schedule_date,doctor_name 
+FROM `schedule` 
+INNER JOIN `doctors` 
+ON (doctors.doctor_id=schedule.schedule_doctor_id)
 
 
 -- 更新

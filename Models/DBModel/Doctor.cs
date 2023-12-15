@@ -4,6 +4,7 @@ namespace Demo.Models{
         public string Name { get; set;}
         public string Department { get; set;}
         public int Shift { get; set;}
+        public string Doctor_Phone { get; set;}
 
     }
 }
