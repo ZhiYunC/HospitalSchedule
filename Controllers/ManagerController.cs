@@ -13,27 +13,44 @@ namespace Demo.Controllers
             // 在這裡從數據庫獲取數據，並將數據傳遞給視圖
             // ViewData["Data"] = GetDataFromDatabase();
             DBmanager dbmanager = new DBmanager();
-            List<Doctor> doctors = dbmanager.GetShift();
-            ViewBag.doctors = doctors;
+            List<Doctor> doctors = dbmanager.GetShift(2024,3,"一般內科");
+            // ViewBag.doctors = doctors;
             return View();
         }
-        public IActionResult Schedule()
+        [HttpGet]
+        public IActionResult GetShiftData(int year,int month,string subdepartment)
+        {
+            DBmanager dbmanager = new DBmanager();
+            List<Doctor> doctors = dbmanager.GetShift(year,month,subdepartment);
+            return Json(doctors);
+        }
+
+        public IActionResult SelectSubject ()
         {
             return View();
         }
-
-        public IActionResult Schedule_setting(string subdepartment)
+        
+        public IActionResult ManagerShare()
+        {
+            return View();
+        }
+        [HttpGet]
+        public  IActionResult GetDoctors(string selectedsubdepartment)
+        {
+            DBmanager dbmanager = new DBmanager();
+            List<Doctor> doctors = dbmanager.GetDoctors(selectedsubdepartment);
+            return Json(doctors);;
+        }
+        public IActionResult Scheduling()
         {   
             // int departmentId = ConvertSubdepartmentToId(subdepartment); // 轉換 subdepartment 為對應的 departmentId
             // 在這裡從數據庫獲取數據，並將數據傳遞給視圖
-            DBmanager dbmanager = new DBmanager();
-            List<Doctor> doctors = dbmanager.GetDoctors(subdepartment);
-            ViewBag.doctors = doctors;
+            
             return View();
         }
-
+        // ??
         [HttpPost]
-        public  IActionResult Schedule_setting(List<Setting> worktimeData)
+        public  IActionResult Scheduling(List<Setting> worktimeData)
         {
             String ward = "一般病房";
             DBmanager dbmanager = new DBmanager();
@@ -45,7 +62,7 @@ namespace Demo.Controllers
             catch(Exception e){
                 Console.WriteLine(e.ToString());
             }
-            return RedirectToAction("Schedule");
+            return RedirectToAction("SelectSubject");
 
         }
         // private int ConvertSubdepartmentToId(string subdepartment) {
@@ -55,20 +72,25 @@ namespace Demo.Controllers
         //     return 0;
         // }
 
-        public IActionResult Share()
-        {
-            return View();
-        }
 
         public IActionResult doctor_date()
         {
             return View();
         }
 
-        public IActionResult calender()
+        public IActionResult HistorySchedule()
         {
+            
+
+            // ViewBag.doctorNamesLists= doctorNamesList;
+            return View();
+        }
+        [HttpGet]
+        public IActionResult GetScheduleData(int year,int month,string subdepartment)
+        {
+            // 假設你的班表數據存在在名為scheduleList的List中
             DBmanager dbmanager = new DBmanager();
-            List<Schedule> schedules = dbmanager.GetSchedule();
+            List<Schedule> schedules = dbmanager.GetSchedule(year,month,subdepartment);
             
             List<string> doctorNamesList = new List<string>();
             foreach (var schedule in schedules)
@@ -76,29 +98,34 @@ namespace Demo.Controllers
             // 将医生名字添加到列表中
                 doctorNamesList.Add(schedule.Schedule_doctor_name);
             }
-
-            Console.WriteLine(schedules.Count);
-            Console.WriteLine("people"+doctorNamesList.Count);
-
-            ViewBag.doctorNamesLists = doctorNamesList;
-            return View();
+            return Json(doctorNamesList);
         }
-
         // read為測試用
-        public IActionResult read()
-        {
-            // 在這裡從數據庫獲取數據，並將數據傳遞給視圖
-            // ViewData["Data"] = GetDataFromDatabase();
-            DBmanager dbmanager = new DBmanager();
-            List<Doctor> doctors = dbmanager.GetDoctorPhone();
-            ViewBag.doctors = doctors;
-            return View();
-        }
+        // public IActionResult ExpandSchedule()
+        // {
+        //     // 在這裡從數據庫獲取數據，並將數據傳遞給視圖
+        //     // ViewData["Data"] = GetDataFromDatabase();
+        //     DBmanager dbmanager = new DBmanager();
+        //     List<Doctor> doctors = dbmanager.GetDoctorPhone();
+        //     ViewBag.doctors = doctors;
+        //     return View();
+        // }
         // [HttpPost]
         // public ActionResult CreateShift(Doctor doctor){
         //     DBmanager dbmanager = new DBmanager();
         //     try{
         //         dbmanager.NewShift(doctor);
+        //     }
+        //     catch(Exception e ){
+        //         Console.WriteLine(e.ToString());
+        //     }
+        //     return RedirectToAction("Schedule");
+        // }
+        // [HttpPost]
+        // public ActionResult ViewNextSchedule(String DepartmentName){
+        //     DBmanager dbmanager = new DBmanager();
+        //     try{
+        //         dbmanager.NewShift(DepartmentName);
         //     }
         //     catch(Exception e ){
         //         Console.WriteLine(e.ToString());

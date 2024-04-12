@@ -1,0 +1,88 @@
+@{ Layout = null; } @*取消導航欄*@
+@using Demo.Models;
+@{
+    List<Schedule> schedules = ViewBag.schedules;
+    List<string> doctorNamesList =ViewBag.doctorNamesLists;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暫定班表</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            margin-top: 100px;
+            padding: 0;
+            background-color: white;
+        }
+        
+        /* "開始排班" 按鈕樣式 */
+        .start-scheduling {
+            text-align: center;
+        }
+        .start-scheduling button {
+            background-color:#5B9782 ;
+            background-color: #5B9B80;
+            color: rgb(255, 255, 255);
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            margin-top: 70px;
+        }
+    </style>
+</head>
+<body>
+    <div id="sharedContentContainer"></div>
+    <div class="start-scheduling">
+        <button id="startSchedulingBtn">開始排班</button>
+    </div>
+    <div id="json">
+        @* @if (schedules != null)
+        {   
+            var i = 0;
+            @foreach (Schedule schedule in schedules)
+            {    
+                <div>@schedule.Schedule_doctor_name</div>
+                <div>@schedule.Schedule_date</div>
+
+                i++;
+            }
+        }
+        @if (doctorNamesList != null)
+        {   
+            var i = 0;
+            @foreach (string name in doctorNamesList)
+            {    
+                <div>@name</div>
+                i++;
+            }
+        } *@
+        </div>    
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/Doctor/Test.js" asp-append-version="true"></script>
+    <script>
+    
+        //使用共享的導航欄
+        // 使用 fetch 加载共享的 HTML 内容
+        fetch('/Doctor/DoctorShare')
+            .then(response => response.text())
+            .then(html => {
+                // 将加载的 HTML 插入到共享容器中
+                document.getElementById('sharedContentContainer').innerHTML = html;
+            }
+        );
+    
+    </script>
+
+</body>
+</html>
+
+
+

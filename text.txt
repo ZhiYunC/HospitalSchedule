@@ -11,3 +11,6 @@ git remote add origin <your url>
 # 分支
 git branch -M main
 git push -u origin main
+https://github.com/ZhiYunC
+
+Console.WriteLine("資料庫為空！");

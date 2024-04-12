@@ -5,6 +5,42 @@
       "PackagePath": "staticwebassets\\Demo.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Doctor\\HistorySchedule.css",
+      "PackagePath": "staticwebassets\\css\\Doctor\\HistorySchedule.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Doctor\\Index.css",
+      "PackagePath": "staticwebassets\\css\\Doctor\\Index.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Doctor\\Scheduling.css",
+      "PackagePath": "staticwebassets\\css\\Doctor\\Scheduling.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\ExpandSchedule.css",
+      "PackagePath": "staticwebassets\\css\\Manager\\ExpandSchedule.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\HistorySchedule.css",
+      "PackagePath": "staticwebassets\\css\\Manager\\HistorySchedule.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\Index.css",
+      "PackagePath": "staticwebassets\\css\\Manager\\Index.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\Scheduling.css",
+      "PackagePath": "staticwebassets\\css\\Manager\\Scheduling.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\SelectSubject.css",
+      "PackagePath": "staticwebassets\\css\\Manager\\SelectSubject.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\model.css",
+      "PackagePath": "staticwebassets\\css\\model.css"
+    },
+    {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -25,6 +61,10 @@
       "PackagePath": "staticwebassets\\image\\icon_phone.png"
     },
     {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\logo.png",
+      "PackagePath": "staticwebassets\\image\\logo.png"
+    },
+    {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\phone.png",
       "PackagePath": "staticwebassets\\image\\phone.png"
     },
@@ -41,20 +81,36 @@
       "PackagePath": "staticwebassets\\image\\setting.png"
     },
     {
-      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\calender.js",
-      "PackagePath": "staticwebassets\\js\\calender.js"
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Doctor\\Doctor.js",
+      "PackagePath": "staticwebassets\\js\\Doctor\\Doctor.js"
     },
     {
-      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\manager.js",
-      "PackagePath": "staticwebassets\\js\\manager.js"
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Doctor\\HistorySchedule.js",
+      "PackagePath": "staticwebassets\\js\\Doctor\\HistorySchedule.js"
     },
     {
-      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\schedule.js",
-      "PackagePath": "staticwebassets\\js\\schedule.js"
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Doctor\\Scheduling.js",
+      "PackagePath": "staticwebassets\\js\\Doctor\\Scheduling.js"
     },
     {
-      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\schedule_setting.js",
-      "PackagePath": "staticwebassets\\js\\schedule_setting.js"
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Doctor\\Test.js",
+      "PackagePath": "staticwebassets\\js\\Doctor\\Test.js"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Manager\\HistorySchedule.js",
+      "PackagePath": "staticwebassets\\js\\Manager\\HistorySchedule.js"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Manager\\Scheduling.js",
+      "PackagePath": "staticwebassets\\js\\Manager\\Scheduling.js"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Manager\\SelectSubject.js",
+      "PackagePath": "staticwebassets\\js\\Manager\\SelectSubject.js"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Manager\\manager.js",
+      "PackagePath": "staticwebassets\\js\\Manager\\manager.js"
     },
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\site.js",

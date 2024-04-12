@@ -1,0 +1,69 @@
+@{ Layout = null; } @*取消導航欄*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選擇科別病房</title>
+    <link href="../css/Manager/SelectSubject.css" rel="stylesheet">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
+    <div id="sharedContentContainer"></div>
+    <div class="top">
+        <h2 id="currentMonth">請選擇科別</h2>
+        @* 書榆 *@
+        <!-- 表單 -->
+        <div class="d-flex flex-column align-items-center">
+            <!-- 科別 -->
+            <!-- 科別按鈕組 -->
+            <div class="department-buttons" role="group" aria-label="Department Buttons">
+                <button type="button" data-department="internal">內科部</button>
+                <button type="button" data-department="surgery">外科部</button>
+                <button type="button" data-department="cardiovascular">心臟血管醫學部</button>
+                <button type="button" data-department="pediatrics">兒童醫學部</button>
+                <button type="button" data-department="obstetrics">婦產部</button>
+                <button type="button" data-department="specialties">其他專科</button>
+                <button type="button" data-department="feature">特色中心</button>
+                <button type="button" data-department="covid">新冠肺炎專區</button>
+            </div>
+
+            <!-- 細分科別按鈕將顯示在這個容器內 -->
+            <div class="center">   
+                <div id="sub-departments" class="sub-department-buttons"></div>
+            </div>
+        </div>
+        @* 書榆 *@
+        <h2>請選擇病房</h2>
+        <div id="ward-btn" >
+            <!-- 病房按鈕 -->
+            <div class="ward-buttons">
+                <button type="ward" >普通病房/一般病房</button>
+                <button type="ward"  >加護病房</button>
+            </div>
+        </div>
+        <div class="start-scheduling">
+            <button id="startSchedulingBtn">開始排班</button>
+        </div>
+    </div>
+    <script src="~/js/Manager/SelectSubject.js" asp-append-version="true"></script>
+    <!-- 省略其他內容 -->
+
+    <script>
+        // 使用 fetch 加载共享的 HTML 内容
+        fetch('/Manager/ManagerShare')
+            .then(response => response.text())
+            .then(html => {
+                // 将加载的 HTML 插入到共享容器中
+                document.getElementById('sharedContentContainer').innerHTML = html;
+            }
+        );
+        
+    </script>
+
+</body>
+</html>
+
+
+

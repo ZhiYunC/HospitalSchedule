@@ -1,16 +1,13 @@
 @{ Layout = null; } @*取消導航欄*@
 @using Demo.Models;
-@{
-    List<Doctor> doctors = ViewBag.doctors;
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>設置醫生班數及不想上班日</title>
-
+    <link href="../css/Manager/Scheduling.css" rel="stylesheet">
+    @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"> *@
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,11 +22,11 @@
             margin-top: 2px;
             color: #555;
         }
-        
+
 
         /*科別文字樣式*/
         .selected-info {
-            @* background-color: #c0b0b0; *@
+            /* background-color: #c0b0b0;  */
             background-color: rgb(152, 203, 199);
             display: flex;
             flex-direction: row;
@@ -54,7 +51,7 @@
             margin: 0;
             
         }
-
+        /* 班數表格區 */
         .list-background{
             background-color: rgba(242, 242, 242, 0.82);
             border-radius: 10px; /* 添加圓角 */
@@ -68,22 +65,22 @@
         }
 
         /*醫師班數選擇列表*/
-        .doctor-list{
+        /* #doctor-list{
             align-items: center;
             justify-content: center;
             text-align: center;
             padding: 15px;
-        }
+        } */
         #doctorList {
             font-size: 20px;
             list-style: none; /* 移除列表項的點 */
             padding: 0 10px; /* 清除列表的內邊距 */
             margin-bottom: 10px;
         }
-    
+
         #doctorList span {
             display: inline-block;
-            width: 150px; /* 設定醫生名字欄位的寬度 */
+            width: 450px; /* 設定醫生名字欄位的寬度 */
         }
         #doctorList input {
             font-size: 16px;
@@ -95,16 +92,16 @@
         }
         table {
             border-collapse: collapse;  
+            @* width: 200px; *@
         }
         th {
-            padding: 10px 100px;
+            padding: 20px 125px;
             white-space: nowrap; /* 防止文字換行 */
             text-align: center; /* 將文本對齊方式改為左對齊 */
             border-bottom: 1px solid #1c1c1c; /* 底線樣式，可以根據需要調整顏色和寬度 */
         }
         td {
-            padding: 20px 100px;
-            
+            padding: 20px 125px;
             text-align: center; /* 將文本對齊方式改為左對齊 */
             border-bottom: 1px solid #898989; /* 底線樣式，可以根據需要調整顏色和寬度 */
         }
@@ -127,25 +124,45 @@
         .start-scheduling button:hover {
             background-color: #BF7D7D;
         }
-        
+        /*小科別按鈕*/
+        .sub-department-buttons {
+            margin-top: 20px;
+            width: 1000px;
+            /* margin-left: 15%; */
+        }
+        .sub-department-buttons button {
+            background-color:white;
+            border: none;
+            color: rgb(0, 0, 0);
+            cursor: pointer; /*鼠標指針將變為手型，提示用戶*/
+            padding: 10px;
+            text-decoration: none;/*去掉超連結的下劃線*/
+            margin: 5px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #4A79D1;
+        }
+        .sub-department-buttons button.selected {
+            background-color:#4A79D1;
+        }
     </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
-    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
     <div id="sharedContentContainer"></div>
-    <form method="post" action="/Manager/Schedule_setting">
+    <div class="content">   
+        <div id="sub-departments" class="sub-department-buttons"></div>
+    </div>
+    <form method="post" action="/Manager/Scheduling">
         <!-- 顯示所選值的元素 -->
         <div class="selected-info">
             <h3>科別：</h3>
             <p id="selectedDepartment"></p>
             <h3>病房：</h3>
             <p id="selectedWard" name="ward" value="一般病房"></p>
-            
-            
         </div>
         <div class="list-background">
-            
                 <ul id="doctorList">
                     <!-- 醫生名字和班數選擇按鈕將在這裡動態添加 -->
                     <div class="center">
@@ -153,33 +170,24 @@
                             <thead>
                                 <tr>
                                     <th>醫師</th>
-                                    <th>班數</th>
-                                    <th>日期設定</th>
+                                    <th>平日班數</th>
+                                    <th>假日班數</th>
+                                    @* <th>日期設定</th> *@
                                 </tr>
                             </thead>
                             <tbody>
-                            @if (doctors != null)
-                            {   
-                                var i = 0; 
-                                @foreach (Doctor doctor in doctors) // 假設 Model 是從後端傳來的醫生列表
-                                {
-                                    <tr>
-                                        <td class="nowrap">@doctor.Name</td> <!-- 這裡顯示每位醫生的名字 -->
-                                        <td>
-                                            <input type="hidden"id="doctorId" name="worktimeData[@i].Setting_Doctor_ID" value="@doctor.ID" readonly>
-                                            <input type="number"id="InputShift" name="worktimeData[@i].Shift" min="1" value="0">
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-secondary btn-less-date">-</button>
-                                            <input type="date" class="date-button">
-                                            <button type="button" class="btn btn-secondary btn-add-date">+</button>
-                                        </td>
-                                        <hr>
-                                    </tr>
-                                    i++;
-                                    <!-- 其他醫師排班行 -->
-                                }  
-                            }
+                                @* <tr>
+                                    <td class="nowrap">@doctor.Name</td> <!-- 這裡顯示每位醫生的名字 -->
+                                    <td>
+                                        <input type="hidden"id="doctorId" name="worktimeData[@i].Setting_Doctor_ID" value="@doctor.ID" readonly>
+                                        <input type="number"id="InputShift" name="worktimeData[@i].Shift" min="1" value="@doctor.Shift">
+                                        
+                                    </td>
+                                    <td>
+                                        <input type="number"id="Input" name="worktimeData[@i].Shift" min="1" value="@doctor.Shift">
+                                    </td>
+                                    <hr>
+                                </tr> *@
                             </tbody>
                         </table>
                     </div>
@@ -187,12 +195,15 @@
                         <button id="SaveSchedule"class="button" type="submit">儲存班數及日期</button>
                     </div>
                 </ul>
-        </div>
+                
+        </div>    
     </form>
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script> 
+    <script src="/lib/jquery/dist/jquery.min.js"></script> 
     <script>
         // 使用 fetch 顯示 Share 導航欄的檔案
-        fetch('/Manager/Share')
+        fetch('/Manager/ManagerShare')
             .then(response => response.text())
             .then(html => {
                 // 将加载的 HTML 插入到共享容器中
@@ -200,20 +211,9 @@
             }
         ); 
 
-        document.getElementById('SaveSchedule').addEventListener('click', function () {
-            // 假設這是儲存操作成功的標誌，你可以根據實際情況修改
-            var saveSuccess = true;
-
-            if (saveSuccess) {
-                // 顯示儲存成功的通知
-                alert("儲存成功");
-            } else {
-                // 如果儲存操作失敗，可以顯示相應的錯誤通知
-                alert("儲存失敗");
-            }
-        });
+        
     </script>
-    <script src="~/js/schedule_setting.js" asp-append-version="true"></script>
+    <script src="~/js/Manager/Scheduling.js" asp-append-version="true"></script>
     
 </body>
 </html>

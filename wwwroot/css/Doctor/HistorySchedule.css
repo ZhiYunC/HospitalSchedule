@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    padding: 0;
+    background-color: white;
+}
+/*月曆*/
+.content {  
+    justify-content: center;
+    margin-top: 30px;  /*調整月曆與上方的間距 */
+    /* align-items: flex-start;調整垂直方向對齊，可以根據需要更改*/
+    text-align: center; 
+    align-items: center;
+}
+.flex{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;/* 調整垂直方向對齊，可以根據需要更改 */
+    /* @* background-color: #F4EBD9; *@ */
+    border-radius: 10px;
+}
+.text{
+    display: flex;
+    margin-left: 400px;
+    /* @* align-items: flex-start; *@ */
+    align-items: center;  
+    font-size: 20px;
+    padding: 12px;
+    min-width: 100px;
+    font-weight: bold;/*粗體字*/
+}
+table {
+    width: 60%;
+    /*margin-left: 28%;*/
+    border-collapse: collapse;
+    margin-top: 20px;
+    padding-right: 30px;
+    table-layout: fixed; /* 新增固定表格佈局，讓寬度均分 */
+    border-radius: 10px; /* 添加圓角 */
+    /* @* background-color: white; *@ */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+}
+
+th, td {
+    /* @* border: 1px solid #434343; *@ */
+    padding: 8px;
+    text-align: left; /* 將文本對齊方式改為左對齊 */
+    border: 1px solid #EBEBEB;/*邊框*/
+}
+
+th {
+    /* background-color: #CFDED3; 
+    background-color: rgb(152, 203, 199); 
+    background-color: #EBEBEB;  */
+    background-color: #F0F0F0;
+    color: rgb(7, 7, 7);
+    padding: 10px; /* 調整表頭高度 */
+    text-align: center;
+    font-size: 18px;
+}
+
+/* 調整單元格內的文本位置 */
+td {
+    /* border: 1px solid #666666;月曆邊框顏色  */
+    padding: 0; /* 清除單元格內的內距 */
+    height: 90px; /* 調整單元格高度 */
+    position: relative;
+    font-size: 18px;
+}
+
+td span {
+    position: absolute;
+    top: 10px; /* 距離頂部的距離 */
+    left: 10px; /* 距離左側的距離 */
+}
+
+
+/*選擇按鈕1*/
+.department-button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    padding: 10px;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+    font-size:20px;
+    text-align: center;
+    width: auto;
+    
+}
+.person {
+    font-size: 12px;
+    margin-top: 2px;
+    color: #555;
+}
+
+
+.font{
+    font-size:28px  
+}
+
+/*選擇科別按鈕*/
+.button-style {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    padding: 5px;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+    font-size: 20px;
+    text-align: center;
+    min-width: 100px;
+    border-radius: 5px; 
+    font-weight: bold;
+    border: 3px solid #CCE4F0;
+    /* border: 3px solid #5CADAD; */
+    /*導航欄按鈕可用*/
+    /* border-radius: 5px;
+    border: 2px solid #B1DD8B;
+    padding: 10px 0; */
+}

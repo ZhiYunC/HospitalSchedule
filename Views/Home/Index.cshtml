@@ -6,165 +6,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 其他的 head 內容（如額外的 CSS 連結或樣式） -->
+    <link href="~/css/styles.css" rel="stylesheet">
 
     <style>
-        body{
-            background-color:#ecececd1;
-        }
-        .location{
-            margin-top:200px; 
-            margin-left:38%;
-            
-        }
-        .row{
-            display: flex;
-            margin-top:10px;
-            margin-left:15%;
-            flex-direction: row; /* 将子元素水平排列 */
-            justify-content: space-between; /* 在父元素内平均分配空间 */
-            align-items: center; /* 在交叉轴上居中对齐 */
-        }
-        .square-background {
-            background-color:white;
-            display: inline-block; /* 使元素成为内联块元素，以便它只占据它包含的文本的宽度 */
-            @* background-color: #CCE5FF; /*登入框背景颜色 */ *@
-            border: 1px solid #000000; /* 添加2像素宽的实线边框，颜色为灰色 */
-            color: #30272b; /* 登入文字顏色 */
-            padding: 50px 100px; /* 内边距，可以根据需要进行调整 */
-            border-radius: 5px; /* 边框半径，用于创建圆角 */
-            min-width: 200px; /* 设置宽度 */
-            min-height: 200px; 
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);4
-        }
-        .content-text {
-            border-radius: 10px; /* 边框半径，用于创建圆角 */
-            text-align: center; /* 文本水平居中 */
-        }
-        .title-icon {
-            display: inline-block; /* 使元素成为内联块元素，以便它只占据它包含的文本的宽度 */
-            background-color: #93bcd7; /* 背景颜色 */
-            width: 50px; /* 设置宽度 */
-            height: 50px; 
-        }
-        .title-text1 {
-            display: flex; /* 使元素变成行内块元素，以便设置上边距 */
-            font-size: 20px;
-            margin-top: 15px; /* 设置上边距为负值，使文字向上移动 */
-            text-align: center;
-        }
         .title-text2 {
-            display: inline-block; /* 使元素变成行内块元素，以便设置上边距 */
-            font-size: 20px;
+            @* display: inline-block; /* 使元素变成行内块元素，以便设置上边距 */ *@
+            font-size: 24px;
             text-align: center;
-        
-        }
-        .title-line {
-            width: 100%; /* 水平线的宽度为100% */
-            height: 1px; /* 水平线的高度，可以根据需要调整 */
-            background-color: #C0C0C0; /* 水平线的颜色 */
-            display: block; /* 将元素变为块级元素 */
-            margin-top: 20px; /* 上边距，可以根据需要调整 */
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); /* 下阴影效果，可以根据需要调整参数 */
-        }
-        img {
-            width: auto; /* 设置图像宽度，可以根据需要调整 */
-            height: auto; /* 保持宽高比例 */
-        }
-        .login-input{
-            text-align: left;
-            padding-left:16px;
-        }
-        .login-button {
-            display: inline-block;
-            padding: 10px 20px; /* 按钮内边距，可以根据需要调整 */
-            font-size: 16px;
-            text-align: center;
-            text-decoration: none;
-            cursor: pointer;
-            border: 2px solid #0077cc; /* 边框颜色 */
-            color: #0077cc; /* 文字颜色 */
-            background-color: #fff; /* 背景颜色 */
-            border-radius: 5px; /* 圆角，可以根据需要调整 */
-            margin-top: 35px;
-        }
-        .actor-buttons input[type="radio"] {
-             align-items: center; 
-            @* display: none; /* 隐藏原始的单选框 */ *@
-        }
-        @* .actor-buttons label {
-            margin-right: 10px;
-            display: inline-block;
-            padding: 8px 16px;
-            
-            color: #fff;
-            border: 2px solid #0077cc;
-            border-radius: 5px;
-            cursor: pointer;
-        } 
-
-        .actor-buttons label:hover {
-            background-color: #005a99; /* 鼠标悬停时更改背景色 */
+            font-family: SimSun;
+            font-weight: bold;
+            padding: 30px;
+            color: #5A595A;
         }
 
-        .actor-buttons input[type="radio"]:checked + label {
-            background-color: #005a99; /* 选中时更改背景色 */
-            border-color: #005a99; /* 选中时更改边框颜色 */
-        }*@
         img{
             height: 50;
             width: 50;
             margin: 15px;
         }
+        .login-box{
+            border-radius: 10px; 
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);   
+        }
     </style>
 </head>
 <body>
-    <div class="location">
-        <div class="square-background">
-            <div class="content-text">
-                <img src="~/image/fjcu_logo.png">
-                <div class="title-text1">天主教輔仁大學附設醫院</div>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 頁面內容 -->
+    <!-- 固定寬度的容器 -->
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="min-height: 95vh;">
+            <div class="col-12 col-md-6 col-lg-4">  
+                <div class="login-box p-4 border border-light">
+                <img src="~/image/fjcu_logo.png" >
                 <div class="title-text2">醫護人員排班系統登入</div>
-                <p></p>
-                <div class="row">
-                     <div class="actor-buttons">
-                        <label>
-                        <input type="radio" name="actor" value="admin">
-                        管理者
-                        </label>
-                        <label>
-                        <input type="radio" name="actor" value="doctor">
-                            醫生
-                        </label>
+                    <!-- 頁籤導航 -->
+                    <ul class="nav nav-tabs nav-justified mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#managerTab">管理者</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#doctorTab">醫師</a>
+                        </li>
+                    </ul>
+                    <!-- 頁籤內容 -->
+                    <div class="tab-content">
+                        <div id="managerTab" class="container tab-pane active">
+                            <!-- 管理者登入表單 -->
+                            <br>
+                            @* <h2 class="display-8 text-center mb-4">管理者登入</h2> *@
+                            <form id="managerLoginForm" action="/Home/ManagerLogin" method="post"  >
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="username" name="Username" placeholder="帳號" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="password" name="Password" placeholder="密碼" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-custom">登入</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="doctorTab" class="container tab-pane fade">
+                            <!-- 醫師登入表單 -->
+                            <br>
+                            <form id="doctorLoginForm" action="/Home/DoctorLogin" method="post" >
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="username" name="Username" placeholder="帳號" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="password" name="Password" placeholder="密碼" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-custom">登入</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+                    
                 </div>
-                <script>
-                    function selectActor(actor) {
-                        // 处理选中的角色逻辑
-                        console.log(actor);
-                    }
-                </script>    
-                <form method="post" action="/Home/Login">
-                    <p></p>
-                    <div class="login-input">
-                    <label for="username" >帳號:</label></div>
-                    <input type="text" id="username" name="username" >
-                    <p></p>
-                    <div class="login-input">
-                    <label for="password" >密碼:</label></div>
-                    <input type="password" id="password" name="password" >
-                    <p></p>
-                    <p></p>
-                    <button id="backButton"class="login-button">登入</button>
-                    <script>
-                        // 使用 JavaScript 监听按钮点击事件
-                        document.getElementById("backButton").addEventListener("click", function() {
-                            // 执行页面跳转
-                            indow.location.href = '/Manager/calender'; //目标URL
-                        });
-                    </script>
-                </form>
             </div>
-        </div>    
-    </div> 
+        </div>
+    </div>
+    
 </body>
 </html>
+
+ 

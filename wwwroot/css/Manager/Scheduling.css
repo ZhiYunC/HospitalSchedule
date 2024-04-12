@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+
+    padding: 0;
+    background-color:white ;
+}
+.content{
+    /* margin-top: 150px; */
+}
+
+.person {
+    font-size: 12px;
+    margin-top: 2px;
+    color: #555;
+}
+
+
+/*科別文字樣式*/
+.selected-info {
+    /* background-color: #c0b0b0;  */
+    background-color: rgb(152, 203, 199);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px; /* 添加圓角 */
+    padding: 15px;
+    width: 1000px;
+    margin: auto;
+    /* margin-top: 50px; */
+}
+
+.selected-info h3 {
+    margin: 0; /* 清除標題的預設邊距 */
+    margin-left: 30px; /* 可以根據需要調整標題之間的間距 */
+    font-size: 20px;
+}
+
+.selected-info p {
+    font-size: 20px;
+    margin: 0;
+    
+}
+/* 班數表格區 */
+.list-background{
+    background-color: rgba(242, 242, 242, 0.82);
+    border-radius: 10px; /* 添加圓角 */
+    width: 1500px;
+    margin: 0 auto;/*將此灰色方塊置中*/
+    padding: 15px;
+    margin-top: 20px;
+}
+.list button{
+    margin-left: 35%;
+}
+
+/*醫師班數選擇列表*/
+/* #doctor-list{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+} */
+#doctorList {
+    font-size: 20px;
+    list-style: none; /* 移除列表項的點 */
+    padding: 0 10px; /* 清除列表的內邊距 */
+    margin-bottom: 10px;
+}
+
+#doctorList span {
+    display: inline-block;
+    width: 450px; /* 設定醫生名字欄位的寬度 */
+}
+#doctorList input {
+    font-size: 16px;
+    width: 30px; /* 設定班數選擇按鈕的寬度 */
+}
+/*日期按鈕*/
+#doctorList .date-button{
+    width: 120px;
+}
+table {
+    border-collapse: collapse;  
+    width: 200px;
+}
+th {
+    padding: 25px 25px;
+    white-space: nowrap; /* 防止文字換行 */
+    text-align: center; /* 將文本對齊方式改為左對齊 */
+    border-bottom: 1px solid #1c1c1c; /* 底線樣式，可以根據需要調整顏色和寬度 */
+}
+td {
+    padding: 25px 25px;
+    text-align: center; /* 將文本對齊方式改為左對齊 */
+    border-bottom: 1px solid #898989; /* 底線樣式，可以根據需要調整顏色和寬度 */
+}
+/* "儲存排班" 按鈕樣式 */
+.start-scheduling {
+    text-align: center;
+}
+.start-scheduling button {
+    background-color:#65b297 ;
+    background-color: #A45151;
+    color: rgb(255, 255, 255);
+    padding: 15px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-top: 50px;
+}
+
+.start-scheduling button:hover {
+    background-color: #BF7D7D;
+}

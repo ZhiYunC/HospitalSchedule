@@ -1,0 +1,83 @@
+@{ Layout = null; } @*取消導航欄*@
+@using Demo.Models;
+@{
+    List<Doctor> doctors = ViewBag.doctors;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>暫定班表</title>
+    <link href="../css/Doctor/Index.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 導航欄 -->
+    <div id="sharedContentContainer"></div>
+    <!-- 內容 -->
+    <div class="content">
+        <!-- 標題 -->
+        <div class="text">
+            <div  id="currentMonthText" style="padding-right: 12px;font-size: 24px;"></div>
+            <div id="currentMonth" style="padding-right: 28px;font-size: 24px;" >暫定班表</div>
+            <!-- 在醫生表格上方添加下拉選單 -->
+            <div class="dropdown-department">
+                <select id="departmentSelect" class="button-style" name="DepartmentName" value="選擇科別">選擇部門
+                    <option value="內科部" selected>內科部</option>
+                    <option value="外科部">外科部</option>
+                    <option value="心臟血管醫學部">心臟血管醫學部</option>
+                    <option value="兒童醫學部">兒童醫學部</option>
+                    <option value="婦產部">婦產部</option>
+                    <option value="其他專科">其他專科</option>
+                    <option value="特色中心">特色中心</option>
+                    <option value="新冠肺炎專區">新冠肺炎專區</option>
+                </select>
+                <!-- 小科別 -->
+                <select id="sub-departmentSelect" class="button-style">選擇部門
+                </select>
+            </div>
+        </div>
+        <!-- 月曆 -->
+        <div class="flex">
+            <!-- 班表表格 -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>日</th>
+                        <th>一</th>
+                        <th>二</th>
+                        <th>三</th>
+                        <th>四</th>
+                        <th>五</th>
+                        <th>六</th>
+                    </tr>
+                </thead>
+                <tbody id="calendar-body">
+                    <!-- 這裡會由 JavaScript 動態生成月曆的日期 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/Doctor/Doctor.js" asp-append-version="true"></script>
+    <script>
+    
+        //使用共享的導航欄
+        // 使用 fetch 加载共享的 HTML 内容
+        fetch('/Doctor/DoctorShare')
+            .then(response => response.text())
+            .then(html => {
+                // 将加载的 HTML 插入到共享容器中
+                document.getElementById('sharedContentContainer').innerHTML = html;
+            }
+        );
+    
+    </script>
+
+</body>
+</html>
+
+
+

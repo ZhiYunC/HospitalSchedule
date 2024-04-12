@@ -1,4 +1,8 @@
 @{ Layout = null; } @*取消導航欄*@
+@using Demo.Models;
+@{
+    Doctor doctor=ViewBag.doctor;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,9 +78,11 @@
             color: #6e6e6e;
             text-decoration: none;
             padding: 15px;
-            margin-top: 10px;
+            margin-top: 15px;
             position: relative;
             transition: color 0.3s;
+            @* border: 1px solid;
+            border-color:#4A79D1; *@
         }
         /*底線效果*/
          nav a:after {
@@ -211,15 +217,17 @@
                 </a>
                 <div class="title">醫護人員排班系統</div>
                 <nav>
-                    <div class="dropdown">
+                    @* <div class="dropdown">
                         <button class="settings-button">查看班表</button>
                         <div class="dropdown-content">
                             <a href="/Manager/Index">暫定班表</a>
                             <a href="/Manager/calender">歷史班表</a>
                         </div>
-                    </div>
-                    <a href="/Manager/Schedule" >排班</a>
-                    <a href="/Manager/read" >聯絡醫生</a>
+                    </div> *@
+                    <a href="/Doctor/Index">暫定班表</a>
+                    <a href="/Doctor/HistorySchedule">歷史班表</a>
+                    <a href="/Doctor/Scheduling" >排班</a>
+                    @* <a href="/Doctor/Test" >展開班表測試</a> *@
                     @* <a href="/Manager/doctor_date" >醫生偏好日期</a> *@
                     <div class="dropdown">
                         <button class="settings-button">
@@ -228,11 +236,10 @@
                         </button>
                         <div class="dropdown-content">
                             <div class="dropdown-content-people">
-                                <p>陳芷芸</p>
-                                <p>職類：管理者</p>
+                                <p>@doctor.Doctor_Name </p><div style="font-size:20px;">醫生</div>
+                                <p>科別：@doctor.Doctor_Department</p>
                             </div>
-                            @*<a href="/Manager/read">登出</a>
-                            <a href="/Home/Index">登出</a> *@
+                            <a href="/Home/Index">登出</a>
                         </div> 
                     </div>
                 </nav>

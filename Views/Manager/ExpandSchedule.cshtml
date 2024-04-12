@@ -1,0 +1,119 @@
+@{ Layout = null; } @*取消導航欄*@
+@using Demo.Models;
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>醫生聯絡電話</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">  
+        <link href="../css/Manager/ExpandSchedule.css" rel="stylesheet">
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="bootstrap.bundle.min.js"></script>
+        @* <div id="sharedContentContainer"></div> *@
+        <nav class="navbar navbar-expand-lg navbar-light bg-white" style="box-shadow: 0 4px 8px rgba(5, 5, 5, 0.3);">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    @* <img src="~/image/fjcu_logo.png"  alt="" width="30" height="24"> *@
+                    <img src="~/image/fjcu_logo.png" height="55" class="d-inline-block align-text-midden">醫護人員排班系統
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="d-flex">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                            <a class="nav-link "   href="/Manager/Index">暫定班表</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" @*data-bs-toggle="tab"*@ href="/Manager/HistorySchedule">歷史班表</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link"  href="/Manager/SelectSubject">設定班數</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/Manager/ExpandSchedule">展開班表</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown" >
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="margin: 0 20px;">
+                            @* <img src="~/image/setting.png" height="30" alt="more"> *@
+                            <span class="navbar-left-icon"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton1">
+                            <li><h6 class="dropdown-header">使用者名稱</h6></li>
+                            <li><h6 class="dropdown-header">使用者職稱</h6></li>
+                            @* <li><a class="dropdown-item disabled" ></a></li> *@
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Home/Index">登出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container-sm">100% wide until small breakpoint
+            <div class="margin-top:10px;">
+            <button type="button" class="btn btn-primary">Primary</button>
+            <button type="button" class="btn btn-secondary">Secondary</button>
+            <button type="button" class="btn btn-success">Success</button>
+            <button type="button" class="btn btn-danger">Danger</button>
+            <button type="button" class="btn btn-warning">Warning</button>
+            <button type="button" class="btn btn-info">Info</button>
+            <button type="button" class="btn btn-light">Light</button>
+            <button type="button" class="btn btn-dark">Dark</button>
+
+            <button type="button" class="btn btn-link">Link</button>
+        </div>
+        <!-- Button to trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        儲存成功
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                儲存成功！
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+    </body>
+    <script>
+        // 使用 fetch 顯示 Share 導航欄的檔案
+        fetch('/Manager/ManagerShare')
+            .then(response => response.text())
+            .then(html => {
+                // 将加载的 HTML 插入到共享容器中
+                document.getElementById('sharedContentContainer').innerHTML = html;
+            }
+        ); 
+        // 使用 Bootstrap 的 Modal
+        $('#myModal').modal('show');
+
+        $('#saveButton').click(function() {
+        Swal.fire({
+            icon: 'success',
+            title: '儲存成功！',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        });
+    </script>
+</html>
