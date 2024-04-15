@@ -20,8 +20,7 @@
     <!-- 導航欄 -->
     <div id="sharedContentContainer"></div>
     <!-- 內容 -->
-    <div class="content" style="">
-        
+    <div class="content" style="">  
             <!-- 標題&選擇按鈕 -->
             <div class="text"> 
                 <h2 id="currentMonth" class="font">歷史班表</h2>
@@ -32,14 +31,14 @@
                     <!-- 年 -->
                     <label for="yearSelector">年份:</label>
                     <select name="yearSelector" class="button-style" id="yearSelector">
-                        <option value=null selected>--請選擇年份--</option>
+                        <option value=null selected disabled hidden>--請選擇年份--</option>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
                     </select>
                     <!-- 月 -->
                     <label for="monthSelector">月份:</label>
                     <select name="monthSelector" class="button-style" id="monthSelector">
-                        <option value=null selected>--請選擇月份--</option>
+                        <option value=null selected disabled hidden>--請選擇月份--</option>
                         <option value="1">一月</option>
                         <option value="2">二月</option>
                         <option value="3">三月</option>
@@ -56,7 +55,7 @@
                     <!-- 大科別 -->
                     <label for="departmentSelect">部門:</label>
                     <select id="departmentSelect" class="button-style" >
-                        <option value=null selected>--請選擇部門--</option>
+                        <option value=null selected disabled hidden>--請選擇部門--</option>
                         <option value="內科部">內科部</option>
                         <option value="外科部">外科部</option>
                         <option value="心臟血管醫學部">心臟血管醫學部</option>

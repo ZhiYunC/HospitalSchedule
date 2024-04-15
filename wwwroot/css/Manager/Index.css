@@ -1,16 +1,10 @@
-
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-
-    padding: 0;
     background-color: white;
 }
-/*月曆*/
+/*內容*/
 .content {  
     justify-content: center;
-    
-    /* margin-bottom:100px; */
     align-items: flex-start;/* 調整垂直方向對齊，可以根據需要更改 */
     text-align: center; 
     margin-top: 30px 0;
@@ -19,7 +13,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;/* 調整垂直方向對齊，可以根據需要更改 */
-    
     /* background-color: #F4EBD9; */
     border-radius: 10px;
 }
@@ -27,7 +20,7 @@ body {
     display: flex;
     align-items: center;  
     /* font-size: 20px; */
-    padding: 12px;
+    /* padding: 12px; */
     text-align: center;
     min-width: 100px;
     font-weight: bold;/*粗體字*/
@@ -46,7 +39,8 @@ body {
     margin-left: 160px; 
     margin-top: 15px;  
     margin-bottom: 15px;  
-    background-color: rgb(154, 196, 192);
+    /* background-color: rgb(154, 196, 192); */
+    background-color: #f0f0f0bd;
     width: 1150px;
     border-radius: 5px; 
 }
@@ -100,8 +94,8 @@ th {
     /* @* background-color: #CFDED3; *@
     @* background-color: rgb(152, 203, 199); *@
     @* background-color: #EBEBEB; *@ */
-    background-color: #F0F0F0;
-    /* background-color:#CCE4F0; */
+    /* background-color: #F0F0F0; */
+    background-color:#CCE4F0;
     color: rgb(7, 7, 7);
     padding: 10px; /* 調整表頭高度 */
     text-align: center;
@@ -142,8 +136,8 @@ td span {
 }
 .doctor-table th {
     /*首欄*/
-    background-color: #F0F0F0;
-    /* background-color:#CCE4F0; */
+    /* background-color: #F0F0F0; */
+    background-color:#CCE4F0;
     color: rgb(7, 7, 7);
     padding: 12px;
     text-align: center;

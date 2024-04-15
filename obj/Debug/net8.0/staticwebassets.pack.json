@@ -17,16 +17,16 @@
       "PackagePath": "staticwebassets\\css\\Doctor\\Scheduling.css"
     },
     {
-      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\ExpandSchedule.css",
-      "PackagePath": "staticwebassets\\css\\Manager\\ExpandSchedule.css"
-    },
-    {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\HistorySchedule.css",
       "PackagePath": "staticwebassets\\css\\Manager\\HistorySchedule.css"
     },
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\Index.css",
       "PackagePath": "staticwebassets\\css\\Manager\\Index.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\Schedule.css",
+      "PackagePath": "staticwebassets\\css\\Manager\\Schedule.css"
     },
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Manager\\Scheduling.css",
