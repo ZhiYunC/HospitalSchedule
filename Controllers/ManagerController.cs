@@ -8,12 +8,16 @@ namespace Demo.Controllers
     public class ManagerController : Controller
     {
         // GET: /Login/Index
+        public IActionResult ManagerShare()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             // 在這裡從數據庫獲取數據，並將數據傳遞給視圖
             // ViewData["Data"] = GetDataFromDatabase();
-            DBmanager dbmanager = new DBmanager();
-            List<Doctor> doctors = dbmanager.GetShift(2024,3,"一般內科");
+            // DBmanager dbmanager = new DBmanager();
+            // List<Doctor> doctors = dbmanager.GetShift(2024,3,"一般內科");
             // ViewBag.doctors = doctors;
             return View();
         }
@@ -30,10 +34,7 @@ namespace Demo.Controllers
             return View();
         }
         
-        public IActionResult ManagerShare()
-        {
-            return View();
-        }
+        
         [HttpGet]
         public  IActionResult GetDoctors(string selectedsubdepartment)
         {
@@ -56,13 +57,13 @@ namespace Demo.Controllers
             DBmanager dbmanager = new DBmanager();
             try{
                 Console.WriteLine(worktimeData);
-                dbmanager.NewShift(worktimeData,ward);
+                // dbmanager.NewShift(worktimeData,ward);
                 
             }
             catch(Exception e){
                 Console.WriteLine(e.ToString());
             }
-            return RedirectToAction("SelectSubject");
+            return View();
 
         }
         // private int ConvertSubdepartmentToId(string subdepartment) {
@@ -74,6 +75,10 @@ namespace Demo.Controllers
 
 
         public IActionResult doctor_date()
+        {
+            return View();
+        }
+        public IActionResult Test()
         {
             return View();
         }
@@ -92,45 +97,95 @@ namespace Demo.Controllers
             DBmanager dbmanager = new DBmanager();
             List<Schedule> schedules = dbmanager.GetSchedule(year,month,subdepartment);
             
-            List<string> doctorNamesList = new List<string>();
-            foreach (var schedule in schedules)
-            {
-            // 将医生名字添加到列表中
-                doctorNamesList.Add(schedule.Schedule_doctor_name);
-            }
-            return Json(doctorNamesList);
+            // List<string> doctorNamesList = new List<string>();
+            // foreach (var schedule in schedules)
+            // {
+            // // 将医生名字添加到列表中
+            //     doctorNamesList.Add(schedule.Schedule_doctor_name);
+            // }
+            return Json(schedules);
         }
-        // read為測試用
-        // public IActionResult ExpandSchedule()
-        // {
-        //     // 在這裡從數據庫獲取數據，並將數據傳遞給視圖
-        //     // ViewData["Data"] = GetDataFromDatabase();
-        //     DBmanager dbmanager = new DBmanager();
-        //     List<Doctor> doctors = dbmanager.GetDoctorPhone();
-        //     ViewBag.doctors = doctors;
-        //     return View();
-        // }
-        // [HttpPost]
-        // public ActionResult CreateShift(Doctor doctor){
-        //     DBmanager dbmanager = new DBmanager();
-        //     try{
-        //         dbmanager.NewShift(doctor);
-        //     }
-        //     catch(Exception e ){
-        //         Console.WriteLine(e.ToString());
-        //     }
-        //     return RedirectToAction("Schedule");
-        // }
-        // [HttpPost]
-        // public ActionResult ViewNextSchedule(String DepartmentName){
-        //     DBmanager dbmanager = new DBmanager();
-        //     try{
-        //         dbmanager.NewShift(DepartmentName);
-        //     }
-        //     catch(Exception e ){
-        //         Console.WriteLine(e.ToString());
-        //     }
-        //     return RedirectToAction("Schedule");
-        // }
+        [HttpPost]
+        public  IActionResult UpdateSchedule([FromBody] List<Schedule> schedules)
+        {
+            DBmanager dbmanager = new DBmanager();
+            try
+            {
+                dbmanager.UpdateSchedule(schedules);
+                return Json(new { success = true, message = "Dates saved successfully." });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return Json(new { success = false, message = "Dates don't saved successfully." });
+            }
+
+        }
+        [HttpGet]
+        public  IActionResult CheckSchedulingCompleted(int start,int end)
+        {
+            DBmanager dbmanager = new DBmanager();
+            try
+            {
+                // 初始化列表
+                List<bool> schedulingResults = new List<bool>();
+                for (int i = start; i <= end; i++)
+                {
+                    bool result = dbmanager.CheckSchedulingCompleted(i);
+                    schedulingResults.Add(result);
+                }
+                // 檢查result是否有false
+                bool allTrue = !schedulingResults.Contains(false);
+                // 返回相應Json
+                return Json(new { success = allTrue, message = allTrue ? "已排班" : "未排班" });
+            }
+            catch (Exception ex)
+            {
+                // 錯誤處理
+                return Json(new { success = false, message = "An error occurred: " + ex.Message });
+            }
+        }
+        [HttpPost]
+        public IActionResult GetDoctorUnfavDate(string subdepartment)
+        {
+            DBmanager dbmanager = new DBmanager();
+            List<Doctor> doctors = dbmanager.GetShift(2024, 7, subdepartment);
+            List<string> docName = new List<string>(); //放醫生ID
+            // 將讀取的醫生班數儲存
+            foreach (var doctor in doctors)
+            {
+                docName.Add(doctor.Doctor_Name);
+                // Console.WriteLine("doctor.Doctor_ID：" +doctor.Doctor_ID+"doctor.Shift："+usageLimits[doctor.Doctor_ID]);
+            }
+            var restrictions = new Dictionary<string, List<int>>(); //放醫生ID、不能上班日
+
+             foreach (var name in docName)
+            {
+                List<DateTime> unfavDates = dbmanager.MangerGetUnfavDate(name, 7, 2024);
+                // 只存储日期的日部分
+                restrictions[name] = unfavDates.Select(date => date.Day).ToList();
+                
+                // 将日期的日部分转换为字符串并输出
+                string unfavDatesStr = string.Join(", ", unfavDates.Select(date => date.Day.ToString()));
+                // Console.WriteLine($"ManagerController--------Doctor_Name: {name}, unfavDates: {unfavDatesStr}");
+            }
+            return Json(restrictions);
+        }
+        [HttpPost]
+        public  IActionResult NewShift([FromBody] List<Doctor> doctors,int subdepartment)
+        {
+            DBmanager dbmanager = new DBmanager();
+            try
+            {
+                dbmanager.NewShift(doctors,subdepartment);
+                return Json(new { success = true, message = "Dates saved successfully." });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return Json(new { success = false, message = "Dates don't saved successfully." });
+            }
+
+        }
     }
 }

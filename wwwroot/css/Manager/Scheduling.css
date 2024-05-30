@@ -1,17 +1,15 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-
     padding: 0;
     background-color:white ;
+    /* background-color: #d3e6f0c1; */
+    background-color: rgba(154, 199, 195, 0.544);
 }
-.content{
-    /* margin-top: 150px; */
-    display: flex;
-    /* 水平置中 */
-    justify-content: center;    
-    /* 垂直置中 */
-    align-items: center;
+
+.card{
+    border-radius: 20px;
+    height: 100vh;   
 }
 
 .person {
@@ -20,39 +18,73 @@ body {
     color: #555;
 }
 
-
+.left-background{
+    /* background-color: rgba(0, 0, 0, 0.82); */
+    border-radius: 10px; /* 添加圓角 */
+    width: 300px;
+    /* min-height: 700px; */
+    /* margin: 0 auto;將此灰色方塊置中 */
+    /* padding: 10px; */
+    /* margin 上 | 右 | 下 | 左 */
+    /* margin-top: 10px; */
+    /* margin: 0 20px 0  0 ; */
+    /* margin-left: 30px; */
+    margin-right:30px;
+    /* padding-bottom:250px; */
+    display: flex;
+    margin-left: -80px;
+    margin-top: -50px;
+    /* align-items: center;調整垂直方向對齊，可以根據需要更改 */
+}
+.list-group {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+    width: 18rem;
+}
+.list-group-item .selected{
+    background-color: #e70707;
+}
+/* 月份按鈕 */
+.month-button{
+    background-color: white;
+    border-radius: 5px; 
+    border: 1px solid rgb(0, 0, 0);
+    /* color: #A45151; */
+    color: rgb(0, 0, 0);
+    padding: 3px 4px;
+    /* margin-left: 15px; */
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /*科別文字樣式*/
 .selected-info {
     /* background-color: #c0b0b0;  */
-    background-color: rgb(152, 203, 199);
+    /* background-color: rgb(152, 203, 199); */
+    background-color:white;
+    background-color: rgba(242, 242, 242, 0.82);
+    background-color:rgba(169, 206, 204, 0.3);
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    padding: 5px;
+    width: auto;
+    margin: 5px 5px;
     text-align: center;
-    border-radius: 10px; /* 添加圓角 */
-    padding: 15px;
-    width: 1000px;
-    margin: auto;
-    /* margin-top: 50px; */
+    font-weight:bold;
+    border-radius: 5px; /* 添加圓角 */
 }
-
 .selected-info h3 {
-    margin: 0; /* 清除標題的預設邊距 */
-    margin-left: 30px; /* 可以根據需要調整標題之間的間距 */
-    font-size: 20px;
-}
-
-.selected-info p {
-    font-size: 20px;
-    margin: 0;
-    
+    font-weight:bold;
+    font-size: 24px;
 }
 /* 班數表格區 */
 .list-background{
     background-color: rgba(242, 242, 242, 0.82);
+    background-color:white;
     border-radius: 10px; /* 添加圓角 */
-    width: 1500px;
+    width: 1000px;
     margin: 0 auto;/*將此灰色方塊置中*/
     padding: 15px;
     margin-top: 20px;
@@ -73,6 +105,7 @@ body {
     list-style: none; /* 移除列表項的點 */
     padding: 0 10px; /* 清除列表的內邊距 */
     margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 #doctorList span {
@@ -81,43 +114,63 @@ body {
 }
 #doctorList input {
     font-size: 16px;
-    width: 30px; /* 設定班數選擇按鈕的寬度 */
+    width: 50px; /* 設定班數選擇按鈕的寬度 */
 }
 /*日期按鈕*/
 #doctorList .date-button{
     width: 120px;
 }
-table {
-    border-collapse: collapse;  
-    width: 200px;
-}
-th {
-    padding: 25px 25px;
+
+#doctorList th {
+    padding: 8px 8px;
     white-space: nowrap; /* 防止文字換行 */
     text-align: center; /* 將文本對齊方式改為左對齊 */
     border-bottom: 1px solid #1c1c1c; /* 底線樣式，可以根據需要調整顏色和寬度 */
-}
-td {
-    padding: 25px 25px;
-    text-align: center; /* 將文本對齊方式改為左對齊 */
-    border-bottom: 1px solid #898989; /* 底線樣式，可以根據需要調整顏色和寬度 */
-}
-/* "儲存排班" 按鈕樣式 */
-.start-scheduling {
-    text-align: center;
-}
-.start-scheduling button {
-    background-color:#65b297 ;
-    background-color: #A45151;
-    color: rgb(255, 255, 255);
-    padding: 15px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    margin-top: 50px;
+    font-weight:normal;
+    justify-content: center;
 }
 
-.start-scheduling button:hover {
-    background-color: #BF7D7D;
+#doctorList td {
+    padding: 10px 8px;
+    text-align: center; /* 將文本對齊方式改為左對齊 */
+    border-bottom: 1px solid #898989; /* 底線樣式，可以根據需要調整顏色和寬度 */
+    
+}
+
+/* 完成/未完成提示 */
+.finished{
+    border-radius: 25px; 
+    padding: 3px 4px;
+    font-size: 14px;
+
+    background-color: white;
+    border: 1px solid rgb(226, 73, 73);
+    color: rgb(226, 73, 73);
+
+    /* color: white;
+    background-color: rgb(227, 98, 98); */
+    /* color: #A45151; */
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    margin-left: auto;
+}
+.unfinished{
+    border-radius: 25px; 
+    padding: 3px 4px;
+    font-size: 14px;
+
+    border: 1px solid rgb(188, 184, 184);
+    color: rgb(188, 184, 184);
+
+    /* color: white;
+    background-color: rgb(188, 184, 184); */
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    margin-left: auto;
 }

@@ -5,68 +5,34 @@ body {
     padding: 0;
     background-color: white;
 }
-/*內容*/
-.content {
-    text-align: center;
-    margin:30px 0; /*調整月曆與上方的間距*/
-}
-.flex{
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;/* 調整垂直方向對齊，可以根據需要更改 */
-    /* background-color: #F4EBD9; */
-    border-radius: 10px;
+.special-font{
+    margin-left:10px;
+    margin-top: 5px;
+    font-size: 26px;
+    letter-spacing:1px;
+    font-weight: bold;/*粗體字*/
+    background: linear-gradient( #ffffff 40%, rgba(154, 199, 195, 0.5) 0%) !important;
 }
 .text{
-    display: flex;
-    /* align-items: flex-start;  */
+    /* display: flex; */
+    /* display: inline; */
     align-items: center;  
-    /* padding: 12px; */
+    justify-content: center;
+    padding: 10px;
     text-align: center;
-    min-width: 100px;  
-    margin-left: 160px; 
-    margin-top: 30px;  
-    margin-bottom: 30px;    
-    
-}
-/* .container{
-    background-color: rgb(154, 196, 192);
-    width: 1000px;
+    min-width: 100px;
+    margin:5px auto 5px auto;/*上右下左*/
+    /* background-color: rgb(154, 196, 192); */
+    /* background-color: #f0f0f0bd; */
+    width: 200px;
     border-radius: 5px; 
-    padding: 20px;
-} */
-.font{
-    font-size: 30px;
-    font-weight: bold;/*粗體字*/
+    border-bottom-color:#555;
 }
 /*選擇科別按鈕*/
 label{
     font-weight: bold;
     font-size: 22px;
     
-}
-.button-style {
-    background-color: transparent;
-    border: none;
-    color: #333;
-    cursor: pointer;
-    padding: 3px;
-    text-decoration: none;
-    position: relative;
-    transition: color 0.3s;
-    font-size: 20px;
-    font-weight: bold; /* 粗體*/
-    text-align: center;
-    min-width: 100px;
-    /* 外框 */
-    /* border: 3px solid #CCE4F0;
-    border-radius: 10px; /*圓角*/  
-    border: 1px solid #b0b0b0;
-    margin-left:6px ;
-    margin-right:10px ;
-    /*導航欄按鈕可用*/
-    /* @* border-radius: 5px; /* 添加圓角 */
-    /* border: 2px solid #B1DD8B; */
 }
     /* .button-style:hover {
     color: #B8A8A8;
@@ -75,81 +41,6 @@ label{
 .dropdown{
     display: flex;
 }
-/* 表格 */
-table {
-    width: 60%;
-    /*margin-left: 28%;*/
-    border-collapse: collapse;
-    margin-top: 20px;
-    padding-right: 30px;
-    table-layout: fixed; /* 新增固定表格佈局，讓寬度均分 */
-    border-radius: 10px; /* 添加圓角 */
-        /* background-color: white;  */
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
-}
-
-th, td {
-        /* border: 1px solid #434343;  */
-    padding: 8px;
-    text-align: left; /* 將文本對齊方式改為左對齊 */
-    border: 1px solid #EBEBEB;/*邊框*/
-}
-
-th {
-    /* @* background-color: #CFDED3; *@
-    @* background-color: rgb(152, 203, 199); *@
-    @* background-color: #EBEBEB; *@ */
-    /* background-color: #F0F0F0;灰色 */
-    background-color: #CCE4F0;
-    color: rgb(7, 7, 7);
-    padding: 10px; /* 調整表頭高度 */
-    text-align: center;
-    font-size: 18px;
-}
-
-/* 調整單元格內的文本位置 */
-td {
-    /* @* border: 1px solid #666666;月曆邊框顏色 *@ */
-    padding: 0; /* 清除單元格內的內距 */
-    height: 90px; /* 調整單元格高度 */
-    position: relative;
-    font-size: 18px;
-}
-
-td span {
-    position: absolute;
-    top: 10px; /* 距離頂部的距離 */
-    left: 10px; /* 距離左側的距離 */
-}
-
-/*醫生表格樣式*/
-.doctor-table {
-    margin-right: 10%;
-    width: 250px; /* 調整表格寬度 */
-    margin-right: 30px; /* 調整與月曆的間距 */
-    /* @* border-collapse: collapse; *@ */
-    border-radius: 10px; /* 添加圓角 */
-    
-}
-.doctor-table th, .doctor-table td {
-    /*內容*/
-    border: 1px solid #EBEBEB;/*邊框*/
-    padding: 8px;
-    text-align: center;
-    /* @* height: 45px; *@ */
-    font-size: 18px;
-}
-.doctor-table th {
-    /*首欄*/
-    /* background-color: #F0F0F0; */
-    background-color: #CCE4F0;
-    color: rgb(7, 7, 7);
-    padding: 12px;
-    text-align: center;
-    /* @* height: 45px; *@
-    @* font-size: 18px; *@ */
-}
-
 
 
 /* 排班員工名字、顏色 */
@@ -157,23 +48,4 @@ td span {
     font-size: 12px;
     margin-top: 2px;
     color: #555;
-}
-
-.green-background{
-    margin-top:15px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #ffddd2;
-}
-.blue-background{
-    margin-top:15px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #d5c5e7;
-}
-.purple-background{
-    margin-top:15px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #F7E1A1;
 }

@@ -2,27 +2,8 @@
 @{ Layout = null; } @*取消導航欄*@
 @using Demo.Models;
 @{
-    @* List<Schedule> schedules = ViewBag.schedules; *@
-    List<string> doctorNamesList = ViewBag.doctorNamesLists;
-
-    @* foreach (var schedule in schedules)
-    {
-      // 将医生名字添加到列表中
-        doctorNamesList.Add(schedule.Schedule_doctor_name);
-    } *@
-    
-    @* List<Schedule> schedules = ViewBag.schedules;
-
-    // 將schedules中的日期和醫生名字映射到C#的字典中
-    Dictionary<DateTime, string> doctorNamesByDate = new Dictionary<DateTime, string>();
-    foreach (var schedule in schedules)
-    {
-        doctorNamesByDate[schedule.Schedule_date] = schedule.Schedule_doctor_name;
-    } *@
-    
+    Doctor doctor=ViewBag.doctor;
 }
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,74 +11,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>歷史班表</title>
     <link href="../css/Doctor/HistorySchedule.css" rel="stylesheet">
+    <link href="../css/Calendar.css" rel="stylesheet">
+    <style>
+        #calendarrejust th {
+            /*星期th*/
+            @* background-color: rgba(154, 199, 195, 0.3) !important; *@
+            @* background-color: #deddddbd !important; *@
+            background-color: #f2f2f2 !important;
+            background-color: rgba(154, 199, 195, 0.3)!important;
+
+        }
+        /* 禮拜日 */
+        #calendarrejust th:first-child {
+            background-color:#b061614b !important;
+        }
+        /* 禮拜六 */
+        #calendarrejust th:last-child {
+            background-color:#b061614b !important;
+
+        }
+    </style>
 </head>
-<body>
+<body style="background-color:  rgba(154, 199, 195, 0.3);">
     <!-- 導航欄 -->
     <div id="sharedContentContainer"></div>
     <!-- 內容 -->
     <div class="content">
-        <!-- 標題 -->
-        <div class="text">
-            <h2 id="currentMonth" class="font">歷史班表</h2>
-            <div class="dropdown-department">
-            <!-- 年 -->
-                <select name="yearSelector" class="button-style" id="yearSelector">
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                </select>
-                <!-- 月 -->
-                <select name="monthSelector" class="button-style" id="monthSelector">
-                    <option value="1">一月</option>
-                    <option value="2">二月</option>
-                    <option value="3">三月</option>
-                    <option value="4">四月</option>
-                    <option value="5">五月</option>
-                    <option value="6">六月</option>
-                    <option value="7">七月</option>
-                    <option value="8">八月</option>
-                    <option value="9">九月</option>
-                    <option value="10">十月</option>
-                    <option value="11">十一月</option>
-                    <option value="12">十二月</option>
-                </select>
-                <select id="departmentSelect" class="button-style" value="選擇科別">選擇部門
-                    <option value="內科部" selected>內科部</option>
-                    <option value="外科部">外科部</option>
-                    <option value="心臟血管醫學部">心臟血管醫學部</option>
-                    <option value="兒童醫學部">兒童醫學部</option>
-                    <option value="婦產部">婦產部</option>
-                    <option value="其他專科">其他專科</option>
-                    <option value="特色中心">特色中心</option>
-                    <option value="新冠肺炎專區">新冠肺炎專區</option>
-                </select>
-                <!-- 小科別 -->
-                <select id="sub-departmentSelect" class="button-style">選擇部門
-                </select>
+        <div class="tablecontainer">
+            <!-- 標題 -->
+            <div class="text">
+                
+                <div class="dropdown-department">
+                <!-- 年 -->
+                    <select name="yearSelector" class="button-style" id="yearSelector">
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                    </select>
+                    <!-- 月 -->
+                    <select name="monthSelector" class="button-style" id="monthSelector">
+                        <option value="1">一月</option>
+                        <option value="2">二月</option>
+                        <option value="3">三月</option>
+                        <option value="4">四月</option>
+                        <option value="5">五月</option>
+                        <option value="6">六月</option>
+                        <option value="7">七月</option>
+                        <option value="8">八月</option>
+                        <option value="9">九月</option>
+                        <option value="10">十月</option>
+                        <option value="11">十一月</option>
+                        <option value="12">十二月</option>
+                    </select>
+                    @* <select id="departmentSelect" class="button-style" value="選擇科別">選擇部門
+                        <option value="內科部" selected>內科部</option>
+                        <option value="外科部">外科部</option>
+                        <option value="心臟血管醫學部">心臟血管醫學部</option>
+                        <option value="兒童醫學部">兒童醫學部</option>
+                        <option value="婦產部">婦產部</option>
+                        <option value="其他專科">其他專科</option>
+                        <option value="特色中心">特色中心</option>
+                        <option value="新冠肺炎專區">新冠肺炎專區</option>
+                    </select>
+                    <!-- 小科別 -->
+                    <select id="sub-departmentSelect" class="button-style">選擇部門
+                    </select> *@
+                </div>
+                <h2 class="font" style="margin-left:20px;">@doctor.Doctor_Department</h2>
+                <h2 id="currentMonth" class="font">歷史班表</h2>
             </div>
-       </div>
-       <div class="flex">
-            <table>
-                <thead>
-                    <tr>
-                        <th class="week">日</th>
-                        <th>一</th>
-                        <th>二</th>
-                        <th>三</th>
-                        <th>四</th>
-                        <th>五</th>
-                        <th class="week">六</th>
-                    </tr>
-                </thead>
-                <tbody id="calendar-body">
-                    <!-- 這裡會由 JavaScript 動態生成月曆的日期 -->
-                </tbody>
-            </table>
-        </div>
+            <div class="flex">
+                <table id="calendarrejust">
+                    <thead>
+                        <tr>
+                            <th class="week">日</th>
+                            <th>一</th>
+                            <th>二</th>
+                            <th>三</th>
+                            <th>四</th>
+                            <th>五</th>
+                            <th class="week">六</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body">
+                        <!-- 這裡會由 JavaScript 動態生成月曆的日期 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>    
     </div>
     <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/Doctor/HistorySchedule.js" asp-append-version="true"></script>
-    <script>
-        
+    <script src="~/js/ShowTable.js" asp-append-version="true"></script>
+    
+    @* <script>
         // 使用 fetch 加载共享的 HTML 内容
         fetch('/Doctor/DoctorShare')
             .then(response => response.text())
@@ -106,7 +112,29 @@
                 document.getElementById('sharedContentContainer').innerHTML = html;
             }
         );
-    </script>      
+    </script>     *@
+    <script>
+        // 使用 fetch 顯示 Share 導航欄的檔案
+        $(document).ready(function() {
+            $('#sharedContentContainer').load('DoctorShare', function() {
+                // 加载完成后执行的操作
+                setupNavLinks();
+            });
+        }); 
+        function setupNavLinks() {
+            console.log("setupNavLinks function called"); // Add this line for debugging
+            $('#index,#scheduling').removeClass('active');
+            $('#history').addClass('active');
+        }
+        // 使用 fetch 加载共享的 HTML 内容
+        //fetch('/Manager/ManagerShare')
+        //    .then(response => response.text())
+        //    .then(html => {
+                // 将加载的 HTML 插入到共享容器中
+        //        document.getElementById('sharedContentContainer').innerHTML = html;
+         //   }
+        //); 
+    </script>     
 </body>
 </html>
 

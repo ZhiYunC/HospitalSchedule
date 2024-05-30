@@ -43,8 +43,7 @@ public class HomeController : Controller
         string Password = post["Password"];
         try{
             // 登入邏輯
-            DBmanager dbmanager = new DBmanager();
-            
+            DBmanager dbmanager = new DBmanager();   
             if(dbmanager.CheckDoctorData(Username,Password)){
                 // 登入成功
                 int UserId=dbmanager.GetUserId(Username);

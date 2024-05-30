@@ -70,83 +70,83 @@ $('#yearSelector,#monthSelector').change(function(){
     // });
 })
 // 顯示班表月曆
-function generateCalendar(year, month,doctors) {
-    // 取得月曆的第一天
-    const firstDay = new Date(year, month-1, 1);
-    // 取得當月的天數
-    const daysInMonth = new Date(year, month ,0).getDate();
-    // 取得第一天是星期幾
-    const firstDayOfWeek = firstDay.getDay();
-    // const firstDayOfWeek = (firstDay.getDay() + 6) % 7;
-    // 找到日曆的容器
-    const calendarBody = document.getElementById('calendar-body');
-    // 清空日曆的容器
-    calendarBody.innerHTML = '';
-    // 生成月曆的日期
-    let date = 1;
-    // 在生成每個單元格時為其添加唯一的 ID
-    const cell = document.createElement('td');
-    cell.id = `day-${date}`;
-    //儲存取得的排班人員
-    var DoctorNames =doctors;
+// function generateCalendar(year, month,doctors) {
+//     // 取得月曆的第一天
+//     const firstDay = new Date(year, month-1, 1);
+//     // 取得當月的天數
+//     const daysInMonth = new Date(year, month ,0).getDate();
+//     // 取得第一天是星期幾
+//     const firstDayOfWeek = firstDay.getDay();
+//     // const firstDayOfWeek = (firstDay.getDay() + 6) % 7;
+//     // 找到日曆的容器
+//     const calendarBody = document.getElementById('calendar-body');
+//     // 清空日曆的容器
+//     calendarBody.innerHTML = '';
+//     // 生成月曆的日期
+//     let date = 1;
+//     // 在生成每個單元格時為其添加唯一的 ID
+//     const cell = document.createElement('td');
+//     cell.id = `day-${date}`;
+//     //儲存取得的排班人員
+//     var DoctorNames =doctors;
 
-    // 計算所需的行數
-    const numRows = Math.ceil((daysInMonth + firstDayOfWeek) / 7);
-    for (let i = 0; i < numRows+2; i++) {
-        // 創建一行
-        const row = document.createElement('tr');
-        let rowHasContent = false; 
-        for (let j = 0; j < 7; j++) {
-            // 創建一個單元格
-            const cell = document.createElement('td');
-            // const dutyClass = getDutyClass(DoctorNames[date - 1]);
-            if (i === 0 && j < firstDayOfWeek) {
-                // 填充空白的單元格
-                cell.textContent = '';
-            } else {
-                // 填充日期
-                if(doctors.length<1){
-                    if (date <= daysInMonth) {
-                        const existingContent = cell.innerHTML;
-                        cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day">${date}</span>`;
-                        // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day">${date}<br>${DoctorNames[date-1]}</span>`;
-                        // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day ${dutyClass}">${date}<br>${DoctorNames[date-1]}</span>`;
-                        // cell.innerHTML = existingContent + `<td><span id="day-${date}" class="calendar-day }">${date}<br><div class="${dutyClass}">${DoctorNames[date-1]}</span></td>`;
-                        // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day" >${DoctorName[date]}</span>`;
-                        date++;
-                        rowHasContent = true;
-                    } else {
-                        // 超過當月的天數，填充空白的單元格
-                        cell.textContent = '';
-                    }
-                }else{
-                    // const dutyClass = getDutyClass(DoctorNames[date - 1]);
-                    if (date <= daysInMonth) {
-                        const existingContent = cell.innerHTML;
-                        // cell.innerHTML = existingContent + `<td><span id="day-${date}" class="calendar-day }">${date}<br><div class="${dutyClass}">${DoctorNames[date-1]}</span></td>`;
-                        cell.innerHTML = existingContent + `<td><span id="day-${date}" class="calendar-day }">${date}<br><div >${DoctorNames[date-1]}</span></td>`;
-                        date++;
-                        rowHasContent = true;
-                    } else {
-                        // 超過當月的天數，填充空白的單元格
-                        cell.textContent = '';
-                    }
-                }
+//     // 計算所需的行數
+//     const numRows = Math.ceil((daysInMonth + firstDayOfWeek) / 7);
+//     for (let i = 0; i < numRows+2; i++) {
+//         // 創建一行
+//         const row = document.createElement('tr');
+//         let rowHasContent = false; 
+//         for (let j = 0; j < 7; j++) {
+//             // 創建一個單元格
+//             const cell = document.createElement('td');
+//             // const dutyClass = getDutyClass(DoctorNames[date - 1]);
+//             if (i === 0 && j < firstDayOfWeek) {
+//                 // 填充空白的單元格
+//                 cell.textContent = '';
+//             } else {
+//                 // 填充日期
+//                 if(doctors.length<1){
+//                     if (date <= daysInMonth) {
+//                         const existingContent = cell.innerHTML;
+//                         cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day">${date}</span>`;
+//                         // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day">${date}<br>${DoctorNames[date-1]}</span>`;
+//                         // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day ${dutyClass}">${date}<br>${DoctorNames[date-1]}</span>`;
+//                         // cell.innerHTML = existingContent + `<td><span id="day-${date}" class="calendar-day }">${date}<br><div class="${dutyClass}">${DoctorNames[date-1]}</span></td>`;
+//                         // cell.innerHTML = existingContent + `<span id="day-${date}" class="calendar-day" >${DoctorName[date]}</span>`;
+//                         date++;
+//                         rowHasContent = true;
+//                     } else {
+//                         // 超過當月的天數，填充空白的單元格
+//                         cell.textContent = '';
+//                     }
+//                 }else{
+//                     // const dutyClass = getDutyClass(DoctorNames[date - 1]);
+//                     if (date <= daysInMonth) {
+//                         const existingContent = cell.innerHTML;
+//                         // cell.innerHTML = existingContent + `<td><span id="day-${date}" class="calendar-day }">${date}<br><div class="${dutyClass}">${DoctorNames[date-1]}</span></td>`;
+//                         cell.innerHTML = existingContent + `<td><span id="day-${date}" class="calendar-day }">${date}<br><div >${DoctorNames[date-1]}</span></td>`;
+//                         date++;
+//                         rowHasContent = true;
+//                     } else {
+//                         // 超過當月的天數，填充空白的單元格
+//                         cell.textContent = '';
+//                     }
+//                 }
                 
-            }
-            // 將單元格添加到行中
-            row.appendChild(cell);
-        }
-        // 將行添加到日曆的容器
-        // calendarBody.appendChild(row);
-        // 只有在行中有內容時才將行添加到日曆的容器中
-        if (rowHasContent) {
-            calendarBody.appendChild(row);
-        }
-    }
-    // 更新當前月份顯示
-    document.getElementById('currentMonthText').textContent = `${year} 年 ${month} 月`;
-}
+//             }
+//             // 將單元格添加到行中
+//             row.appendChild(cell);
+//         }
+//         // 將行添加到日曆的容器
+//         // calendarBody.appendChild(row);
+//         // 只有在行中有內容時才將行添加到日曆的容器中
+//         if (rowHasContent) {
+//             calendarBody.appendChild(row);
+//         }
+//     }
+//     // 更新當前月份顯示
+//     document.getElementById('currentMonthText').textContent = `${year} 年 ${month} 月`;
+// }
 //顯示醫生班數
 // function displayShift(shift) {
 //     // 在表格中顯示醫生列表

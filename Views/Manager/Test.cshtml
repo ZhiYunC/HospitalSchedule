@@ -1,0 +1,137 @@
+@using System.Text.Json;
+@{ Layout = null; } @*取消導航欄*@
+@using Demo.Models;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>測試頁面</title>
+    <link href="../css/Container.css" rel="stylesheet">
+    <link href="../css/Calendar.css" rel="stylesheet">
+    <link href="../css/Buttons.css" rel="stylesheet">
+    <style>
+       table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            width: 14%;
+            border: 1px solid #000;
+            text-align: center;
+            vertical-align: middle;
+            padding: 20px;
+        }
+        .draggable {
+            display: inline-block;
+            padding: 10px;
+            background-color: lightblue;
+            border: 1px solid #000;
+            cursor: move;
+        }
+    </style>
+</head>
+<body style="background-color:  rgba(154, 199, 195, 0.3);">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    @* <script src="bootstrap.bundle.min.js"></script> *@
+    <!-- 導航欄 -->
+    <div id="sharedContentContainer"></div>
+    <!-- 內容 -->
+     <table>
+        <thead>
+            <tr>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><div id="day1" class="draggable" draggable="true" data-date="">Alice</div></td>
+                <td><div id="day2" class="draggable" draggable="true">Bob</div></td>
+                <td><div id="day3" class="draggable" draggable="true">Charlie</div></td>
+                <td><div id="day4" class="draggable" draggable="true">David</div></td>
+                <td><div id="day5" class="draggable" draggable="true">Eve</div></td>
+                <td><div id="day6" class="draggable" draggable="true">Frank</div></td>
+                <td><div id="day7" class="draggable" draggable="true">Grace</div></td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+    <button class="edit-schedule" id="EditSchedule" type="submit" style="margin:2px auto; ">編輯班表</button>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        // 使用 fetch 顯示 Share 導航欄的檔案
+        $(document).ready(function() {
+            $('#sharedContentContainer').load('ManagerShare', function() {
+                // 加载完成后执行的操作
+                setupNavLinks();
+            });
+        }); 
+        function setupNavLinks() {
+            console.log("setupNavLinks function called"); // Add this line for debugging
+            $('#index,#scheduling').removeClass('active');
+            $('#history').addClass('active');
+        }
+        // Function to handle drag start
+        function handleDragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.id);
+            e.target.style.opacity = '0.4';
+        }
+
+        // Function to handle drag end
+        function handleDragEnd(e) {
+            e.target.style.opacity = '1';
+        }
+
+        // Function to handle drag over
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+
+        // Function to handle drop
+        function handleDrop(e) {
+            e.preventDefault();
+            const data = e.dataTransfer.getData('text/plain');
+            const draggedElement = document.getElementById(data);
+            const dropzone = e.target.closest('td').querySelector('.draggable');
+
+            if (dropzone && dropzone !== draggedElement) {
+                const tempText = dropzone.textContent;
+                dropzone.textContent = draggedElement.textContent;
+                draggedElement.textContent = tempText;
+            }
+        }
+
+        // Add event listeners to the draggable elements
+        document.querySelectorAll('.draggable').forEach(element => {
+            element.addEventListener('dragstart', handleDragStart);
+            element.addEventListener('dragend', handleDragEnd);
+        });
+
+        // Add event listeners to the table cells
+        document.querySelectorAll('td').forEach(cell => {
+            cell.addEventListener('dragover', handleDragOver);
+            cell.addEventListener('drop', handleDrop);
+        });
+    </script>    
+    <script>
+        $('#EditSchedule').click(function() {
+            var list = $('.draggable').map(function() {
+                return $(this).text();
+            }).get().join(', ');
+
+            console.log(list);
+        });
+    </script>  
+</body>
+</html>
+
+
+

@@ -1,113 +1,82 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    margin-top: 100px;
+    margin-top: 130px;
     padding: 0;
     background-color: white;
 }
 /*月曆*/
 .content {
     text-align: center;
-    margin-top: 30px; /* 調整月曆與上方的間距 */
-}
-table {
-    width: 60%;
-    margin-left: 20%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    padding-right: 30px;
-    table-layout: fixed; /* 新增固定表格佈局，讓寬度均分 */
-    border-radius: 10px; /* 添加圓角 */
-    /* background-color: white; */
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
+    margin: 30px 0; /*調整月曆與上方的間距*/
 }
 
-th, td {
-    /* border: 1px solid #434343; */
-    padding: 8px;
-    text-align: left; /* 將文本對齊方式改為左對齊 */
-    border: 1px solid #EBEBEB;/*邊框*/
-}
-
-th {
-    /* @* background-color: #CFDED3;
-    background-color: rgb(152, 203, 199);
-    background-color: #EBEBEB; */
-    background-color: #F0F0F0;
-    color: rgb(7, 7, 7);
-    padding: 10px; /* 調整表頭高度 */
-    text-align: center;
-    font-size: 18px;
-}
-
-/* 調整單元格內的文本位置 */
-td {
-    /* border: 1px solid #666666;月曆邊框顏色 */
-    padding: 0; /* 清除單元格內的內距 */
-    height: 90px; /* 調整單元格高度 */
-    position: relative;
-    font-size: 18px;
-}
-
-td span {
-    position: absolute;
-    top: 10px; /* 距離頂部的距離 */
-    left: 10px; /* 距離左側的距離 */
-}
 .week{
     /* background-color: #CFDED3; */
 }
  .flex{
     display: flex;
-    justify-content: left;
+    justify-content: center;
     /* align-items: flex-start;調整垂直方向對齊，可以根據需要更改  */
     text-align: center; 
-    
-} 
-
-.font{
-    font-size:28px  
+    /* margin: 15px auto; */
+}   
+.buttoncontainer{
+    /* display: flex; */
+    /*容器樣式*/
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    /*容器排版*/
+    /* display: flex; */
+    align-items: center;  
+    justify-content: center;
+    text-align: center;
+    width: auto;
+    margin:30px 150px 10px 150px;/*上右下左*/
+    font-weight: bold;/*粗體字*/
 }
-
 /* 選擇按鈕 */
 .button-style {
     background-color: transparent;
+    background-color: white;
     border: none;
     color: #333;
     cursor: pointer;
-    padding: 5px;
+    padding: 3px;
     text-decoration: none;
     position: relative;
     transition: color 0.3s;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold; /* 粗體*/
     text-align: center;
     min-width: 100px;
-    border-radius: 5px; 
-    font-weight: bold;
-    border: 3px solid #CCE4F0;
+    border: 1px solid #b0b0b0;
+    border: 1px solid #4c4b4b;
+    border-radius: 25px;
+    padding: 5px 8px;
+    margin-left:6px ;
+    margin-right:10px ;
 }
 
 /* "儲存排班" 按鈕樣式 */
-.start-scheduling {
-    text-align: center;
-}
-.start-scheduling button {
-    background-color:#65b297 ;
-    /* @* background-color: #A45151; *@ */
-    color: rgb(255, 255, 255);
-    padding: 15px 20px;
+.save-scheduling {
+    background-color:rgba(169, 206, 204, 0.3);
+    color:rgb(62, 201, 194);
+    color:rgb(49, 172, 166);
+    padding: 5px 20px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     border: none;
-    border-radius: 5px;
-    margin: 30px 0;
-}
-
-.start-scheduling button:hover {
-    background-color: rgb(85, 149, 126);
+    border-radius: 25px;
 }
 
 /* 選擇日期 */
 .selected{
-    background-color: rgb(245, 210, 140);
+    background-color: rgba(245, 210, 140, 0.862);
+    background-color: rgba(169, 206, 204, 0.5);
+    background-color:rgba(209, 164, 164, 0.6);
+    background-color: #d4d4d4;
+
 }

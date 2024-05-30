@@ -2,47 +2,21 @@ body {
     font-family: Arial, sans-serif;
     background-color: white;
 }
-/*內容*/
-.content {  
-    justify-content: center;
-    align-items: flex-start;/* 調整垂直方向對齊，可以根據需要更改 */
-    text-align: center; 
-    margin-top: 30px 0;
-}
-.flex{
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;/* 調整垂直方向對齊，可以根據需要更改 */
-    /* background-color: #F4EBD9; */
-    border-radius: 10px;
-}
-.buttoncontainer{
-    display: flex;
-    align-items: center;  
-    /* font-size: 20px; */
-    /* padding: 12px; */
-    text-align: center;
-    min-width: 100px;
-    font-weight: bold;/*粗體字*/
-    margin-left: 160px; 
-    margin-top: 15px;  
-    margin-bottom: 15px;  
-}
+
 .text{
-    display: flex;
+    /* display: flex; */
+    /* display: inline; */
     align-items: center;  
-    /* font-size: 20px; */
-    padding: 12px;
+    justify-content: center;
+    /* padding: 10px; */
     text-align: center;
     min-width: 100px;
-    /* font-weight: bold;粗體字 */
-    margin-left: 160px; 
-    margin-top: 15px;  
-    margin-bottom: 15px;  
+    margin:5px 50px 0 50px;/*上右下左*/
     /* background-color: rgb(154, 196, 192); */
-    background-color: #f0f0f0bd;
-    width: 1150px;
+    /* background-color: #f0f0f0bd; */
+    width: auto;
     border-radius: 5px; 
+    border-bottom-color:#555;
 }
 /*選擇科別按鈕*/
 label{
@@ -50,106 +24,38 @@ label{
     font-size: 22px;
     
 }
-.button-style {
+
+.doctor-select {
     background-color: transparent;
     border: none;
     color: #333;
     cursor: pointer;
-    padding: 5px;
     text-decoration: none;
     position: relative;
     transition: color 0.3s;
-    font-size: 20px;
+    font-size: 16px;
+    font-weight: bold; /* 粗體*/
     text-align: center;
-    min-width: 100px;
-    /* border-radius: 5px;  */
-    font-weight: bold;
-    /* border: 3px solid #CCE4F0; */
-    /* border: 3px solid #5CADAD;  */
-    border: 1px solid #b0b0b0;
+    /* min-width: 100px; */
+    border: 1px solid #4c4b4b;
+    border-radius: 25px;
+    padding: 2px;
+    margin: auto;
+    /* margin-left:6px ;
+    margin-right:10px ; */
 }
- /* .button-style:hover {
-    color: #B8A8A8;
-}  */
-table {
-    width: 60%;
-    /*margin-left: 28%;*/
-    border-collapse: collapse;
-    margin-top: 20px;
-    padding-right: 30px;
-    table-layout: fixed; /* 新增固定表格佈局，讓寬度均分 */
-    border-radius: 10px; /* 添加圓角 */
-     /* background-color: white;  */
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
-}
-
-th, td {
-     /* border: 1px solid #434343;  */
-    padding: 8px;
-    text-align: left; /* 將文本對齊方式改為左對齊 */
-    border: 1px solid #EBEBEB;/*邊框*/
-}
-
-th {
-    /* @* background-color: #CFDED3; *@
-    @* background-color: rgb(152, 203, 199); *@
-    @* background-color: #EBEBEB; *@ */
-    /* background-color: #F0F0F0; */
-    background-color:#CCE4F0;
-    color: rgb(7, 7, 7);
-    padding: 10px; /* 調整表頭高度 */
-    text-align: center;
-    font-size: 18px;
-}
-
-/* 調整單元格內的文本位置 */
-td {
-    /* @* border: 1px solid #666666;月曆邊框顏色 *@ */
-    padding: 0; /* 清除單元格內的內距 */
-    height: 90px; /* 調整單元格高度 */
-    position: relative;
-    font-size: 18px;
-}
-
-td span {
-    position: absolute;
-    top: 10px; /* 距離頂部的距離 */
-    left: 10px; /* 距離左側的距離 */
-}
-
-/*醫生表格樣式*/
-.doctor-table {
-    margin-right: 10%;
-    width: 250px; /* 調整表格寬度 */
-    margin-right: 30px; /* 調整與月曆的間距 */
-    /* @* border-collapse: collapse; *@ */
-    border-radius: 10px; /* 添加圓角 */
-    
-}
-.doctor-table th, .doctor-table td {
-    /*內容*/
-    border: 1px solid #EBEBEB;/*邊框*/
-    padding: 8px;
-    text-align: center;
-    /* @* height: 45px; *@ */
-    font-size: 18px;
-}
-.doctor-table th {
-    /*首欄*/
-    /* background-color: #F0F0F0; */
-    background-color:#CCE4F0;
-    color: rgb(7, 7, 7);
-    padding: 12px;
-    text-align: center;
-    /* @* height: 45px; *@
-    @* font-size: 18px; *@ */
-}
-
-
 .dropdown{
     display: flex;
 }
-
+.special-font{
+    margin-left:25px;
+    margin-top: 10px;
+    font-size: 26px;
+    align-items: center;
+    letter-spacing:1px;
+    font-weight: bold;/*粗體字*/
+    /* background: linear-gradient( #ffffff 40%, rgba(154, 199, 195, 0.5) 0%) !important; */
+}
 
 /* 排班員工名字、顏色 */
 .person {
@@ -158,21 +64,34 @@ td span {
     color: #555;
 }
 
-.green-background{
-    margin-top:15px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #ffddd2;
+/* 選擇日期 */
+.selected{
+    background-color: rgb(245, 210, 140);
 }
-.blue-background{
-    margin-top:15px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #d5c5e7;
+
+/* 鼠標停留顯示詳細資訊 */
+.tooltip {
+    position: absolute;
+    display: none;
+    background-color: #121212;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
-.purple-background{
-    margin-top:15px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #F7E1A1;
+
+#state {
+    cursor: pointer;
+}
+#shift-counts{
+   /* border: 1px solid #deddddd0!important; */
+    width: 20vh;
+    margin-top: 20px;
+    margin-left: 50px;
+    /* visibility: hidden; */
+}
+.edited{
+    background-color: rgba(186, 66, 66, 0.775) !important;
+    color: white;
+    /* font-size: 50px; */
 }

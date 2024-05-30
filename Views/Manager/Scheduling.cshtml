@@ -7,214 +7,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>設置醫生班數及不想上班日</title>
     <link href="../css/Manager/Scheduling.css" rel="stylesheet">
+    <link href="../css/Container.css" rel="stylesheet">
+    <link href="../css/Buttons.css" rel="stylesheet">
     @* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"> *@
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            margin-top: 130px;
+
             padding: 0;
             background-color:white ;
+            /* background-color: #d3e6f0c1; */
+            background-color: rgba(152, 203, 199, 0.741);
         }
-
-        .person {
-            font-size: 12px;
-            margin-top: 2px;
-            color: #555;
+        .list-group-item .selected{
+            background-color: #e70707;
         }
-
-
-        /*科別文字樣式*/
-        .selected-info {
-            /* background-color: #c0b0b0;  */
-            background-color: rgb(152, 203, 199);
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            border-radius: 10px; /* 添加圓角 */
-            padding: 15px;
-            width: 1000px;
-            margin: auto;
-            margin-top: 50px;
-        }
-
-        .selected-info h3 {
-            margin: 0; /* 清除標題的預設邊距 */
-            margin-left: 30px; /* 可以根據需要調整標題之間的間距 */
-            font-size: 20px;
-        }
-
-        .selected-info p {
-            font-size: 20px;
-            margin: 0;
-            
-        }
-        /* 班數表格區 */
-        .list-background{
-            background-color: rgba(242, 242, 242, 0.82);
-            border-radius: 10px; /* 添加圓角 */
-            width: 1000px;
-            margin: 0 auto;/*將此灰色方塊置中*/
-            padding: 15px;
-            margin-top: 20px;
-        }
-        .list button{
-            margin-left: 35%;
-        }
-
-        /*醫師班數選擇列表*/
-        /* #doctor-list{
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 15px;
-        } */
-        #doctorList {
-            font-size: 20px;
-            list-style: none; /* 移除列表項的點 */
-            padding: 0 10px; /* 清除列表的內邊距 */
-            margin-bottom: 10px;
-        }
-
-        #doctorList span {
-            display: inline-block;
-            width: 450px; /* 設定醫生名字欄位的寬度 */
-        }
-        #doctorList input {
-            font-size: 16px;
-            width: 50px; /* 設定班數選擇按鈕的寬度 */
-        }
-        /*日期按鈕*/
-        #doctorList .date-button{
-            width: 120px;
-        }
-        table {
-            border-collapse: collapse;  
-            @* width: 200px; *@
-        }
-        th {
-            padding: 20px 125px;
-            white-space: nowrap; /* 防止文字換行 */
-            text-align: center; /* 將文本對齊方式改為左對齊 */
-            border-bottom: 1px solid #1c1c1c; /* 底線樣式，可以根據需要調整顏色和寬度 */
-        }
-        td {
-            padding: 20px 125px;
-            text-align: center; /* 將文本對齊方式改為左對齊 */
-            border-bottom: 1px solid #898989; /* 底線樣式，可以根據需要調整顏色和寬度 */
-        }
-        /* "儲存排班" 按鈕樣式 */
-        .start-scheduling {
-            text-align: center;
-        }
-        .start-scheduling button {
-            background-color:#65b297 ;
-            background-color: #A45151;
-            color: rgb(255, 255, 255);
-            padding: 15px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-            margin-top: 50px;
-        }
-
-        .start-scheduling button:hover {
-            background-color: #BF7D7D;
-        }
-        /*小科別按鈕*/
-        .sub-department-buttons {
-            margin-top: 20px;
-            width: 1000px;
-            /* margin-left: 15%; */
-            display: flex;
-            /* 水平置中 */
-            justify-content: center;  
-        }
-        .sub-department-buttons button {
-            background-color:white;
-            border: none;
-            color: rgb(0, 0, 0);
-            cursor: pointer; /*鼠標指針將變為手型，提示用戶*/
-            padding: 10px;
-            text-decoration: none;/*去掉超連結的下劃線*/
-            margin: 5px;
-            font-size: 16px;
-            border-radius: 10px;
-            border: 2px solid #4A79D1;
-        }
-        .sub-department-buttons button.selected {
-            background-color:#4A79D1;
+        .tablecontainer{
+            margin:10px 50px 50px 20px !important;
+           
+        } 
+        .buttoncontainer{
+            margin:50px 50px 10px 20px/*上右下左*/!important;
         }
     </style>
 </head>
-<body>
+<body style="background-color:  rgba(154, 199, 195, 0.3);">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="bootstrap.bundle.min.js"></script>
+    @* <script src="bootstrap.bundle.min.js"></script> *@
     <div id="sharedContentContainer"></div>
-    <div class="content">   
-        <div id="sub-departments" class="sub-department-buttons"></div>
-    </div>
-    <form method="post" action="/Manager/Scheduling">
-        <!-- 顯示所選值的元素 -->
-        <div class="selected-info">
-            <h3>科別：</h3>
-            <p id="selectedDepartment"></p>
-            <h3>病房：</h3>
-            <p id="selectedWard" name="ward" value="一般病房"></p>
+    <div class="flex">
+        <!-- 原本左邊的地方 -->
+        <!-- 左側導航欄 -->
+        <div class="d-flex align-items-start" >
+            <div class="left-nav">
+                <h3 style="font-size:22px;font-weight:bold;margin:10px;">  部門 </h3>
+                <hr style="margin:2px;">
+                <button class="flex" value="內科部">內科部
+                    <div class="finished" data-department="internal">已排班</div> 
+                </button>
+                <button class="flex" value="外科部">外科部
+                    <div class="finished" data-department="internal">已排班</div> 
+                </button>
+                <button class="flex" value="心臟血管醫學部">心臟血管醫學部
+                    <div class="finished" data-department="internal">已排班</div> 
+                </button>
+                <button class="flex" value="兒童醫學部">兒童醫學部
+                    <div class="finished" data-department="internal">已排班</div> 
+                </button>
+                <button class="flex" value="婦產部">婦產部
+                    <div class="finished" data-department="internal">已排班</div> 
+                </button>
+                <button class="flex" value="其他專科">其他專科
+                    <div class="unfinished" data-department="internal">未排班</div> 
+                </button>
+                <button class="flex" value="特色中心">特色中心
+                    <div class="unfinished" data-department="internal">未排班</div> 
+                </button>
+                <button class="flex" value="新冠肺炎專區">新冠肺炎專區
+                    <div class="unfinished" data-department="internal">未排班</div> 
+                </button>
+                <hr style="margin:2px;">
+            </div> 
         </div>
-        <div class="list-background">
-                <ul id="doctorList">
-                    <!-- 醫生名字和班數選擇按鈕將在這裡動態添加 -->
-                    <div class="center">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>醫師</th>
-                                    <th>平日班數</th>
-                                    <th>假日班數</th>
-                                    @* <th>日期設定</th> *@
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @* <tr>
-                                    <td class="nowrap">@doctor.Name</td> <!-- 這裡顯示每位醫生的名字 -->
-                                    <td>
-                                        <input type="hidden"id="doctorId" name="worktimeData[@i].Setting_Doctor_ID" value="@doctor.ID" readonly>
-                                        <input type="number"id="InputShift" name="worktimeData[@i].Shift" min="1" value="@doctor.Shift">
-                                        
-                                    </td>
-                                    <td>
-                                        <input type="number"id="Input" name="worktimeData[@i].Shift" min="1" value="@doctor.Shift">
-                                    </td>
-                                    <hr>
-                                </tr> *@
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="start-scheduling">
-                        <button id="SaveSchedule"class="button" type="submit">儲存班數及日期</button>
-                    </div>
-                </ul>
-                
+        <!-- 右邊 -->
+        <div class="content" >
+            <!-- 選擇按鈕 -->
+            <div class="buttoncontainer">
+                <div id="sub-departments" class="row row-cols sub-department-buttons">請點選科別！</div>
+            </div>    
+            <div class="tablecontainer">
+                <form method="post" action="/Manager/Scheduling">
+                    <!-- section1 -->
+                    <div class="list-background">
+                            <!-- 顯示所選值的元素 -->
+                            <div class="selected-info">
+                                <h3 style="font-size:22px;margin:10px;">科別：</h3>
+                                <h3 id="selectedDepartment" style="font-size:22px;margin:10px 5px 10px 5px;"></h3>
+                                <h3 style="font-size:22px;margin:10px;">病房：一般病房</h3>
+                                <p id="selectedWard" name="ward" value="一般病房" style="font-size:22px;margin:10px 5px 10px 5px;"></p>
+                            </div>
+                            <ul id="doctorList">
+                                <!-- 醫生名字和班數選擇按鈕將在這裡動態添加 -->
+                                <div class="content">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>醫師</th>
+                                                <th>一般病房</th>
+                                                
+                                                @* <th>日期設定</th> *@
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="flex" style="justify-content: center;">
+                                    <div class="save-scheduling" style="margin-right:25px;">
+                                        <button id="SaveSchedule"class="button" type="submit">儲存班數</button>
+                                    </div>
+                                    <div class="start-scheduling" style="margin-left:25px;">
+                                        <button id="StartSchedule"class="button" type="submit">開始排班</button>
+                                    </div>
+                                </div>
+                            </ul>
+                            
+                    </div>  
+                    <!-- section2 -->
+                    @* <div class="list-background">
+                            <!-- 顯示所選值的元素 -->
+                            <div class="selected-info">
+                                <h3>科別：</h3>
+                                <h3 id="selectedDepartment"></h3>
+                                <h3>病房：一般病房</h3>
+                                <p id="selectedWard" name="ward" value="一般病房"></p>
+                            </div>
+                            <ul id="doctorList">
+                                <!-- 醫生名字和班數選擇按鈕將在這裡動態添加 -->
+                                <div class="center">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>醫師</th>
+                                                <th>平日班數</th>
+                                                <th>假日班數</th>
+                                                @* <th>日期設定</th> *@
+                                            @* </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="start-scheduling">
+                                    <button id="SaveSchedule"class="button" type="submit">儲存班數及日期</button>
+                                </div>
+                            </ul>
+                            
+                    </div>   *@ 
+                </form>
+            </div>
         </div>    
-    </form>
-
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script> 
+    </div>   
+    @* <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>  *@
     <script src="/lib/jquery/dist/jquery.min.js"></script> 
     <script>
         // 使用 fetch 顯示 Share 導航欄的檔案
-        fetch('/Manager/ManagerShare')
-            .then(response => response.text())
-            .then(html => {
-                // 将加载的 HTML 插入到共享容器中
-                document.getElementById('sharedContentContainer').innerHTML = html;
-            }
-        ); 
-
-        
+         $(document).ready(function() {
+            $('#sharedContentContainer').load('ManagerShare', function() {
+                // 加载完成后执行的操作
+                setupNavLinks();
+            });
+        }); 
+        function setupNavLinks() {
+            console.log("setupNavLinks function called"); // Add this line for debugging
+            $('#index,#history').removeClass('active');
+            $('#scheduling').addClass('active');
+        }   
     </script>
     <script src="~/js/Manager/Scheduling.js" asp-append-version="true"></script>
     

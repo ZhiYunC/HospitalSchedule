@@ -1,7 +1,7 @@
 @{ Layout = null; } @*取消導航欄*@
 @using Demo.Models;
 @{
-    List<Doctor> doctors = ViewBag.doctors;
+    Doctor doctor=ViewBag.doctor;
 }
 
 <!DOCTYPE html>
@@ -11,59 +11,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>暫定班表</title>
     <link href="../css/Doctor/Index.css" rel="stylesheet">
+    <link href="../css/Calendar.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        #calendarrejust th {
+            /*星期th*/
+            @* background-color: rgba(154, 199, 195, 0.3) !important; *@
+            @* background-color: #deddddbd !important; *@
+            background-color: #f2f2f2 !important;
+            background-color: rgba(154, 199, 195, 0.3)!important;
+
+        }
+        /* 禮拜日 */
+        #calendarrejust th:first-child {
+            background-color:#b061614b !important;
+        }
+        /* 禮拜六 */
+        #calendarrejust th:last-child {
+            background-color:#b061614b !important;
+
+        }
+        
+        /* "儲存排班" 按鈕樣式 */
+        .start-scheduling {
+            margin-left:50px;
+            text-align: center;
+        }
+        .start-scheduling button {
+            background-color:#26899C;
+            color: rgb(255, 255, 255);
+            padding: 5px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .start-scheduling button:hover {
+            background-color: #26899C;
+        }
+        .note{
+            border: 2px solid #df6262;
+            background-color: #dc545460;
+            color: #1d1d1d;
+            height: auto;
+            width: 500px;
+            @* margin-right: 20px; *@
+            @* margin-left:100px; *@
+            align-items: center !important;
+            justify-content: center;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            margin:50px 10px 10px 50px;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px auto; /* 将垂直方向上的 margin 改为 auto */
+            margin-top: 30px;
+
+        }
+        .noteBtn{
+            background-color: transparent;
+            border-color:transparent ;
+            margin: auto 5px auto auto!important; 
+
+        }
+    </style>
 </head>
-<body>
+<body style="background-color: rgba(154, 199, 195, 0.3);" > 
     <!-- 導航欄 -->
     <div id="sharedContentContainer"></div>
     <!-- 內容 -->
-    <div class="content">
-        <!-- 標題 -->
-        <div class="text">
-            <div  id="currentMonthText" style="padding-right: 12px;font-size: 24px;"></div>
-            <div id="currentMonth" style="padding-right: 28px;font-size: 24px;" >暫定班表</div>
-            <!-- 在醫生表格上方添加下拉選單 -->
-            <div class="dropdown-department">
-                <select id="departmentSelect" class="button-style" name="DepartmentName" value="選擇科別">選擇部門
-                    <option value="內科部" selected>內科部</option>
-                    <option value="外科部">外科部</option>
-                    <option value="心臟血管醫學部">心臟血管醫學部</option>
-                    <option value="兒童醫學部">兒童醫學部</option>
-                    <option value="婦產部">婦產部</option>
-                    <option value="其他專科">其他專科</option>
-                    <option value="特色中心">特色中心</option>
-                    <option value="新冠肺炎專區">新冠肺炎專區</option>
-                </select>
-                <!-- 小科別 -->
-                <select id="sub-departmentSelect" class="button-style">選擇部門
-                </select>
-            </div>
-        </div>
-        <!-- 月曆 -->
-        <div class="flex">
-            <!-- 班表表格 -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>日</th>
-                        <th>一</th>
-                        <th>二</th>
-                        <th>三</th>
-                        <th>四</th>
-                        <th>五</th>
-                        <th>六</th>
-                    </tr>
-                </thead>
-                <tbody id="calendar-body">
-                    <!-- 這裡會由 JavaScript 動態生成月曆的日期 -->
-                </tbody>
-            </table>
+    <div class="note">
+        <div class="flex" style="align-items: center !important;">
+            <div id="noteText" style="font-size: 18px;margin: auto auto auto 5px!important;" >請盡快填寫不想上班日期並送出！</div>    
+            <button class="noteBtn" id="closeNote" style="align-items: center !important;margin: auto 5px auto auto!important;"><img  src="/image/close.png" height="26px" width="auto"></button>
         </div>
     </div>
-    
-    <script src="/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/js/Doctor/Doctor.js" asp-append-version="true"></script>
-    <script>
-    
+    <div class="buttoncontainer">
+        <div class="content">
+            <!-- 標題 -->
+            <div class="text">
+                <div  id="currentMonthText" style="padding-right: 12px;font-size: 24px;"></div>
+                <div style="padding-right: 12px;font-size: 24px;" >@doctor.Doctor_Department</div>
+                <div id="currentMonth" style="font-size: 24px;" >暫定班表</div>
+                <button class="save-scheduling" id="SaveSchedule" type="submit"style="margin-right: 5px;margin-left: auto;">確認本月班表</button>
+            </div>
+            <!-- 月曆 -->
+            <div class="flex">
+                <!-- 班表表格 -->
+                <table id="calendarrejust">
+                    <thead>
+                        <tr>
+                            <th>週日</th>
+                            <th>週一</th>
+                            <th>週二</th>
+                            <th>週三</th>
+                            <th>週四</th>
+                            <th>週五</th>
+                            <th>週六</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body">
+                        <!-- 這裡會由 JavaScript 動態生成月曆的日期 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>    
+    </div>
+    @* <script>
         //使用共享的導航欄
         // 使用 fetch 加载共享的 HTML 内容
         fetch('/Doctor/DoctorShare')
@@ -73,8 +127,11 @@
                 document.getElementById('sharedContentContainer').innerHTML = html;
             }
         );
+    </script> *@
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/Doctor/Doctor.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
     
-    </script>
 
 </body>
 </html>

@@ -1,14 +1,14 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    margin-top: 100px;
+    margin-top: 130px;
     padding: 0;
     background-color: white;
 }
 /*月曆*/
 .content {  
     justify-content: center;
-    margin-top: 30px;  /*調整月曆與上方的間距 */
+    margin-top: 10px;  /*調整月曆與上方的間距 */
     /* align-items: flex-start;調整垂直方向對齊，可以根據需要更改*/
     text-align: center; 
     align-items: center;
@@ -22,81 +22,40 @@ body {
 }
 .text{
     display: flex;
-    margin-left: 450px;
+    /* margin-left: 450px; */
     /* @* align-items: flex-start; *@ */
-    align-items: center;  
+    align-items: center; 
+    justify-content: center; 
     font-size: 20px;
     padding: 12px;
-    min-width: 100px;
+    /* margin:auto 40px auto 40px; */
+    /* min-width: 100px; */
     font-weight: bold;/*粗體字*/
 }
-table {
-    width: 60%;
-    /*margin-left: 28%;*/
-    border-collapse: collapse;
-    margin-top: 20px;
-    padding-right: 30px;
-    table-layout: fixed; /* 新增固定表格佈局，讓寬度均分 */
-    border-radius: 10px; /* 添加圓角 */
-    /* @* background-color: white; *@ */
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
-}
 
-th, td {
-    /* @* border: 1px solid #434343; *@ */
-    padding: 8px;
-    text-align: left; /* 將文本對齊方式改為左對齊 */
-    border: 1px solid #EBEBEB;/*邊框*/
-}
-
-th {
-    /* background-color: #CFDED3; 
-    background-color: rgb(152, 203, 199); 
-    background-color: #EBEBEB;  */
-    background-color: #F0F0F0;
-    color: rgb(7, 7, 7);
-    padding: 10px; /* 調整表頭高度 */
-    text-align: center;
-    font-size: 18px;
-}
-
-/* 調整單元格內的文本位置 */
-td {
-    /* border: 1px solid #666666;月曆邊框顏色  */
-    padding: 0; /* 清除單元格內的內距 */
-    height: 90px; /* 調整單元格高度 */
-    position: relative;
-    font-size: 18px;
-}
-
-td span {
-    position: absolute;
-    top: 10px; /* 距離頂部的距離 */
-    left: 10px; /* 距離左側的距離 */
-}
 
 
 /*選擇科別按鈕*/
 .button-style {
     background-color: transparent;
+    background-color: white;
     border: none;
     color: #333;
     cursor: pointer;
-    padding: 5px;
+    padding: 3px;
     text-decoration: none;
     position: relative;
     transition: color 0.3s;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold; /* 粗體*/
     text-align: center;
     min-width: 100px;
-    border-radius: 5px; 
-    font-weight: bold;
-    border: 3px solid #CCE4F0;
-    /* border: 3px solid #5CADAD; */
-    /*導航欄按鈕可用*/
-    /* border-radius: 5px;
-    border: 2px solid #B1DD8B;
-    padding: 10px 0; */
+    border: 1px solid #b0b0b0;
+    border: 1px solid #4c4b4b;
+    border-radius: 25px;
+    padding: 5px 8px;
+    margin-left:6px ;
+    margin-right:10px ;
 }
 /* .button-style:hover {
     color: #B8A8A8;
@@ -107,6 +66,7 @@ td span {
 }
 
 
+
 /* 排班員工名字、顏色 */
 .person {
     font-size: 12px;
@@ -115,20 +75,107 @@ td span {
 }
 
 .green-background{
-    margin-top:15px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #ffddd2;
+    font-weight: bold;
+    margin-top:5px;
+    /* margin-left: 5px; */
+    padding: 1px 8px;
+    /* background-color: #ddc2b9;
+    background-color:#fae7e0; */
+    background-color: #e5a99b;
+    border-radius: 3px;
+    /* border-left:5px solid #e4734a; 添加左框線 */
+    /* color: white; */
+    /* background: linear-gradient( #ffffff 50%, #fae7e0 0%) !important; */
 }
 .blue-background{
-    margin-top:15px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #d5c5e7;
+    font-weight: bold;
+    margin-top:5px;
+    /* margin-left: 5px; */
+    padding: 3px 8px;
+    /* background-color: #d5c5e7;
+    background-color: #ded1ed; */
+    /* background-color: white; */
+    /* border-left:thick solid #9a57e6; 添加左框線  */
+    /* color: white; */
+    background-color: #9fb5e4;
+    border-radius: 3px;
+    /* background: linear-gradient( #ffffff 50%, #ded1ed 0%) !important; */
 }
 .purple-background{
-    margin-top:15px;
-    margin-left: 5px;
-    padding: 5px 10px;
-    background-color: #F7E1A1;
+    font-weight: bold;
+    margin-top:5px;
+    padding: 1px 8px;
+    background-color: #e49fcd;
+    border-radius: 3px;
+}
+
+.four-background{
+    font-weight: bold;
+    margin-top:5px;
+    padding: 1px 8px;
+    background-color: #e4e49f;
+    border-radius: 3px;
+}
+.five-background{
+    font-weight: bold;
+    margin-top:5px;
+    padding: 1px 8px;
+    background-color: #a6e9aea5;
+    border-radius: 3px;
+}
+.default-background{
+    font-weight: bold;
+    margin-top:5px;
+    padding: 1px 8px;
+    background-color: #fffffe;
+}
+
+/* "儲存排班" 按鈕樣式 */
+.save-scheduling {
+    margin-left:20px;
+    text-align: center;
+}
+.save-scheduling {
+    background-color:rgba(169, 206, 204, 0.3);
+    color:rgb(62, 201, 194);
+    color:rgb(49, 172, 166);
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+
+}
+
+.alrightsave-scheduling{
+    margin-left:20px;
+    text-align: center;
+    background-color:rgba(199, 154, 154, 0.3);
+    color:rgb(172, 49, 49);
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+}
+.buttoncontainer{
+    display: flex;
+    /*容器樣式*/
+    background-color: white;
+    /* background-color: #7ed7c161; */
+    /* style="background-color:  rgba(154, 199, 195, 0.3);"  */
+    /* background-color: transparent; */
+    padding: 16px;
+    border-radius: 8px;
+    /*容器排版*/
+    /* display: flex; */
+    align-items: center;  
+    justify-content: center;
+    text-align: center;
+    width: auto;
+    margin:30px 50px 10px 50px;/*上右下左*/
+    /* font-weight: bold;粗體字 */
 }

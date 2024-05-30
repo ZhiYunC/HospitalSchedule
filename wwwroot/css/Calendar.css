@@ -1,0 +1,222 @@
+
+/* 月曆 */
+table {
+    /* width: 150vh; */
+    table-layout: fixed; /* 新增固定表格佈局，讓寬度均分 */
+    justify-content: center;
+    /* border-collapse: collapse; 邊框重複 */
+    /* border: 2px solid rgba(169, 206, 204, 0.3) !important; */
+    border-collapse: separate !important; /*邊框分開*/
+    border-spacing: 8px;
+    margin-top: 16px;
+    /* border-radius: 10px; 添加圓角 */
+    /* box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); 陰影效果 */
+    font-family:   'Trebuchet MS';
+    font-family: 'Courier New' ;
+    font-family: 'Gill Sans MT';
+}
+th, td {
+    /* border: 1px solid #434343 !important; */
+    width: 16vh;
+    height: auto;
+    text-align: left; /* 將文本對齊方式改為左對齊 */
+    /* border: 1px solid #EBEBEB;邊框 */
+    
+}
+th {
+
+    /* background-color:#f3dcbbd1; */
+    background-color: #fde7b1c5;
+    /* background-color: rgba(154, 199, 195, 0.3); */
+    /* background-color: white; */
+    /* border-bottom: 2px solid #434343 !important; */
+    /* border-bottom-width: 15vh; */
+    background-color:rgba(154, 199, 195, 0.3);
+    background-color:#f0dbafc0;
+    color: rgb(7, 7, 7);
+    padding: 5px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 20px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+
+}
+
+/* 調整單元格內的文本位置 */
+td {
+    /* border-collapse: collapse !important; 邊框分開 */
+    background-color: white;
+    /* background-color:rgba(169, 206, 204, 0.3); */
+    /* background-color:rgba(204, 204, 204, 0.3); */
+    /* background-color: rgba(154, 199, 195, 0.3); */
+    height: 90px; 
+    /* min-height: 90px; */
+    /* height: auto; 确保高度可以根据内容增加 */
+    /* vertical-align: top; 让内容靠上对齐 */
+    position: relative;
+    font-size: 17px;
+    border-radius: 5px;
+    border: 1px solid #5b5b5b !important;/*邊框*/
+    border: 1px solid #bababadb !important;/*邊框*/
+
+    /* font-weight: bold; */
+}
+th:first-child {
+     /* 禮拜日 */
+    background-color:rgba(169, 206, 204, 0.3);
+    background-color:#fde7b1e4;
+    background-color: #f084848c; 
+    background-color:#F4E3B2;
+    background-color:#b061616f !important;
+}
+th:last-child {
+    /* 禮拜六 */
+    background-color:#fde7b1e4;
+    background-color: #f084848c;
+    background-color:#F4E3B2;
+    background-color:#b061616f !important;
+}
+td:first-child {
+    /* 禮拜日 */
+    /* background-color: rgba(154, 199, 195, 0.3);
+    background-color: rgba(199, 154, 154, 0.3); */
+    /* color:red; */
+
+}
+td:last-child {
+    /* 禮拜六 */
+    /* background-color: rgba(199, 154, 154, 0.3); */
+    /* color:red; */
+}
+td span {
+    position: absolute;
+    top: 10px; /* 距離頂部的距離 */
+    left: 10px; /* 距離左側的距離 */
+}
+
+
+/* 醫生班數 */
+
+/*醫生表格樣式*/
+#doctor-table {
+    /* 調整表格寬度 */
+   margin-right: 20px; /* 調整與月曆的間距 */
+   margin-left: 5px;
+   /* @* border-collapse: collapse; *@ */
+   border-radius: 10px; /* 添加圓角 */
+   margin-top: 16px;
+   /* padding: 12px; */
+   /* border-collapse: collapse !important; */
+   border-collapse: separate !important; /*邊框分開*/
+   /* border-spacing: 8px; */
+}
+/* 奇數列的顏色 */
+#doctor-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2 !important;
+}
+
+/* 偶數列的顏色 */
+#doctor-table tbody tr:nth-child(even) {
+    background-color: #ffffff!important;
+}
+#doctor-table th, #doctor-table td {
+   /*內容*/
+   /* width在manager設定 */
+   border: 1px solid #EBEBEB;/*邊框*/
+   border: 1px solid #deddddd0!important;
+   /* border-color: #8f8f8f  */
+   justify-content: center;
+   text-align: center;
+   /* padding-left: 2vh; */
+   /* @* height: 45px; *@ */
+   font-size: 18px;
+}
+#doctor-table th {
+   /*首欄*/
+   /* background-color: #F0F0F0; */
+   background-color:rgba(209, 164, 164, 0.3);
+   background-color:rgba(154, 199, 195, 0.3);
+   color: rgb(7, 7, 7);
+   padding: 5px;
+   text-align: center;
+   box-shadow: 0 0 0px rgba(0, 0, 0, 0.2)!important;
+   /* @* height: 45px; *@
+   @* font-size: 18px; *@ */
+   background-color: #f2f2f2 !important;
+   border-radius: 20px !important;
+}
+#doctor-table td{
+    height: 90px; /* 調整單元格高度 */
+    justify-content: flex-end;
+    align-items: center;
+    padding: 2px 5px;
+    border-radius: 5px !important;
+
+}
+#doctor-table th:nth-child(odd){
+    /* background-color: #f2f2f2 !important; */
+
+}
+#doctor-table th:nth-child(even) {
+    /* background-color: #f2f2f2 !important; */
+
+}
+/* 基數欄 */
+#doctor-table td:nth-child(odd) {
+    /* background-color: #ffffff !important; */
+
+}
+/* 偶數欄 */
+#doctor-table td:nth-child(even), th:nth-child(even) {
+    /* background-color: #f2f2f2 !important; */
+    /* background-color: #ffffff !important; */
+    /* width: 15vh !important; 
+    bac
+    kground-color: #deddddbd !important; */
+}
+
+#doctor-table.selected{
+    color: red;
+    background-color: white;
+}
+
+/* 不同醫生名字顏色 */
+.doctor-style{
+    font-weight: bold;
+    margin-top:5px;
+    padding: 1px 6px;
+    border-radius: 3px;
+}
+.default-background{
+    margin-top:15px;
+    margin-left: 5px;
+    padding: 1px 10px;
+    background-color: #fffffe;
+}
+.draggable {
+    background-color: lightblue;
+    cursor: move;
+    font-weight: bold;
+    text-align: center;
+    /* padding: 2px 12px; */
+    background-color: #e5a99b;
+    border-radius: 2px;
+    margin: 3px auto !important;
+    width: 100%; /* 子元素宽度设置为 100% */
+    width: 80px; /* 设置一个固定宽度 */
+    margin: 3px auto !important; /* 保持原来的边距 */
+    margin-top: -10px;
+}
+.doctor-phone{
+    font-size: 14px;
+    color: #595959;
+    /* margin-top: 3px; */
+}
+.unfav-doctors {
+    color: #595959;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 14px;
+    width: 100%; /* 子元素宽度设置为 100% */
+    text-align: center; /* 左对齐文本 */
+}

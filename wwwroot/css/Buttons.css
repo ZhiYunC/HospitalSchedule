@@ -1,0 +1,138 @@
+/*小科別按鈕*/
+.sub-department-buttons {
+    margin-top: 20px;
+    /* width: 1100px; */
+    /* margin-left: 15%; */
+    display: flex;
+    /* 水平置中 */
+    justify-content: center;  
+}
+.sub-department-buttons button {
+    /* background-color:white; */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* background-color: rgba(169, 206, 204, 0.3); */
+    /* background-color:rgba(154, 199, 195, 0.3); */
+
+    min-width: 140px;
+    max-width: 200px;
+    width: auto;
+    border: none;
+    color: rgb(61, 60, 60);
+    font-weight:bold;
+    cursor: pointer; /*鼠標指針將變為手型，提示用戶*/
+    padding: 8px 5px;
+    text-decoration: none;/*去掉超連結的下劃線*/
+    margin:4px 5px;
+    font-size: 16px;
+    border-radius: 20px;
+    /* border-radius: 25px; */
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+
+    /* // TODO:哪種邊框? */
+    
+    border: 2px solid rgba(154, 199, 195, 1);
+    border: 1px solid rgb(61, 60, 60);
+}
+.sub-department-buttons button.selected {
+    /* // TODO:選顏色? */
+    background-color:  rgba(176, 154, 199, 0.5); /*偏紫*/
+    background-color:  rgba(154, 162, 199, 0.619); /*偏藍 */
+    background-color:rgba(154, 199, 195, 0.3);
+    background-color:rgba(153, 153, 153, 0.334);
+    border: 2px solid rgb(61, 60, 60);
+    /* background-color:rgba(209, 164, 164, 0.6); */
+    /* background-color: rgb(255, 255, 255);  */
+    /* color:rgb(148, 202, 199); */
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    /* color: rgb(61, 60, 60); */
+}
+
+/* Scheduling：儲存班數按鈕樣式 */
+.save-scheduling {
+    text-align: center;
+}
+.save-scheduling button {
+    background-color:#d9d9d9;
+    color:rgb(67, 67, 67);
+
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    border-radius: 25px;
+    margin-top: 40px;
+}
+.save-scheduling button:hover {
+    background-color: #bdbcbc;
+}
+
+/* Scheduling：開始排班按鈕樣式 */
+.start-scheduling {
+    text-align: center;
+}
+.start-scheduling button {
+    background-color:rgba(199, 154, 154, 0.8);
+    color:rgb(67, 67, 67);
+
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+    border-radius: 25px;
+    margin-top: 40px;
+}
+.start-scheduling button:hover {
+    background-color: #c48787;
+}
+
+/* Index：編輯班表按鈕樣式 */
+.edit-schedule {
+    background-color:rgba(169, 206, 204, 0.3);
+    color:rgb(62, 201, 194);
+    color:rgb(49, 172, 166);
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+
+}
+/* Index：儲存班表按鈕樣式 */
+.save-schedule {
+    background-color:rgba(199, 154, 154, 0.3);
+    color:rgb(172, 49, 49);
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+
+}
+
+
+/* 下拉選單按鈕 */
+.button-style {
+    background-color: transparent;
+    /* background-color: rgba(176, 176, 178, 0.619); */
+    border: none;
+    color: #333;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+    font-size: 18px;
+    font-weight: bold; /* 粗體*/
+    text-align: center;
+    min-width: 100px;
+    border: 1px solid #4c4b4b;
+    border-radius: 25px;
+    padding: 5px 8px;
+    margin-left:10px ;
+    margin-right:10px ;
+}

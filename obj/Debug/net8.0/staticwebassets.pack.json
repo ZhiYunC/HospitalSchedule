@@ -5,6 +5,18 @@
       "PackagePath": "staticwebassets\\Demo.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Buttons.css",
+      "PackagePath": "staticwebassets\\css\\Buttons.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Calendar.css",
+      "PackagePath": "staticwebassets\\css\\Calendar.css"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Container.css",
+      "PackagePath": "staticwebassets\\css\\Container.css"
+    },
+    {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\css\\Doctor\\HistorySchedule.css",
       "PackagePath": "staticwebassets\\css\\Doctor\\HistorySchedule.css"
     },
@@ -49,8 +61,28 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\Phone3.png",
-      "PackagePath": "staticwebassets\\image\\Phone3.png"
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\check.png",
+      "PackagePath": "staticwebassets\\image\\check.png"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\checked.png",
+      "PackagePath": "staticwebassets\\image\\checked.png"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\close.png",
+      "PackagePath": "staticwebassets\\image\\close.png"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\cross.png",
+      "PackagePath": "staticwebassets\\image\\cross.png"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\done.png",
+      "PackagePath": "staticwebassets\\image\\done.png"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\error.png",
+      "PackagePath": "staticwebassets\\image\\error.png"
     },
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\fjcu_logo.png",
@@ -67,14 +99,6 @@
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\phone.png",
       "PackagePath": "staticwebassets\\image\\phone.png"
-    },
-    {
-      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\phone1.jpg",
-      "PackagePath": "staticwebassets\\image\\phone1.jpg"
-    },
-    {
-      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\phone2.png",
-      "PackagePath": "staticwebassets\\image\\phone2.png"
     },
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\image\\setting.png",
@@ -101,6 +125,10 @@
       "PackagePath": "staticwebassets\\js\\Manager\\HistorySchedule.js"
     },
     {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Manager\\Other.js",
+      "PackagePath": "staticwebassets\\js\\Manager\\Other.js"
+    },
+    {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Manager\\Scheduling.js",
       "PackagePath": "staticwebassets\\js\\Manager\\Scheduling.js"
     },
@@ -111,6 +139,14 @@
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\Manager\\manager.js",
       "PackagePath": "staticwebassets\\js\\Manager\\manager.js"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\ShowSubdepartment.js",
+      "PackagePath": "staticwebassets\\js\\ShowSubdepartment.js"
+    },
+    {
+      "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\ShowTable.js",
+      "PackagePath": "staticwebassets\\js\\ShowTable.js"
     },
     {
       "Id": "C:\\Users\\CHY\\OneDrive\\桌面\\Demo\\Demo\\wwwroot\\js\\site.js",

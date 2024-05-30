@@ -1,80 +1,233 @@
+@{ Layout = null; } @*取消導航欄*@
+@using Demo.Models;
+@{
+    Doctor doctor=ViewBag.doctor;
+}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{pageTitle}}</title>
+    <!-- 其他共享的头部信息 -->
+    <style>
 
-    <!-- 其他的 head 內容（如額外的 CSS 連結或樣式） -->
-    <link href="~/css/styles.css" rel="stylesheet">
+
+        header {
+            display: flex;
+            align-items: center;
+            color: rgb(0, 0, 0);
+            padding-left: 15px;
+            padding-right: 30px;
+ 
+            background-color: white;
+            vertical-align: bottom;
+            
+        } 
+        /*讓物件在水平方向上置中*/
+        .center{
+            display: flex;
+            justify-content: center; /* 水平置中 */
+        }
+        
+
+        .remind{
+            font-size: 20px;
+            background-color: #e6cfcf;
+            border-radius: 5px ; /* 添加圓角 */
+            padding: 5px;
+        }
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #e6e4e4;
+            box-shadow: 0 4px 8px rgba(5, 5, 5, 0.3);
+            margin: 0;
+            
+        }
+        /*導航欄樣式*/
+        nav {
+            display: flex;
+            justify-content: flex-start;
+            margin-left: 550px;
+            justify-content: space-between;
+            font-size: 18px;
+        }
+
+        nav a {
+            color: #6e6e6e;
+            text-decoration: none;
+            padding: 15px;
+            margin-top: 15px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        /*底線效果*/
+         nav a:after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 3px;
+            background-color: rgba(154, 199, 195, 0.3);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            /*transition: width 0.3s;*/
+            border-bottom: 2px solid transparent; /* 初始時設定底線為透明 */
+            /*border-radius: 5px 5px 0 0;  添加圓角 */
+        } 
+        nav a:hover {
+            color: rgba(154, 199, 195, 0.6);
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+ 
+        /*有下拉選單的按鈕樣式*/
+        .settings-button {
+            background-color: transparent;
+            border: none;
+            color: #6e6e6e;
+            cursor: pointer;
+            padding: 15px;
+            margin-top: 10px;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+            font-size: 18px;
+            justify-content: flex-start;
+        }
+        .settings-button:hover {
+            color: rgba(154, 199, 195, 0.6);
+        }
+        /*下拉選單*/
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 125px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            z-index: 1;
+            text-align: center;
+            transform: translateX(-10%);
+        }
+    
+        .dropdown-content p {
+            color: #858484;
+            padding: 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(154, 199, 195, 0.6);
+            color: white;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        .dropdown img{
+            width: 30px;
+            height: 30px;
+        }
+        
+        .title{
+            font-size: 22px;
+            margin-left:-4px ;
+            color:#5A5859 ;
+            font-weight: bold;
+            margin-top: 25px;
+            font-family: SimSun;
+            }
+
+        img{
+            height: 65px;
+            
+        }
+        .icon {
+            position: fixed;
+            width: 300px; /* 設置圖片寬度 */
+            height: auto; /* 讓高度根據寬度等比例縮放 */
+            bottom: 45px; /* 與底部的距離，可調整 */
+            right: 11px; /* 與右側的距離，可調整 */
+        }
+        .icon:hover {
+            background-color: #4A79D1;
+            color: white;
+        }
+        .fixed{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            z-index: 1000; /* 設定一個足夠大的 z-index 值 */
+        }
+    </style>
 </head>
 <body>
-
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- 頁面內容 -->
-    <!-- 固定寬度的容器 -->
-    <div class="container">
-        <div class="row justify-content-center align-items-center" style="min-height: 95vh;">
-            <div class="col-12 col-md-6 col-lg-4">  
-                <div class="login-box p-4 border border-light">
-                <div class="title-text2">醫護人員排班系統登入</div>
-                    <!-- 頁籤導航 -->
-                    <ul class="nav nav-tabs nav-justified mx-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#managerTab">管理者</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#doctorTab">醫師</a>
-                        </li>
-                    </ul>
-                    <!-- 頁籤內容 -->
-                    <div class="tab-content">
-                        <div id="managerTab" class="container tab-pane active">
-                            <!-- 管理者登入表單 -->
-                            <br>
-                            @* <h2 class="display-8 text-center mb-4">管理者登入</h2> *@
-                            <form id="managerLoginForm" action="/Home/Login" method="post"  >
-                                <input type="hidden" name="actor" value="admin">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="username" name="Username" placeholder="帳號" required>
-                                </div>
-                                <div class="mb-3">
-                                    <input type="password" class="form-control" id="password" name="Password" placeholder="密碼" required>
-                                </div>
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-custom">登入</button>
-                                </div>
-                            </form>
+    <div class="fixed">
+        <header>
+                <a href="/Manager/Calender" >
+                    <img src="~/image/fjcu_logo.png" >
+                </a>
+                <div class="title">醫護人員排班系統</div>
+                <nav>
+                    @* <div class="dropdown">
+                        <button class="settings-button">查看班表</button>
+                        <div class="dropdown-content">
+                            <a href="/Manager/Index">暫定班表</a>
+                            <a href="/Manager/calender">歷史班表</a>
                         </div>
-                        <div id="doctorTab" class="container tab-pane fade">
-                            <!-- 醫師登入表單 -->
-                            <br>
-                            @* <h2 class="display-8 text-center mb-4">醫師登入</h2> *@
-                            <form id="doctorLoginForm" action="/Home/Login" method="post" >
-                                <input type="hidden" name="actor" value="doctor">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" id="username" name="Username" placeholder="帳號" required>
-                                </div>
-                                <div class="mb-3">
-                                    <input type="password" class="form-control" id="password" name="Password" placeholder="密碼" required>
-                                </div>
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-custom">登入</button>
-                                </div>
-                            </form>
-                        </div>
+                    </div> *@
+                    <a href="/Doctor/Index">暫定班表</a>
+                    <a href="/Doctor/HistorySchedule">歷史班表</a>
+                    <a href="/Doctor/Scheduling" >排班</a>
+                    @* <a href="/Doctor/Test" >展開班表測試</a> *@
+                    @* <a href="/Manager/doctor_date" >醫生偏好日期</a> *@
+                    <div class="dropdown">
+                        <button class="settings-button">
+                            <img src="~/image/setting.png" alt="more">
+                            </a>
+                        </button>
+                        <div class="dropdown-content">
+                            <div class="dropdown-content-people">
+                                <p>@doctor.Doctor_Name </p><div style="font-size:20px;">醫生</div>
+                                <p>科別：@doctor.Doctor_Department</p>
+                            </div>
+                            <a href="/Home/Index">登出</a>
+                        </div> 
                     </div>
-                    
-                </div>
-            </div>
-        </div>
+                </nav>
+                @* <div class="icon">
+                    <a href="/Manager/read">
+                        <img src="~/image/phone3.png" alt="more">
+                    </a>
+                </div>      *@
+                
+        </header>
+
+        <hr>
     </div>
+    <!-- 其他共享的内容 -->
 
-
-
-    <!-- 其他的 JavaScript 檔案或程式碼 -->
-    <script src="~/js/login.js"></script>
+    <!-- 共享的页脚信息 -->
 </body>
 </html>
