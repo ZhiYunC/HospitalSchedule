@@ -7,7 +7,6 @@ using Demo.Models;
 namespace Demo.Models{
     public class DBmanager
     {
-        private readonly string connString = "server=localhost;port=3306;user id=zhiyun;password=abcd123456789;database=hospitalscheduling;charset=utf8;";
         // 管理者：取得科別醫生列表
         public List<Doctor> GetDoctors(string subdepartment) {
             List<Doctor> doctors = new List<Doctor>();
