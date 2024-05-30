@@ -35,12 +35,13 @@ $(document).ready(function() {
     var nextTwoMonth = currentMonth+2;
     var currentDate = today.getDate();
     if (currentDate>20 && currentDate<25){
-        $('#noteText').text('請盡快前往"排班頁面"填寫 '+nextTwoMonth+'月不想上班日期！');
+        //原$('#noteText').text('請盡快前往"排班頁面"填寫 '+nextTwoMonth+'月不想上班日期！');
         $('.note').show();
     }else if (currentDate>25 && currentDate<28){
-        $('#noteText').text('系統排班中~');
+        //原$('#noteText').text('系統排班中~');
         $('.note').show();
     }else if (currentDate>27 && currentDate<31){
+        // $('#noteText').text('請盡快前往"排班頁面"填寫 '+nextTwoMonth+'月不想上班日期！');
         $('#noteText').text(nextTwoMonth+'月班表已產出，請盡快確認！');
         $('.note').show();
     }else{

@@ -138,78 +138,226 @@ function displayDoctors(doctors) {
 //     }
 // });
 
-$('#SaveSchedule').click(function() {
+// $('#SaveSchedule').click(function() {
+//     var selectedsubdepartment = $('.sub-department-buttons button.selected').text();
+
+//     // 构建要发送到后端的数据结构
+//     var doctorsList =[];
+
+//     // 遍历每个医生的行
+//     $('#doctorList tbody tr').each(function() {
+//         var doctorName = $(this).find('#doctorName').text();
+//         var doctorShift = $(this).find('#doctorShift').val();
+
+//         doctorsList.push({ Doctor_Name: doctorName, Shift: doctorShift,Doctor_Department:selectedsubdepartment }); //存到updatedScheduleData
+ 
+//     });
+//     // console.log('doctorsList'+doctorsList[0]);
+    
+    
+//     // 将数组转换为 JSON 格式
+//     var jsonData = JSON.stringify(doctorsList);
+
+//     if(doctorsList!=null){
+//         // 发送 AJAX 请求
+//         $.ajax({
+//             url: '../Manager/NewShift',
+//             type: 'POST',
+//             contentType: 'application/json',
+//             data: jsonData,
+//             dataType: 'json',
+//             success: function(response) {
+//                 // 处理成功响应
+//                 console.log('Data saved successfully:', response);
+//                 alert("儲存成功");
+//                 // 可以在这里显示成功通知或者执行其他操作
+//             },
+//             error: function(xhr, status, error) {
+//                 // 处理错误响应
+//                 console.error("AJAX request failed:", status, error);
+//                 alert("儲存失敗");
+//                 // 可以在这里显示错误通知或者执行其他操作
+//             }
+//         });
+//     }
+// });
+$('#SaveSchedule').click(function(e) {
+    e.preventDefault(); // 阻止默認表單提交行為
+
     var selectedsubdepartment = $('.sub-department-buttons button.selected').text();
 
-    // 构建要发送到后端的数据结构
+    // 構建要發送到後端的數據結構
     var doctorsList = [];
 
-    // 遍历每个医生的行
+    // 遍歷每個醫生的行
     $('#doctorList tbody tr').each(function() {
         var doctorName = $(this).find('#doctorName').text();
         var doctorShift = $(this).find('#doctorShift').val();
 
-        // 构建医生对象并添加到数组中
-        var doctor = {
-            Doctor_Name: doctorName,
-            Shift: doctorShift
-        };
-        console.log('doctorName：'+doctorName);
-        console.log('doctorShift'+doctorShift);
-        doctorsList.push(doctor);
+        doctorsList.push({ Doctor_Name: doctorName, Shift: doctorShift, Doctor_Department: selectedsubdepartment });
     });
 
-    // 将数组转换为 JSON 格式
-    var jsonData = JSON.stringify(doctorsList);
+    console.log('doctorsList' + JSON.stringify(doctorsList));
 
-    // 发送 AJAX 请求
-    $.ajax({
-        url: '../Manager/NewShift',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            subdepartment: selectedsubdepartment,
-            jsonData: jsonData
-        }),
-        dataType: 'json',
-        success: function(response) {
-            // 处理成功响应
-            console.log('Data saved successfully:', response);
-            alert("儲存成功");
-            // 可以在这里显示成功通知或者执行其他操作
-        },
-        error: function(xhr, status, error) {
-            // 处理错误响应
-            console.error("AJAX request failed:", status, error);
-            alert("儲存失敗");
-            // 可以在这里显示错误通知或者执行其他操作
+    // 如果 doctorsList 為空，給出提示並返回
+    if (doctorsList.length === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: '沒有班表數據',
+            text: '請先添加醫生的班表信息。',
+        });
+        return;
+    }
+
+    // 使用 Swal.fire 顯示確認框
+    Swal.fire({
+        icon: 'question',
+        title: '儲存班數',
+        text: '確定要儲存嗎?',
+        showCancelButton: true,
+        confirmButtonText: "確認",
+        cancelButtonText: "取消"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 將數組轉換為 JSON 格式
+            var jsonData = JSON.stringify(doctorsList);
+
+            // 發送 AJAX 請求
+            $.ajax({
+                url: '../Manager/NewShift',
+                type: 'POST',
+                contentType: 'application/json',
+                data: jsonData,
+                dataType: 'json',
+                success: function(response) {
+                    // 處理成功響應
+                    console.log('Data saved successfully:', response);
+                    Swal.fire({
+                        icon: 'success',
+                        title: '儲存成功',
+                        text: '暫定班表已更新',
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // 處理錯誤響應
+                    console.error("AJAX request failed:", status, error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '儲存失敗',
+                        text: '班表更新失敗',
+                    });
+                }
+            });
         }
     });
 });
 
 
-$('#StartSchedule').click(function(){
+// $('#StartSchedule').click(function(){
+//     var selectedsubdepartment = $('.sub-department-buttons button.selected').text();
+//     $.ajax({
+//         url: '../Manager/GetShiftData', // 替換成你的Controller名稱
+//         type: 'GET',
+//         data:{ year:2024,month:7,subdepartment: selectedsubdepartment},
+//         dataType: 'json',
+//         success: function(doctors) {
+//             // data 包含從控制器返回的 List<Doctor>
+//             doctors.forEach(function(doctor){
+//                 console.log(doctor);
+//             }) 
+//             if(doctors.length>0){
+//                 $.ajax({
+//                     url: '../Scheduling/StartSchedule',
+//                     type: 'POST',
+//                     data: { subdepartment: selectedsubdepartment },
+//                     dataType: 'json',
+//                     success: function(response) {
+//                         // 處理返回的排班結果
+//                         let resultDiv = $('#scheduleResult');
+//                         resultDiv.empty(); // 清空之前的結果
+            
+//                         response.forEach(function(item) {
+//                             resultDiv.append('<p>' + item + '</p>');
+//                         });
+//                     },
+//                     error: function(xhr, status, error) {
+//                         console.error("AJAX request failed:", status, error);
+//                     }
+//                 });
+//             }else{
+//                 alert("尚未設定班數");
+//             }
+            
+//         },
+//         error: function(error) {
+//             console.error('Failed to fetch schedule data from the server.');
+//         }
+//     });
+    
+// })
+$('#StartSchedule').click(function(e) {
     var selectedsubdepartment = $('.sub-department-buttons button.selected').text();
-    $.ajax({
-        url: '../Scheduling/StartSchedule',
-        type: 'POST',
-        data: { subdepartment: selectedsubdepartment },
-        dataType: 'json',
-        success: function(response) {
-            // 處理返回的排班結果
-            let resultDiv = $('#scheduleResult');
-            resultDiv.empty(); // 清空之前的結果
+    e.preventDefault(); // 阻止默認表單提交行為
 
-            response.forEach(function(item) {
-                resultDiv.append('<p>' + item + '</p>');
+    $.ajax({
+        url: '../Manager/GetShiftData', // 替換成你的Controller名稱
+        type: 'GET',
+        data: { year: 2024, month: 7, subdepartment: selectedsubdepartment },
+        dataType: 'json',
+        success: function(doctors) {
+            // data 包含從控制器返回的 List<Doctor>
+            doctors.forEach(function(doctor) {
+                console.log(doctor);
             });
+            if (doctors.length > 0) {
+                $.ajax({
+                    url: '../Scheduling/StartSchedule',
+                    type: 'POST',
+                    data: { subdepartment: selectedsubdepartment },
+                    dataType: 'json',
+                    success: function(response) {
+                        // 處理返回的排班結果
+                        let resultDiv = $('#scheduleResult');
+                        resultDiv.empty(); // 清空之前的結果
+
+                        response.forEach(function(item) {
+                            resultDiv.append('<p>' + item + '</p>');
+                        });
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: '排班完成',
+                            text: '排班結果已成功生成。',
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX request failed:", status, error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: '排班失敗',
+                            text: '排班過程中出現錯誤，請稍後再試。',
+                        });
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '尚未設定班數',
+                    text: '請先設定班數再進行排班。',
+                });
+            }
         },
         error: function(xhr, status, error) {
-            console.error("AJAX request failed:", status, error);
+            console.error('Failed to fetch schedule data from the server.');
+            Swal.fire({
+                icon: 'error',
+                title: '數據獲取失敗',
+                text: '無法從服務器獲取班數數據，請稍後再試。',
+            });
         }
     });
-})
- 
+});
+
 // FUN：點選科別的動畫、將科別傳入showSubDepartments()建立細科別
 $('.left-nav button').click(function() {
     // 移除同一按鈕組中其他按鈕的類別
@@ -222,25 +370,51 @@ $('.left-nav button').click(function() {
    
 })
 // FUN：讀取細科別抓取班表
-$('#sub-departments').click(function(){
+// $('#department').click(function(){
+//     $('.sub-department-buttons button').removeClass('selected');
+// })
+
+$('#department,#sub-departments').click(function(){
     var selectedsubdepartment = $('.sub-department-buttons button.selected').text();
     $.ajax({
-        url: '../Manager/GetDoctors', // 替換成你的Controller名稱
+        url: '../Manager/GetShiftData', // 替換成你的Controller名稱
         type: 'GET',
-        data:{ selectedsubdepartment: selectedsubdepartment},
+        data:{ year:2024,month:7,subdepartment: selectedsubdepartment},
         dataType: 'json',
         success: function(doctors) {
             // data 包含從控制器返回的 List<Doctor>
             doctors.forEach(function(doctor){
                 console.log(doctor);
             }) 
-            displayDoctors(doctors);
+            if(doctors.length>0){
+                displayDoctors(doctors);
+            }else{
+                $.ajax({
+                    url: '../Manager/GetDoctors', // 替換成你的Controller名稱
+                    type: 'GET',
+                    data:{ selectedsubdepartment: selectedsubdepartment},
+                    dataType: 'json',
+                    success: function(doctors) {
+                        // data 包含從控制器返回的 List<Doctor>
+                        doctors.forEach(function(doctor){
+                            console.log(doctor);
+                        }) 
+                        displayDoctors(doctors);
+                    },
+                    error: function(error) {
+                        console.error('Failed to fetch schedule data from the server.');
+                    }
+                });
+                displayDoctors(doctors);
+            }
+            
         },
         error: function(error) {
             console.error('Failed to fetch schedule data from the server.');
         }
     });
 });
+
 // document.addEventListener('DOMContentLoaded', function() {
 //     var form = document.getElementById('scheduleForm');
 

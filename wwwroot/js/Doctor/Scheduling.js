@@ -172,13 +172,46 @@ function selectDate(event) {
 // $('#calendar-body').on('click',selectDate);// 將點擊日期格子的事件綁定到日曆的容器
 
 // 儲存班數按鈕事件
-$('#SaveSchedule').click(function(){
+// $('#SaveSchedule').click(function(){
     
-    // DoctorSelectDate.forEach(function(cell) {
-    //     console.log(cell); // 印出日期格子的內容
-    // });
+//     // DoctorSelectDate.forEach(function(cell) {
+//     //     console.log(cell); // 印出日期格子的內容
+//     // });
+//     // 將日期陣列轉換為 JSON 字符串
+//     var jsonData = JSON.stringify(DoctorSelectDate);
+//     $.ajax({
+//         url: '/Doctor/SaveDates',
+//         method: 'POST',
+//         contentType: 'application/json',
+//         data: jsonData,
+//         success: function(response) {
+//             // 請求成功後的處理邏輯
+//             // console.log(response);
+//             alert("儲存成功")
+//             DoctorSelectDate=[];
+//         },
+//         error: function(error) {
+//             // 請求失敗後的處理邏輯
+//             // console.log(error);
+//             alert("儲存失敗")
+//         }
+//     });
+// });
+$('#SaveSchedule').click(function() {
+    // 確認是否有日期選擇
+    if (DoctorSelectDate.length === 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: '無選擇日期',
+            text: '請先選擇日期。',
+        });
+        return;
+    }
+
     // 將日期陣列轉換為 JSON 字符串
     var jsonData = JSON.stringify(DoctorSelectDate);
+
+    // 發送 AJAX 請求
     $.ajax({
         url: '/Doctor/SaveDates',
         method: 'POST',
@@ -186,14 +219,21 @@ $('#SaveSchedule').click(function(){
         data: jsonData,
         success: function(response) {
             // 請求成功後的處理邏輯
-            // console.log(response);
-            alert("儲存成功")
-            DoctorSelectDate=[];
+            Swal.fire({
+                icon: 'success',
+                title: '儲存成功',
+                text: '日期已成功儲存。',
+            });
+            // 清空選擇的日期
+            DoctorSelectDate = [];
         },
         error: function(error) {
             // 請求失敗後的處理邏輯
-            // console.log(error);
-            alert("儲存失敗")
+            Swal.fire({
+                icon: 'error',
+                title: '儲存失敗',
+                text: '儲存日期失敗，請稍後再試。',
+            });
         }
     });
 });

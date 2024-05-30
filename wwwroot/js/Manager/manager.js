@@ -27,6 +27,8 @@ $(document).ready(function() {
         $('#noteText').text('請前往"排班頁面"填寫'+nextTwoMonth+'月醫生需排班數！');
         $('.note').show();
     }else if (currentDate>27 && currentDate<31){
+        // $('#noteText').text('請前往"排班頁面"填寫'+nextTwoMonth+'月醫生需排班數！');
+
         $('#noteText').text(nextTwoMonth+'月班表已產出，請盡快確認！');
         $('.note').show();
     }else{

@@ -7,6 +7,8 @@ using Demo.Models;
 namespace Demo.Models{
     public class DBmanager
     {
+        private readonly string connString = "server=localhost;port=3306;user id=zhiyun;password=abcd123456789;database=hospitalscheduling;charset=utf8;";
+
         // 管理者：取得科別醫生列表
         public List<Doctor> GetDoctors(string subdepartment) {
             List<Doctor> doctors = new List<Doctor>();
@@ -51,7 +53,7 @@ namespace Demo.Models{
                         Doctor_ID = reader.GetInt32(reader.GetOrdinal("doctor_id")),
                         Doctor_Name  = reader.GetString(reader.GetOrdinal("doctor_name")),
                         Doctor_Phone  = !reader.IsDBNull(reader.GetOrdinal("doctor_phone")) ? reader.GetString(reader.GetOrdinal("doctor_phone")) : "無" ,
-                        Shift  = reader.GetInt16(reader.GetOrdinal("shift_weekdays")),
+                        Shift  = !reader.IsDBNull(reader.GetOrdinal("doctor_phone")) ? reader.GetInt16(reader.GetOrdinal("shift_weekdays")) : 0,
                         Doctor_State  = !reader.IsDBNull(reader.GetOrdinal("shift_state")) && reader.GetBoolean(reader.GetOrdinal("shift_state"))
                     };
                     doctors.Add(doctor);
@@ -64,7 +66,7 @@ namespace Demo.Models{
             return doctors;
 
         }
-        public void NewSchedule(List<Schedule> schedules)
+        public void NewSchedule(List<Schedule> schedules,string subdepartment)
         {
             MySqlConnection sqlConnection = new MySqlConnection(connString);
             sqlConnection.Open();
@@ -73,9 +75,12 @@ namespace Demo.Models{
                     //  Console.WriteLine(worktimeData.Count);
                     foreach (Schedule schedule in schedules)
                     {
-                        MySqlCommand sqlCommand = new MySqlCommand("INSERT INTO `schedule` (schedule_doctor_id,schedule_date,schedule_department_id,schedule_ward_id) VALUES (@schedule_doctor_id,@schedule_date,4,1)", sqlConnection);
+                        MySqlCommand sqlCommand = new MySqlCommand("INSERT INTO `schedule` (schedule_doctor_id,schedule_date,schedule_department_id,schedule_ward_id) VALUES (@schedule_doctor_id,@schedule_date,(SELECT department_id FROM `department` WHERE department_name=@subdepartment),1)", sqlConnection);
                         sqlCommand.Parameters.AddWithValue("@schedule_doctor_id", schedule.Schedule_doctor_id);
                         sqlCommand.Parameters.AddWithValue("@schedule_date", schedule.Schedule_date);
+                        sqlCommand.Parameters.AddWithValue("@subdepartment", subdepartment);
+
+                        
                         Console.WriteLine("WorktimeData succesfully saved to the database");                  
                         sqlCommand.ExecuteNonQuery();
                     }
@@ -89,7 +94,7 @@ namespace Demo.Models{
             sqlConnection.Close();
         }
         // 管理者：新增班數
-        public void NewShift(List<Doctor> doctors,int subdepartment)
+        public void NewShift(List<Doctor> doctors)
         {
             // DateTime dtNow = DateTime.Now;
             // int currentMonth = dtNow.Month;
@@ -114,12 +119,12 @@ namespace Demo.Models{
                     //  Console.WriteLine(worktimeData.Count);
                     foreach (Doctor doctor in doctors)
                     {
-                        MySqlCommand sqlCommand = new MySqlCommand("INSERT INTO `shift` (shift_doctor_id,shift_ward_id, shift_department_id,shift_year,shift_month,shift_weekdays,shift_holiday) VALUES ((SELECT doctor_id FROM `doctors` WHERE doctor_name=@doctorname),1,@subdepartment,@year,@month,10,0);", sqlConnection);
+                        MySqlCommand sqlCommand = new MySqlCommand("INSERT INTO `shift` (shift_doctor_id,shift_ward_id, shift_department_id,shift_year,shift_month,shift_weekdays,shift_holiday) VALUES ((SELECT doctor_id FROM `doctors` WHERE doctor_name=@doctorname),1,(SELECT department_id FROM `department` WHERE department_name=@subdepartment),@year,@month,@shift,0);", sqlConnection);
                         sqlCommand.Parameters.AddWithValue("@doctorname", doctor.Doctor_Name);
                         sqlCommand.Parameters.AddWithValue("@shift", doctor.Shift);
                         sqlCommand.Parameters.AddWithValue("@month", month);
                         sqlCommand.Parameters.AddWithValue("@year", year);
-                        sqlCommand.Parameters.AddWithValue("@subdepartment", subdepartment);
+                        sqlCommand.Parameters.AddWithValue("@subdepartment", doctor.Doctor_Department);
                         Console.WriteLine("WorktimeData succesfully saved to the database");                  
                         sqlCommand.ExecuteNonQuery();
                     }
@@ -400,6 +405,7 @@ namespace Demo.Models{
                 return false;
             }
         }
+
         // 醫生：取得醫生不想上班日期
         public List<DateTime> GetUnfavDate(int doctorId,int month,int year) {
             List<DateTime> unfav_dates = new List<DateTime>();

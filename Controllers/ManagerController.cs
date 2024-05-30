@@ -50,22 +50,22 @@ namespace Demo.Controllers
             return View();
         }
         // ??
-        [HttpPost]
-        public  IActionResult Scheduling(List<Setting> worktimeData)
-        {
-            String ward = "一般病房";
-            DBmanager dbmanager = new DBmanager();
-            try{
-                Console.WriteLine(worktimeData);
-                // dbmanager.NewShift(worktimeData,ward);
+        // [HttpPost]
+        // public  IActionResult Scheduling(List<Setting> worktimeData)
+        // {
+        //     String ward = "一般病房";
+        //     DBmanager dbmanager = new DBmanager();
+        //     try{
+        //         Console.WriteLine(worktimeData);
+        //         // dbmanager.NewShift(worktimeData,ward);
                 
-            }
-            catch(Exception e){
-                Console.WriteLine(e.ToString());
-            }
-            return View();
+        //     }
+        //     catch(Exception e){
+        //         Console.WriteLine(e.ToString());
+        //     }
+        //     return View();
 
-        }
+        // }
         // private int ConvertSubdepartmentToId(string subdepartment) {
         //     // 這裡加入將 subdepartment 字串轉換為 departmentId 的邏輯
         //     if (subdepartment == "神經外科") return 11;
@@ -172,12 +172,13 @@ namespace Demo.Controllers
             return Json(restrictions);
         }
         [HttpPost]
-        public  IActionResult NewShift([FromBody] List<Doctor> doctors,int subdepartment)
+        public  IActionResult NewShift([FromBody] List<Doctor> doctors)
         {
             DBmanager dbmanager = new DBmanager();
             try
             {
-                dbmanager.NewShift(doctors,subdepartment);
+                Console.WriteLine("doctors.Count"+doctors.Count);
+                dbmanager.NewShift(doctors);
                 return Json(new { success = true, message = "Dates saved successfully." });
             }
             catch (Exception e)

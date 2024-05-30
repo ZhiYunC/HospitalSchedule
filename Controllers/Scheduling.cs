@@ -129,7 +129,7 @@ namespace Demo.Controllers
                 // result.Add($"{k.ToString("yyyy-MM-dd")}: {display}");
                 // Console.WriteLine($"{k.ToString("yyyy-MM-dd")}: {display}");
             }
-            dbmanager.NewSchedule(schedules);
+            dbmanager.NewSchedule(schedules,subdepartment);
             Console.WriteLine("Schedule_doctor_id： " +schedules[0].Schedule_doctor_id);
             Console.WriteLine("無法分配 ID 的日期： " + string.Join(", ", missingDays.Select(d => d.ToString("yyyy-MM-dd"))));
             result.Add("無法分配 ID 的日期： " + string.Join(", ", missingDays.Select(d => d.ToString("yyyy-MM-dd"))));
