@@ -1,3 +1,4 @@
+
 $(document).ready(function() {
     const departmentNote = {
         '內科部': ['1', '9'],
@@ -208,7 +209,22 @@ $('#SaveSchedule').click(function(e) {
         });
         return;
     }
-
+    // var currentDate = new Date();
+    // var year = currentDate.getFullYear();
+    // var month = currentDate.getMonth() + 1;
+    var daysInMonth = new Date(2024, 8, 0).getDate();
+    var totalShifts = doctorsList.reduce(function(sum, doctor) {
+        return sum + doctor.Shift;
+    }, 0);
+    if (totalShifts !== daysInMonth) {
+        Swal.fire({
+            icon: 'warning',
+            title: '班數總和錯誤',
+            text: '醫生的班次總和必須等於當月的天數 (' + daysInMonth + ' 天)。',
+        });
+        return;
+    }
+        
     // 使用 Swal.fire 顯示確認框
     Swal.fire({
         icon: 'question',
@@ -302,7 +318,7 @@ $('#StartSchedule').click(function(e) {
     $.ajax({
         url: '../Manager/GetShiftData', // 替換成你的Controller名稱
         type: 'GET',
-        data: { year: 2024, month: 7, subdepartment: selectedsubdepartment },
+        data: { year: 2024, month: 8, subdepartment: selectedsubdepartment },
         dataType: 'json',
         success: function(doctors) {
             // data 包含從控制器返回的 List<Doctor>
@@ -379,7 +395,7 @@ $('#department,#sub-departments').click(function(){
     $.ajax({
         url: '../Manager/GetShiftData', // 替換成你的Controller名稱
         type: 'GET',
-        data:{ year:2024,month:7,subdepartment: selectedsubdepartment},
+        data:{ year:2024,month:8,subdepartment: selectedsubdepartment},
         dataType: 'json',
         success: function(doctors) {
             // data 包含從控制器返回的 List<Doctor>

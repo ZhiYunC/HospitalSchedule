@@ -7,6 +7,7 @@ using Demo.Models;
 namespace Demo.Models{
     public class DBmanager
     {
+        private readonly string connString = "server=localhost;port=3306;user id=zhiyun;password=abcd123456789;database=hospitalscheduling;charset=utf8;";
 
         // 管理者：取得科別醫生列表
         public List<Doctor> GetDoctors(string subdepartment) {
@@ -320,7 +321,7 @@ namespace Demo.Models{
         // 管理者：取得醫生確認班表情況
         public bool GetDoctorState(int userId) {
             MySqlConnection sqlConnection = new MySqlConnection(connString);
-            MySqlCommand sqlCommand = new MySqlCommand("SELECT shift_state FROM `shift` WHERE shift_month=7 AND shift_year=2024 AND shift_doctor_id=@userId;");
+            MySqlCommand sqlCommand = new MySqlCommand("SELECT shift_state FROM `shift` WHERE shift_month=8 AND shift_year=2024 AND shift_doctor_id=@userId;");
             sqlCommand.Parameters.AddWithValue("@userId", userId);
             sqlCommand.Connection = sqlConnection;
             sqlConnection.Open();
@@ -346,7 +347,7 @@ namespace Demo.Models{
                     {
                         Console.WriteLine(schedule.Schedule_doctor_name);
                         Console.WriteLine(schedule.Schedule_day);
-                        DateTime dateTime = new DateTime(2024,7,schedule.Schedule_day);
+                        DateTime dateTime = new DateTime(2024,8,schedule.Schedule_day);
                         MySqlCommand sqlCommand = new MySqlCommand(
                             "UPDATE `schedule` SET schedule_doctor_id = (SELECT doctor_id FROM `doctors` WHERE doctors.doctor_name=@doctorName) WHERE schedule_date = @date AND schedule_department_id = (SELECT department_id FROM `department` WHERE department.department_name=@departmentId);", 
                             sqlConnection
@@ -371,7 +372,7 @@ namespace Demo.Models{
             if (doctorId !=null){
                 try{
                     MySqlCommand sqlCommand = new MySqlCommand(
-                        "UPDATE `shift` SET shift_state = true WHERE shift_doctor_id=@doctorId AND shift_year = 2024 AND shift_month=7 ;", 
+                        "UPDATE `shift` SET shift_state = true WHERE shift_doctor_id=@doctorId AND shift_year = 2024 AND shift_month=8 ;", 
                         sqlConnection
                     );
                     sqlCommand.Parameters.AddWithValue("@doctorId", doctorId);
@@ -390,7 +391,7 @@ namespace Demo.Models{
         // 管理者：檢查已排班/未排班科別
         public bool CheckSchedulingCompleted(int department){
             MySqlConnection sqlConnection = new MySqlConnection(connString);
-            MySqlCommand sqlCommand = new MySqlCommand("SELECT * from `schedule` WHERE  schedule_department_id=@departmentId AND MONTH(schedule_date) = 7 AND YEAR(schedule_date) = 2024;");
+            MySqlCommand sqlCommand = new MySqlCommand("SELECT * from `schedule` WHERE  schedule_department_id=@departmentId AND MONTH(schedule_date) = 8 AND YEAR(schedule_date) = 2024;");
             sqlCommand.Parameters.AddWithValue("@departmentId", department);
             sqlCommand.Connection = sqlConnection;
             sqlConnection.Open();

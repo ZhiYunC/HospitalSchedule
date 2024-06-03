@@ -1,40 +1,4 @@
-$(document).ready(function() {
-    const departmentNote = {
-        '內科部': ['1', '9'],
-        '外科部': ['10', '19'],
-        '心臟血管醫學部': ['20', '20'],
-        '兒童醫學部': ['21', '21'],
-        '婦產部': ['22', '22'],
-        '其他專科': ['23', '40'],
-        '特色中心': ['41', '45'],
-        '新冠肺炎專區': ['46', '47'],
-    };
-    
-    // Iterate through each department and check scheduling status
-    for (const [department, range] of Object.entries(departmentNote)) {
-        $.ajax({
-            url: '/Manager/CheckSchedulingCompleted',
-            type: 'GET',
-            data: { start: range[0], end: range[1] },
-            dataType: 'json',
-            success: function(response) {
-                // console.log(response);
-                const departmentElement = $(`button[value="${department}"] .finished, button[value="${department}"] .unfinished`);
-                if (response.success) {
-                    departmentElement.text("已排班");
-                    departmentElement.removeClass().addClass('finished');
-                } else {
-                    departmentElement.text("未排班");
-                    departmentElement.removeClass().addClass('unfinished');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error("AJAX request failed:", status, error);
-            }
-        });
-    }
-    
-});
+
 // 讀取班表
 $('#yearSelector,#monthSelector,#sub-departments,.left-nav').click(function(){
     var year = $('#yearSelector').val();

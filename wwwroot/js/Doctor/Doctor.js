@@ -123,7 +123,7 @@ $('#departmentSelect').change(function(){
 //     // });
 // })
 var year = "2024";
-var month = "7";
+var month = "8";
 var subdepartment = $('#sub-departmentSelect').val();
 
 //班表 
@@ -229,7 +229,7 @@ function generateCalendar(year, month,doctors) {
     }
     // 更新當前月份顯示
     // document.getElementById('currentMonthText').textContent = `${year} 年 ${month} 月`;
-    document.getElementById('currentMonthText').textContent = `2024 年 7 月`;
+    document.getElementById('currentMonthText').textContent = `2024 年 8 月`;
 }
 
 function getDutyClass(nowdoctor, doctorName) {

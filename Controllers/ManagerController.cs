@@ -149,7 +149,7 @@ namespace Demo.Controllers
         public IActionResult GetDoctorUnfavDate(string subdepartment)
         {
             DBmanager dbmanager = new DBmanager();
-            List<Doctor> doctors = dbmanager.GetShift(2024, 7, subdepartment);
+            List<Doctor> doctors = dbmanager.GetShift(2024, 8, subdepartment);
             List<string> docName = new List<string>(); //放醫生ID
             // 將讀取的醫生班數儲存
             foreach (var doctor in doctors)
@@ -161,7 +161,7 @@ namespace Demo.Controllers
 
              foreach (var name in docName)
             {
-                List<DateTime> unfavDates = dbmanager.MangerGetUnfavDate(name, 7, 2024);
+                List<DateTime> unfavDates = dbmanager.MangerGetUnfavDate(name, 8, 2024);
                 // 只存储日期的日部分
                 restrictions[name] = unfavDates.Select(date => date.Day).ToList();
                 
