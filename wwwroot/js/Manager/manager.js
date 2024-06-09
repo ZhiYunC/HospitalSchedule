@@ -283,6 +283,15 @@ function exitEditMode() {
     $('#shift-counts').removeClass;
     showAlert(updatedScheduleData);
 }
+
+const checkConsecutiveDoctors = (scheduleData) => {
+    for (let i = 1; i < scheduleData.length; i++) {
+        if (scheduleData[i].Schedule_doctor_name === scheduleData[i - 1].Schedule_doctor_name) {
+            return true;
+        }
+    }
+    return false;
+};
 // 儲存班表alert
 const showAlert = (updatedScheduleData) => {
     Swal.fire({
@@ -294,25 +303,68 @@ const showAlert = (updatedScheduleData) => {
         cancelButtonText: "取消"
     }).then((result) => {
         if (result.isConfirmed) {
-            var jsonData = JSON.stringify(updatedScheduleData);
-            console.log(jsonData);
-            $.ajax({
-                url: '/Manager/UpdateSchedule',
-                method: 'POST',
-                contentType: 'application/json',
-                data: jsonData,
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '儲存成功',
-                        text: '暫定班表已更新',
-                    });
+            if (checkConsecutiveDoctors(updatedScheduleData)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '醫生連續出現',
+                    text: '有醫生連續出現在班表中，是否要儲存?',
+                    showCancelButton: true,
+                    confirmButtonText: "確認",
+                    cancelButtonText: "取消"
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    var jsonData = JSON.stringify(updatedScheduleData);
+                    // console.log(jsonData);
+                    $.ajax({
+                        url: '/Manager/UpdateSchedule',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: jsonData,
+                        success: function(response) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: '儲存成功',
+                                text: '暫定班表已更新',
+                            });
 
-                    console.log("班表更新成功");
+                            // console.log("班表更新成功");
+                            var year = 2024;
+                            var month = 8;
+                            var subdepartment = $('.sub-department-buttons button.selected').text();
+
+                            //月曆表格 
+                            $.ajax({
+                                url: '../Manager/GetScheduleData', // 替換成你的Controller名稱
+                                type: 'GET',
+                                data: { year: year, month: month, subdepartment: subdepartment },
+                                dataType: 'json',
+                                success: function(data) {
+                                    var doctorList = data;
+                                    var DoctorNames = [];
+                                    for (var i = 0; i < doctorList.length; i++) {
+                                        DoctorNames.push(doctorList[i]);
+                                    }
+                                    generateCalendar(year, month, doctorList);
+                                },
+                                error: function(error) {
+                                    console.error('Failed to fetch schedule data from the server.');
+                                }
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '儲存失敗',
+                                text: '班表更新失敗',
+                            });
+                            // console.log("班表更新失敗");
+                            console.error('Error:', error);
+                        }
+                    });
+                } else {
                     var year = 2024;
                     var month = 8;
                     var subdepartment = $('.sub-department-buttons button.selected').text();
-
                     //月曆表格 
                     $.ajax({
                         url: '../Manager/GetScheduleData', // 替換成你的Controller名稱
@@ -331,17 +383,58 @@ const showAlert = (updatedScheduleData) => {
                             console.error('Failed to fetch schedule data from the server.');
                         }
                     });
-                },
-                error: function(xhr, status, error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: '儲存失敗',
-                        text: '班表更新失敗',
-                    });
-                    console.log("班表更新失敗");
-                    console.error('Error:', error);
                 }
-            });
+                });
+            }else{
+                var jsonData = JSON.stringify(updatedScheduleData);
+                // console.log(jsonData);
+                $.ajax({
+                    url: '/Manager/UpdateSchedule',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: jsonData,
+                    success: function(response) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '儲存成功',
+                            text: '暫定班表已更新',
+                        });
+
+                        // console.log("班表更新成功");
+                        var year = 2024;
+                        var month = 8;
+                        var subdepartment = $('.sub-department-buttons button.selected').text();
+
+                        //月曆表格 
+                        $.ajax({
+                            url: '../Manager/GetScheduleData', // 替換成你的Controller名稱
+                            type: 'GET',
+                            data: { year: year, month: month, subdepartment: subdepartment },
+                            dataType: 'json',
+                            success: function(data) {
+                                var doctorList = data;
+                                var DoctorNames = [];
+                                for (var i = 0; i < doctorList.length; i++) {
+                                    DoctorNames.push(doctorList[i]);
+                                }
+                                generateCalendar(year, month, doctorList);
+                            },
+                            error: function(error) {
+                                console.error('Failed to fetch schedule data from the server.');
+                            }
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '儲存失敗',
+                            text: '班表更新失敗',
+                        });
+                        // console.log("班表更新失敗");
+                        console.error('Error:', error);
+                    }
+                });
+            }
         }else if (result.dismiss === Swal.DismissReason.cancel){
             var year = 2024;
             var month = 8;

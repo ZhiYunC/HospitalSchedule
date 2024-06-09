@@ -214,14 +214,22 @@ $('#SaveSchedule').click(function(e) {
     // var month = currentDate.getMonth() + 1;
     var daysInMonth = new Date(2024, 8, 0).getDate();
     var totalShifts = doctorsList.reduce(function(sum, doctor) {
-        return sum + doctor.Shift;
+        var shiftInt = parseInt(doctor.Shift, 10);
+        if (!isNaN(shiftInt)) {
+            return sum + shiftInt;
+        } else {
+            return sum;
+        }
     }, 0);
     if (totalShifts !== daysInMonth) {
+        console.log(totalShifts);
         Swal.fire({
             icon: 'warning',
             title: '班數總和錯誤',
             text: '醫生的班次總和必須等於當月的天數 (' + daysInMonth + ' 天)。',
+            
         });
+        totalShifts=[];
         return;
     }
         
