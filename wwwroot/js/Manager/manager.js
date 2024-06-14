@@ -1,12 +1,17 @@
-$(document).ready(function() {
-    var currentDate = new Date(); // 現在時間
-    var twoMonthsLater = new Date(currentDate.setMonth(currentDate.getMonth() + 2)); // 兩個月後
-    var year = twoMonthsLater.getFullYear(); // 兩個月後年
-    var month = twoMonthsLater.getMonth() + 1; // 兩個月後月 (JavaScript 的月份是從 0 開始的，所以需要加 1)
+// $(document).ready(function() {
+//     var currentDate = new Date(); // 現在時間
+//     var twoMonthsLater = new Date(currentDate.setMonth(currentDate.getMonth() + 2)); // 兩個月後
+//     var year = twoMonthsLater.getFullYear(); // 兩個月後年
+//     var month = twoMonthsLater.getMonth() + 1; // 兩個月後月 (JavaScript 的月份是從 0 開始的，所以需要加 1)
 
-    console.log("Year:", year); // 顯示年份
-    console.log("Month:", month); // 顯示月份
-});
+//     console.log("Year:", year); // 顯示年份
+//     console.log("Month:", month); // 顯示月份
+// });
+
+let currentDate = new Date(); // 現在時間
+let twoMonthsLater = new Date(currentDate.setMonth(currentDate.getMonth() + 2)); // 兩個月後
+let year = twoMonthsLater.getFullYear(); // 兩個月後年
+let month = twoMonthsLater.getMonth() + 1; // 兩個月後月 (JavaScript 的月份是從 0 開始的，所以需要加 1)
 
 // 全局变量来存储医生名单(編輯班表時使用到的)
 let allDoctors = [];
@@ -80,8 +85,8 @@ $('#closeNote').click(function(){
 
 // FUN：AJAX抓取班表顯示
 $('#department,#sub-departments').click(function(){
-    var year = 2024;
-    var month =8;
+    // var year = 2024;
+    // var month =8;
     var subdepartment =$('.sub-department-buttons button.selected').text();
     // var subdepartment =$('#sub-department.selected').val();
     console.log(subdepartment);
@@ -328,8 +333,8 @@ const showAlert = (updatedScheduleData) => {
                             });
 
                             // console.log("班表更新成功");
-                            var year = 2024;
-                            var month = 8;
+                            // var year = 2024;
+                            // var month = 8;
                             var subdepartment = $('.sub-department-buttons button.selected').text();
 
                             //月曆表格 
@@ -362,8 +367,8 @@ const showAlert = (updatedScheduleData) => {
                         }
                     });
                 } else {
-                    var year = 2024;
-                    var month = 8;
+                    // var year = 2024;
+                    // var month = 8;
                     var subdepartment = $('.sub-department-buttons button.selected').text();
                     //月曆表格 
                     $.ajax({
@@ -401,8 +406,8 @@ const showAlert = (updatedScheduleData) => {
                         });
 
                         // console.log("班表更新成功");
-                        var year = 2024;
-                        var month = 8;
+                        // var year = 2024;
+                        // var month = 8;
                         var subdepartment = $('.sub-department-buttons button.selected').text();
 
                         //月曆表格 
@@ -436,8 +441,8 @@ const showAlert = (updatedScheduleData) => {
                 });
             }
         }else if (result.dismiss === Swal.DismissReason.cancel){
-            var year = 2024;
-            var month = 8;
+            // var year = 2024;
+            // var month = 8;
             var subdepartment = $('.sub-department-buttons button.selected').text();
             //月曆表格 
             $.ajax({

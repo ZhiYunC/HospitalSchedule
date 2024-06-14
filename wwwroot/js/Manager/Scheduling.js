@@ -1,3 +1,7 @@
+let currentDate = new Date(); // 現在時間
+let twoMonthsLater = new Date(currentDate.setMonth(currentDate.getMonth() + 2)); // 兩個月後
+let year = twoMonthsLater.getFullYear(); // 兩個月後年
+let month = twoMonthsLater.getMonth() + 1; // 兩個月後月 (JavaScript 的月份是從 0 開始的，所以需要加 1)
 
 $(document).ready(function() {
     const departmentNote = {
@@ -212,7 +216,7 @@ $('#SaveSchedule').click(function(e) {
     // var currentDate = new Date();
     // var year = currentDate.getFullYear();
     // var month = currentDate.getMonth() + 1;
-    var daysInMonth = new Date(2024, 8, 0).getDate();
+    var daysInMonth = new Date(year, month, 0).getDate();
     var totalShifts = doctorsList.reduce(function(sum, doctor) {
         var shiftInt = parseInt(doctor.Shift, 10);
         if (!isNaN(shiftInt)) {
@@ -326,7 +330,7 @@ $('#StartSchedule').click(function(e) {
     $.ajax({
         url: '../Manager/GetShiftData', // 替換成你的Controller名稱
         type: 'GET',
-        data: { year: 2024, month: 8, subdepartment: selectedsubdepartment },
+        data: { year: year, month: month, subdepartment: selectedsubdepartment },
         dataType: 'json',
         success: function(doctors) {
             // data 包含從控制器返回的 List<Doctor>
@@ -403,7 +407,7 @@ $('#department,#sub-departments').click(function(){
     $.ajax({
         url: '../Manager/GetShiftData', // 替換成你的Controller名稱
         type: 'GET',
-        data:{ year:2024,month:8,subdepartment: selectedsubdepartment},
+        data:{ year:year,month:month,subdepartment: selectedsubdepartment},
         dataType: 'json',
         success: function(doctors) {
             // data 包含從控制器返回的 List<Doctor>

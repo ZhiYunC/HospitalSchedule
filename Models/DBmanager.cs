@@ -5,9 +5,10 @@ using MySql.Data.MySqlClient;
 using Demo.Models;
 
 namespace Demo.Models{
+    
     public class DBmanager
     {
-
+            
         // 管理者：取得科別醫生列表
         public List<Doctor> GetDoctors(string subdepartment) {
             List<Doctor> doctors = new List<Doctor>();
@@ -319,9 +320,16 @@ namespace Demo.Models{
         }
         // 管理者：取得醫生確認班表情況
         public bool GetDoctorState(int userId) {
+            var currentDate = DateTime.Now; //現在時間
+            var twoMonthsLater = currentDate.AddMonths(2); //兩個月後
+            int year = twoMonthsLater.Year; //兩個月後年
+            int month = twoMonthsLater.Month; //兩個月後月
+
             MySqlConnection sqlConnection = new MySqlConnection(connString);
-            MySqlCommand sqlCommand = new MySqlCommand("SELECT shift_state FROM `shift` WHERE shift_month=8 AND shift_year=2024 AND shift_doctor_id=@userId;");
+            MySqlCommand sqlCommand = new MySqlCommand("SELECT shift_state FROM `shift` WHERE shift_month=@month AND shift_year=@year AND shift_doctor_id=@userId;");
             sqlCommand.Parameters.AddWithValue("@userId", userId);
+            sqlCommand.Parameters.AddWithValue("@year", year);
+            sqlCommand.Parameters.AddWithValue("@month", month);
             sqlCommand.Connection = sqlConnection;
             sqlConnection.Open();
             MySqlDataReader reader = sqlCommand.ExecuteReader();
@@ -344,9 +352,14 @@ namespace Demo.Models{
                 try{
                     foreach (Schedule schedule in schedules)
                     {
-                        Console.WriteLine(schedule.Schedule_doctor_name);
-                        Console.WriteLine(schedule.Schedule_day);
-                        DateTime dateTime = new DateTime(2024,8,schedule.Schedule_day);
+                        // Console.WriteLine(schedule.Schedule_doctor_name);
+                        // Console.WriteLine(schedule.Schedule_day);
+                        var currentDate = DateTime.Now; //現在時間
+                        var twoMonthsLater = currentDate.AddMonths(2); //兩個月後
+                        int year = twoMonthsLater.Year; //兩個月後年
+                        int month = twoMonthsLater.Month; //兩個月後月
+                        
+                        DateTime dateTime = new DateTime(year,month,schedule.Schedule_day);
                         MySqlCommand sqlCommand = new MySqlCommand(
                             "UPDATE `schedule` SET schedule_doctor_id = (SELECT doctor_id FROM `doctors` WHERE doctors.doctor_name=@doctorName) WHERE schedule_date = @date AND schedule_department_id = (SELECT department_id FROM `department` WHERE department.department_name=@departmentId);", 
                             sqlConnection
@@ -367,14 +380,22 @@ namespace Demo.Models{
         // 醫生：更新班表確認狀況
         public void UpdateState(int doctorId){
             MySqlConnection sqlConnection = new MySqlConnection(connString);
+            var currentDate = DateTime.Now; //現在時間
+            var twoMonthsLater = currentDate.AddMonths(2); //兩個月後
+            int year = twoMonthsLater.Year; //兩個月後年
+            int month = twoMonthsLater.Month; //兩個月後月
+            
             sqlConnection.Open();
             if (doctorId !=null){
                 try{
                     MySqlCommand sqlCommand = new MySqlCommand(
-                        "UPDATE `shift` SET shift_state = true WHERE shift_doctor_id=@doctorId AND shift_year = 2024 AND shift_month=8 ;", 
+                        "UPDATE `shift` SET shift_state = true WHERE shift_doctor_id=@doctorId AND shift_year =@year AND shift_month=month ;", 
                         sqlConnection
                     );
                     sqlCommand.Parameters.AddWithValue("@doctorId", doctorId);
+                    sqlCommand.Parameters.AddWithValue("@year", year);
+                    sqlCommand.Parameters.AddWithValue("@month", month);
+
                     // sqlCommand.Parameters.AddWithValue("@year", year);
                     // sqlCommand.Parameters.AddWithValue("@month", month);
                     // Console.WriteLine("WorktimeData succesfully updated to the database");                  
@@ -390,8 +411,15 @@ namespace Demo.Models{
         // 管理者：檢查已排班/未排班科別
         public bool CheckSchedulingCompleted(int department){
             MySqlConnection sqlConnection = new MySqlConnection(connString);
-            MySqlCommand sqlCommand = new MySqlCommand("SELECT * from `schedule` WHERE  schedule_department_id=@departmentId AND MONTH(schedule_date) = 8 AND YEAR(schedule_date) = 2024;");
+            var currentDate = DateTime.Now; //現在時間
+            var twoMonthsLater = currentDate.AddMonths(2); //兩個月後
+            int year = twoMonthsLater.Year; //兩個月後年
+            int month = twoMonthsLater.Month; //兩個月後月
+
+            MySqlCommand sqlCommand = new MySqlCommand("SELECT * from `schedule` WHERE  schedule_department_id=@departmentId AND MONTH(schedule_date) = @month AND YEAR(schedule_date) =@year;");
             sqlCommand.Parameters.AddWithValue("@departmentId", department);
+            sqlCommand.Parameters.AddWithValue("@year", year);
+            sqlCommand.Parameters.AddWithValue("@month", month);    
             sqlCommand.Connection = sqlConnection;
             sqlConnection.Open();
             MySqlDataReader reader = sqlCommand.ExecuteReader();
